@@ -44,7 +44,7 @@
           <sourceDirectory>${basedir}/src/test/fit</sourceDirectory>
           <sourceIncludes>**/*.html</sourceIncludes>
           <outputDirectory>${project.build.directory}/fit</outputDirectory>
-          <ignoreFailures>true</ignoreFailures>
+          <ignoreFailures>false</ignoreFailures>
         </configuration>
         <executions>
           <execution>
