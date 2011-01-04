@@ -8,7 +8,7 @@ import java.util.*;
 
 public class FileRunner {
 
-	private static String encoding;
+    private static String encoding;
 
     public String input;
     public Parse tables;
@@ -16,25 +16,25 @@ public class FileRunner {
     public PrintWriter output;
 
     public static void main(String argv[]) {
-    	try {
-    		new FileRunner().run(argv);
-		}
-		catch (UnsupportedEncodingException e) {
-			System.err.println("fit: " + e.getMessage() + ": unsupported encoding");
-			System.exit(-1);
-		}
-		catch (Exception e) {
-			System.err.println(e.getMessage());
-			System.exit(-1);
-		}
+        try {
+            new FileRunner().run(argv);
+        }
+        catch (UnsupportedEncodingException e) {
+            System.err.println("fit: " + e.getMessage() + ": unsupported encoding");
+            System.exit(-1);
+        }
+        catch (Exception e) {
+            System.err.println(e.getMessage());
+            System.exit(-1);
+        }
     }
 
     public void run(String argv[]) throws IOException, CommandLineException {
-		Parameters parameters = new Parameters(argv);
-		if (encoding == null || parameters.encodingSpecified()) {
-			encoding = parameters.encoding();
-		}
-		
+        Parameters parameters = new Parameters(argv);
+        if (encoding == null || parameters.encodingSpecified()) {
+            encoding = parameters.encoding();
+        }
+
         args(parameters.legacyArguments());
         process();
         exit();
@@ -43,13 +43,15 @@ public class FileRunner {
     public void process() {
         try {
             if (input.indexOf("<wiki>") >= 0) {
-                tables = new Parse(input, new String[]{"wiki", "table", "tr", "td"});
+                tables = new Parse(input, new String[] { "wiki", "table", "tr", "td" });
                 fixture.doTables(tables.parts);
-            } else {
-                tables = new Parse(input, new String[]{"table", "tr", "td"});
+            }
+            else {
+                tables = new Parse(input, new String[] { "table", "tr", "td" });
                 fixture.doTables(tables);
             }
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             exception(e);
         }
         tables.print(output);

@@ -10,7 +10,7 @@ import java.text.DateFormat;
 
 public class Fixture {
 
-    public Map summary = new HashMap();
+    public Map<String, Object> summary = new HashMap<String, Object>();
     public Counts counts = new Counts();
     protected String[] args;
 
@@ -19,11 +19,12 @@ public class Fixture {
         long elapsed = 0;
 
         public String toString() {
-            elapsed = (System.currentTimeMillis()-start);
+            elapsed = (System.currentTimeMillis() - start);
             if (elapsed > 600000) {
-                return d(3600000)+":"+d(600000)+d(60000)+":"+d(10000)+d(1000);
-            } else {
-                return d(60000)+":"+d(10000)+d(1000)+"."+d(100)+d(10);
+                return d(3600000) + ":" + d(600000) + d(60000) + ":" + d(10000) + d(1000);
+            }
+            else {
+                return d(60000) + ":" + d(10000) + d(1000) + "." + d(100) + d(10);
             }
         }
 
@@ -34,22 +35,21 @@ public class Fixture {
         }
     }
 
-
-
     // Traversal //////////////////////////
 
-	/* Altered by Rick Mugridge to dispatch on the first Fixture */
+    /* Altered by Rick Mugridge to dispatch on the first Fixture */
     public void doTables(Parse tables) {
         summary.put("run date", new Date());
         summary.put("run elapsed time", new RunTime());
         if (tables != null) {
-        	Parse fixtureName = fixtureName(tables);
+            Parse fixtureName = fixtureName(tables);
             if (fixtureName != null) {
                 try {
                     Fixture fixture = getLinkedFixtureWithArgs(tables);
                     fixture.interpretTables(tables);
-                } catch (Exception e) {
-                    exception (fixtureName, e);
+                }
+                catch (Exception e) {
+                    exception(fixtureName, e);
                     interpretFollowingTables(tables);
                 }
             }
@@ -58,74 +58,77 @@ public class Fixture {
 
     /* Added by Rick Mugridge to allow a dispatch into DoFixture */
     protected void interpretTables(Parse tables) {
-  		try { // Don't create the first fixture again, because creation may do something important.
-  			getArgsForTable(tables); // get them again for the new fixture object
-  			doTable(tables);
-  		} catch (Exception ex) {
-  			exception(fixtureName(tables), ex);
-  			return;
-  		}
-  		interpretFollowingTables(tables);
-  	}
+        try { // Don't create the first fixture again, because creation may do something important.
+            getArgsForTable(tables); // get them again for the new fixture object
+            doTable(tables);
+        }
+        catch (Exception ex) {
+            exception(fixtureName(tables), ex);
+            return;
+        }
+        interpretFollowingTables(tables);
+    }
 
     /* Added by Rick Mugridge */
     private void interpretFollowingTables(Parse tables) {
-        //listener.tableFinished(tables);
-            tables = tables.more;
+        // listener.tableFinished(tables);
+        tables = tables.more;
         while (tables != null) {
             Parse fixtureName = fixtureName(tables);
             if (fixtureName != null) {
                 try {
                     Fixture fixture = getLinkedFixtureWithArgs(tables);
                     fixture.doTable(tables);
-                } catch (Throwable e) {
+                }
+                catch (Throwable e) {
                     exception(fixtureName, e);
-		        }
-		    }
-            //listener.tableFinished(tables);
+                }
+            }
+            // listener.tableFinished(tables);
             tables = tables.more;
         }
     }
 
-    /* Added from FitNesse*/
-	protected Fixture getLinkedFixtureWithArgs(Parse tables) throws Exception {
-		Parse header = tables.at(0, 0, 0);
+    /* Added from FitNesse */
+    protected Fixture getLinkedFixtureWithArgs(Parse tables) throws Exception {
+        Parse header = tables.at(0, 0, 0);
         Fixture fixture = loadFixture(header.text());
-		fixture.counts = counts;
-		fixture.summary = summary;
-		fixture.getArgsForTable(tables);
-		return fixture;
-	}
-	
-	public Parse fixtureName(Parse tables) {
-		return tables.at(0, 0, 0);
-	}
+        fixture.counts = counts;
+        fixture.summary = summary;
+        fixture.getArgsForTable(tables);
+        return fixture;
+    }
 
-	public Fixture loadFixture(String fixtureName)
-	throws InstantiationException, IllegalAccessException {
-		String notFound = "The fixture \"" + fixtureName + "\" was not found.";
-		try {
-			return getFixtureInstanceOf(fixtureName);
-		}
-		catch (ClassCastException e) {
-			throw new RuntimeException("\"" + fixtureName + "\" was found, but it's not a fixture.", e);
-		}
-		catch (ClassNotFoundException e) {
-			throw new RuntimeException(notFound, e);
-		}
-		catch (NoClassDefFoundError e) {
-			throw new RuntimeException(notFound, e);
-		}
-	}
+    public Parse fixtureName(Parse tables) {
+        return tables.at(0, 0, 0);
+    }
 
-	/* Added by Rick Mugridge, from FitNesse */
-	protected void getArgsForTable(Parse table) {
-	    ArrayList argumentList = new ArrayList();
-	    Parse parameters = table.parts.parts.more;
-	    for (; parameters != null; parameters = parameters.more)
-	        argumentList.add(parameters.text());
-	    args = (String[]) argumentList.toArray(new String[0]);
-	}
+    public Fixture loadFixture(String fixtureName) throws InstantiationException,
+            IllegalAccessException {
+        String notFound = "The fixture \"" + fixtureName + "\" was not found.";
+        try {
+            return getFixtureInstanceOf(fixtureName);
+        }
+        catch (ClassCastException e) {
+            throw new RuntimeException(
+                    "\"" + fixtureName + "\" was found, but it's not a fixture.", e);
+        }
+        catch (ClassNotFoundException e) {
+            throw new RuntimeException(notFound, e);
+        }
+        catch (NoClassDefFoundError e) {
+            throw new RuntimeException(notFound, e);
+        }
+    }
+
+    /* Added by Rick Mugridge, from FitNesse */
+    protected void getArgsForTable(Parse table) {
+        ArrayList<String> argumentList = new ArrayList<String>();
+        Parse parameters = table.parts.parts.more;
+        for (; parameters != null; parameters = parameters.more)
+            argumentList.add(parameters.text());
+        args = argumentList.toArray(new String[0]);
+    }
 
     public void doTable(Parse table) {
         doRows(table.parts.more);
@@ -144,20 +147,20 @@ public class Fixture {
     }
 
     public void doCells(Parse cells) {
-        for (int i=0; cells != null; i++) {
+        for (int i = 0; cells != null; i++) {
             try {
                 doCell(cells, i);
-            } catch (Exception e) {
+            }
+            catch (Exception e) {
                 exception(cells, e);
             }
-            cells=cells.more;
+            cells = cells.more;
         }
     }
 
     public void doCell(Parse cell, int columnNumber) {
         ignore(cell);
     }
-
 
     // Annotation ///////////////////////////////
 
@@ -166,45 +169,45 @@ public class Fixture {
     public static String gray = "#efefef";
     public static String yellow = "#ffffcf";
 
-    public  void right (Parse cell) {
+    public void right(Parse cell) {
         cell.addToTag(" bgcolor=\"" + green + "\"");
         counts.right++;
     }
 
-    public void wrong (Parse cell) {
+    public void wrong(Parse cell) {
         cell.addToTag(" bgcolor=\"" + red + "\"");
-		cell.body = escape(cell.text());
+        cell.body = escape(cell.text());
         counts.wrong++;
     }
 
-    public void wrong (Parse cell, String actual) {
+    public void wrong(Parse cell, String actual) {
         wrong(cell);
         cell.addToBody(label("expected") + "<hr>" + escape(actual) + label("actual"));
     }
 
-	public void info (Parse cell, String message) {
-		cell.addToBody(info(message));
-	}
+    public void info(Parse cell, String message) {
+        cell.addToBody(info(message));
+    }
 
-	public String info (String message) {
-		return " <font color=\"#808080\">" + escape(message) + "</font>";
-	}
+    public String info(String message) {
+        return " <font color=\"#808080\">" + escape(message) + "</font>";
+    }
 
-    public void ignore (Parse cell) {
+    public void ignore(Parse cell) {
         cell.addToTag(" bgcolor=\"" + gray + "\"");
         counts.ignores++;
     }
 
-	public void error (Parse cell, String message) {
-		cell.body = escape(cell.text());
-		cell.addToBody("<hr><pre>" + escape(message) + "</pre>");
-		cell.addToTag(" bgcolor=\"" + yellow + "\"");
-		counts.exceptions++;
-	}
+    public void error(Parse cell, String message) {
+        cell.body = escape(cell.text());
+        cell.addToBody("<hr><pre>" + escape(message) + "</pre>");
+        cell.addToTag(" bgcolor=\"" + yellow + "\"");
+        counts.exceptions++;
+    }
 
-    public void exception (Parse cell, Throwable exception) {
-        while(exception.getClass().equals(InvocationTargetException.class)) {
-            exception = ((InvocationTargetException)exception).getTargetException();
+    public void exception(Parse cell, Throwable exception) {
+        while (exception.getClass().equals(InvocationTargetException.class)) {
+            exception = ((InvocationTargetException) exception).getTargetException();
         }
         final StringWriter buf = new StringWriter();
         exception.printStackTrace(new PrintWriter(buf));
@@ -217,21 +220,21 @@ public class Fixture {
         return counts.toString();
     }
 
-    public static String label (String string) {
+    public static String label(String string) {
         return " <font size=-1 color=\"#c08080\"><i>" + string + "</i></font>";
     }
 
-    public static String escape (String string) {
-    	string = string.replaceAll("&", "&amp;");
-    	string = string.replaceAll("<", "&lt;");
-    	string = string.replaceAll("  ", " &nbsp;");
-		string = string.replaceAll("\r\n", "<br />");
-		string = string.replaceAll("\r", "<br />");
-		string = string.replaceAll("\n", "<br />");
-    	return string;
+    public static String escape(String string) {
+        string = string.replaceAll("&", "&amp;");
+        string = string.replaceAll("<", "&lt;");
+        string = string.replaceAll("  ", " &nbsp;");
+        string = string.replaceAll("\r\n", "<br />");
+        string = string.replaceAll("\r", "<br />");
+        string = string.replaceAll("\n", "<br />");
+        return string;
     }
 
-    public static String camel (String name) {
+    public static String camel(String name) {
         StringBuffer b = new StringBuffer(name.length());
         StringTokenizer t = new StringTokenizer(name);
         if (!t.hasMoreTokens())
@@ -239,17 +242,23 @@ public class Fixture {
         b.append(t.nextToken());
         while (t.hasMoreTokens()) {
             String token = t.nextToken();
-            b.append(token.substring(0, 1).toUpperCase());      // replace spaces with camelCase
+            b.append(token.substring(0, 1).toUpperCase()); // replace spaces with camelCase
             b.append(token.substring(1));
         }
         return b.toString();
     }
 
-    public Object parse (String s, Class type) throws Exception {
-        if (type.equals(String.class))              {return s;}
-        if (type.equals(Date.class))                {return DateFormat.getDateInstance().parse(s);}
-        if (type.equals(ScientificDouble.class))    {return ScientificDouble.valueOf(s);}
-        throw new Exception("can't yet parse "+type);
+    public Object parse(String s, Class<?> type) throws Exception {
+        if (type.equals(String.class)) {
+            return s;
+        }
+        if (type.equals(Date.class)) {
+            return DateFormat.getDateInstance().parse(s);
+        }
+        if (type.equals(ScientificDouble.class)) {
+            return ScientificDouble.valueOf(s);
+        }
+        throw new Exception("can't yet parse " + type);
     }
 
     public void check(Parse cell, TypeAdapter a) {
@@ -257,42 +266,50 @@ public class Fixture {
         if (text.equals("")) {
             try {
                 info(cell, a.toString(a.get()));
-            } catch (Exception e) {
+            }
+            catch (Exception e) {
                 info(cell, "error");
             }
-        } else if (a == null) {
+        }
+        else if (a == null) {
             ignore(cell);
-        } else  if (text.equals("error")) {
+        }
+        else if (text.equals("error")) {
             try {
                 Object result = a.invoke();
                 wrong(cell, a.toString(result));
-            } catch (IllegalAccessException e) {
-                exception (cell, e);
-            } catch (Exception e) {
+            }
+            catch (IllegalAccessException e) {
+                exception(cell, e);
+            }
+            catch (Exception e) {
                 right(cell);
             }
-        } else {
+        }
+        else {
             try {
                 Object result = a.get();
                 if (a.equals(a.parse(text), result)) {
                     right(cell);
-                } else {
+                }
+                else {
                     wrong(cell, a.toString(result));
                 }
-            } catch (Exception e) {
+            }
+            catch (Exception e) {
                 exception(cell, e);
             }
         }
     }
 
-	/* Added by Rick, from FitNesse */
+    /* Added by Rick, from FitNesse */
     public String[] getArgs() {
         return args;
     }
-	
-    public Fixture getFixtureInstanceOf(String className) 
-        throws ClassNotFoundException, InstantiationException, IllegalAccessException {
-        
+
+    public Fixture getFixtureInstanceOf(String className) throws ClassNotFoundException,
+            InstantiationException, IllegalAccessException {
+
         FixtureLoader loader = FixtureLoader.getInstance();
         Class<?> klass = loader.loadFixtureClass(className);
         Fixture fixture = loader.createFixture(klass);

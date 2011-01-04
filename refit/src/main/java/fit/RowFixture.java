@@ -8,7 +8,7 @@ import java.util.*;
 abstract public class RowFixture extends ColumnFixture {
 
     public Object results[];
-    public List missing = new LinkedList();
+    public List<Parse> missing = new LinkedList<Parse>();
     public List surplus = new LinkedList();
 
 
@@ -55,8 +55,8 @@ abstract public class RowFixture extends ColumnFixture {
         }
     }
 
-    protected List list (Parse rows) {
-        List result = new LinkedList();
+    protected List<Parse> list (Parse rows) {
+        List<Parse> result = new LinkedList<Parse>();
         while (rows != null) {
             result.add(rows);
             rows = rows.more;
@@ -64,19 +64,19 @@ abstract public class RowFixture extends ColumnFixture {
         return result;
     }
 
-    protected List list (Object[] rows) {
-        List result = new LinkedList();
+    protected List<?> list (Object[] rows) {
+        List<Object> result = new LinkedList<Object>();
         for (int i=0; i<rows.length; i++) {
             result.add(rows[i]);
         }
         return result;
     }
 
-    protected Map eSort(List list, int col) {
+    protected Map eSort(List<Parse> list, int col) {
         TypeAdapter a = columnBindings[col];
         Map result = new HashMap(list.size());
-        for (Iterator i=list.iterator(); i.hasNext(); ) {
-            Parse row = (Parse) i.next();
+        for (Iterator<Parse> i=list.iterator(); i.hasNext(); ) {
+            Parse row = i.next();
             Parse cell = row.parts.at(col);
             try {
                 Object key = a.parse(cell.text());
@@ -94,7 +94,7 @@ abstract public class RowFixture extends ColumnFixture {
     protected Map cSort(List list, int col) {
         TypeAdapter a = columnBindings[col];
         Map result = new HashMap(list.size());
-        for (Iterator i=list.iterator(); i.hasNext(); ) {
+        for (Iterator<?> i=list.iterator(); i.hasNext(); ) {
             Object row = i.next();
             try {
                 a.target = row;
@@ -128,7 +128,7 @@ abstract public class RowFixture extends ColumnFixture {
         return result;
     }
 
-    protected void check (List eList, List cList) {
+    protected void check (List<Parse> eList, List<Parse> cList) {
         if (eList.size()==0) {
             surplus.addAll(cList);
             return;
@@ -137,7 +137,7 @@ abstract public class RowFixture extends ColumnFixture {
             missing.addAll(eList);
             return;
         }
-        Parse row = (Parse)eList.remove(0);
+        Parse row = eList.remove(0);
         Parse cell = row.parts;
         Object obj = cList.remove(0);
         for (int i=0; i<columnBindings.length && cell!=null; i++) {
@@ -160,10 +160,10 @@ abstract public class RowFixture extends ColumnFixture {
         }
     }
 
-    protected void mark(Iterator rows, String message) {
+    protected void mark(Iterator<Parse> rows, String message) {
         String annotation = label(message);
         while (rows.hasNext()) {;
-            Parse row = (Parse)rows.next();
+            Parse row = rows.next();
             wrong(row.parts);
             row.parts.addToBody(annotation);
         }

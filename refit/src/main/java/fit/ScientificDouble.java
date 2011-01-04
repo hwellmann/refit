@@ -5,7 +5,10 @@ package fit;
 
 // Warning: not (yet) a general number usable in all calculations.
 
-public class ScientificDouble extends Number implements Comparable {
+public class ScientificDouble extends Number implements Comparable<Object> {
+
+    private static final long serialVersionUID = 1L;
+    
     protected double value;
     protected double precision;
 
