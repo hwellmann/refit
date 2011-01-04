@@ -112,5 +112,6 @@
   </dependencyManagement>
   <modules>
     <module>refit</module>
+    <module>refit-maven</module>
   </modules>
 </project>
