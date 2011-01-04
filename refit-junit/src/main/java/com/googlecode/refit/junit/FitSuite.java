@@ -82,6 +82,7 @@ public class FitSuite extends Suite {
             throw new InitializationError(msg);
         }
 
+        System.setProperty("fit.inputDir", config.inputDir());
         File inputDirectory = new File(config.inputDir());
         File outputDirectory = new File(config.outputDir());
         

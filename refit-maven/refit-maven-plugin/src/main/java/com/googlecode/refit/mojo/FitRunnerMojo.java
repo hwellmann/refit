@@ -111,6 +111,7 @@ public class FitRunnerMojo extends AbstractMojo {
                 sourceDirectory, Boolean.valueOf(caseSensitive), sourceIncludes, sourceExcludes,
                 Arrays.asList(parseTags), outputDirectory, Boolean.valueOf(ignoreFailures) });
         getLog().debug("Executing FitRunner with parameters " + executionParameters);
+        System.setProperty("fit.inputDir", sourceDirectory);
         
         /*
          * The test classpath of the project using this plugin is not visible to the classloader
@@ -200,6 +201,7 @@ public class FitRunnerMojo extends AbstractMojo {
 
     protected void run(File in, File out) throws IOException, ParseException {
         ensureParentDirExists(out);
+        
         getLog().info(
                 "Running Fixture with input file " + in.getPath() + " and output file "
                         + out.getPath());
