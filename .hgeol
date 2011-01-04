@@ -1,0 +1,5 @@
+[patterns]
+**.java = native
+**.sql = native
+**.xml = native
+**.properties = native
