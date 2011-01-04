@@ -12,5 +12,6 @@
   <name>reFIT Examples</name>
   <modules>
   	<module>refit-eg-plain</module>
+  	<module>refit-eg-spring</module>
   </modules>
 </project>
