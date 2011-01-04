@@ -12,5 +12,6 @@
   <name>reFIT Maven Plugins</name>
   <modules>
     <module>refit-maven-plugin</module>
+    <module>refit-spring-maven-plugin</module>
   </modules>
 </project>
