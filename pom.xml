@@ -114,5 +114,6 @@
     <module>refit</module>
     <module>refit-maven</module>
     <module>refit-junit</module>
+    <module>refit-eg</module>
   </modules>
 </project>
