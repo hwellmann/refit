@@ -290,9 +290,13 @@ public class Fixture {
         return args;
     }
 	
-	public Fixture getFixtureInstanceOf(String classname)
-	throws ClassNotFoundException, InstantiationException, IllegalAccessException {
-		return (Fixture)Thread.currentThread().getContextClassLoader().loadClass(classname).newInstance();
-	}
+    public Fixture getFixtureInstanceOf(String className) 
+        throws ClassNotFoundException, InstantiationException, IllegalAccessException {
+        
+        FixtureLoader loader = FixtureLoader.getInstance();
+        Class<?> klass = loader.loadFixtureClass(className);
+        Fixture fixture = loader.createFixture(klass);
+        return fixture;
+    }
 
 }
