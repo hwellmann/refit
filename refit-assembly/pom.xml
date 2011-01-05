@@ -27,8 +27,9 @@
           <finalName>refit-${project.version}</finalName>
           <descriptors>
             <descriptor>src/assemble/bin.xml</descriptor>
-            <descriptor>src/assemble/bin.xml</descriptor>
+            <descriptor>src/assemble/src.xml</descriptor>
           </descriptors>
+          <attach>false</attach>
         </configuration>
         <executions>
           <execution>
