@@ -10,34 +10,30 @@ public class Summary extends Fixture {
 
     public void doTable(Parse table) {
         summary.put(countsKey, counts());
-        SortedSet keys = new TreeSet(summary.keySet());
+        SortedSet<String> keys = new TreeSet<String>(summary.keySet());
         table.parts.more = rows(keys.iterator());
     }
 
-    protected Parse rows(Iterator keys) {
+    protected Parse rows(Iterator<?> keys) {
         if (keys.hasNext()) {
             Object key = keys.next();
-            Parse result =
-                tr(
-                    td(key.toString(),
-                    td(summary.get(key).toString(),
-                    null)),
-                rows(keys));
+            Parse result = tr(td(key.toString(), td(summary.get(key).toString(), null)), rows(keys));
             if (key.equals(countsKey)) {
-                mark (result);
+                mark(result);
             }
             return result;
-        } else {
+        }
+        else {
             return null;
         }
     }
 
     protected Parse tr(Parse parts, Parse more) {
-        return new Parse ("tr", null, parts, more);
+        return new Parse("tr", null, parts, more);
     }
 
     protected Parse td(String body, Parse more) {
-        return new Parse ("td", info(body), null, more);
+        return new Parse("td", info(body), null, more);
     }
 
     protected void mark(Parse row) {
@@ -47,7 +43,8 @@ public class Summary extends Fixture {
         Parse cell = row.parts.more;
         if (official.wrong + official.exceptions > 0) {
             wrong(cell);
-        } else {
+        }
+        else {
             right(cell);
         }
         counts = official;

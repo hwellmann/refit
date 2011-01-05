@@ -5,9 +5,10 @@ package fit;
 //Contributed by James Shore with inspiration from Martin Busik
 
 public class CommandLineException extends Exception {
-	public CommandLineException(String message) { super(message); }
-}
 
-class CommandLineParseException extends CommandLineException {
-	public CommandLineParseException(String message) { super("fit: " + message); }
+    private static final long serialVersionUID = 1L;
+
+    public CommandLineException(String message) {
+        super(message);
+    }
 }
