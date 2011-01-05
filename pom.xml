@@ -51,6 +51,28 @@
         </plugin>
       </plugins>
     </pluginManagement>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <version>2.2</version>
+        <configuration>
+          <finalName>refit-${project.version}</finalName>
+          <descriptorRefs>
+            <descriptorRef>project</descriptorRef>
+          </descriptorRefs>
+        </configuration>
+        <executions>
+          <execution>
+            <id>all</id>
+            <phase>package</phase>
+            <goals>
+              <goal>single</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
   </build>
   <dependencyManagement>
     <dependencies>
@@ -119,6 +141,7 @@
   </dependencyManagement>
   <modules>
     <module>refit</module>
+    <module>refit-assembly</module>
     <module>refit-maven</module>
     <module>refit-junit</module>
     <module>refit-eg</module>
