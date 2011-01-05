@@ -14,12 +14,13 @@ public class Parameters {
 		" --version              print version number\n" + 
 		" --help                 show this help screen\n" +
 		"\n" +
-		"See http://fit.c2.com for further information and to report bugs\n"
+		"See http://refit.googlecode.com for further information and to report bugs\n"
 	;
 	
 	static final String VERSION_TEXT =
-		"Fit for Java v1.1+changes\n" +
+		"reFIT for Java 1.5.0\n" +
 		"Conforms to Fit Specification v1.1+changes\n" +
+		"Copyright (C) 2011 Harald Wellmann\n" + 
 		"Copyright (C) 2008 Cunningham & Cunningham, Inc.\n" + 
 		"License GPLv2+: GNU GPL version 2 or later\n" +
 		"This is free software: you are free to change and redistribute it.\n" +
