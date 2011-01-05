@@ -5,6 +5,7 @@ package fit;
 
 import java.util.*;
 
+@SuppressWarnings({"rawtypes", "unchecked"})
 abstract public class RowFixture extends ColumnFixture {
 
     public Object results[];
