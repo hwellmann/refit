@@ -4,6 +4,7 @@ package fit;
 // Released under the terms of the GNU General Public License version 2 or later.
 
 
+@Deprecated
 public class WikiRunner extends FileRunner {
 
     public static void main (String argv[]) {
