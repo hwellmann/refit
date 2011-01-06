@@ -13,5 +13,6 @@
   <modules>
   	<module>refit-eg-plain</module>
   	<module>refit-eg-spring</module>
+  	<module>refit-eg-cdi-weld</module>
   </modules>
 </project>

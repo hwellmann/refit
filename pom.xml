@@ -113,7 +113,17 @@
         <groupId>org.apache.geronimo.specs</groupId>
         <artifactId>geronimo-atinject_1.0_spec</artifactId>
         <version>1.0</version>
-      </dependency>    
+      </dependency>
+      <dependency>
+        <groupId>org.apache.geronimo.specs</groupId>
+        <artifactId>geronimo-jcdi_1.0_spec</artifactId>
+        <version>1.0</version>
+      </dependency>
+      <dependency>
+        <groupId>com.googlecode.jeeunit</groupId>
+        <artifactId>jeeunit</artifactId>
+        <version>0.6.0</version>
+      </dependency>
     </dependencies>
   </dependencyManagement>
   <modules>
@@ -123,5 +133,6 @@
     <module>refit-junit</module>
     <module>refit-eg</module>
     <module>refit-spring</module>
+    <module>refit-cdi</module>
   </modules>
 </project>
