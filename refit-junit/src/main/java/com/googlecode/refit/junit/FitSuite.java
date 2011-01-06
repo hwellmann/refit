@@ -29,6 +29,7 @@ import org.junit.runners.model.InitializationError;
 /**
  * Use this class to run a suite of FIT tests under JUnit. To do so, create a class with the
  * following annotations:
+ * 
  * <pre>
  * &#64;RunWith(FitSuite.class)
  * &#64;FitConfiguration(MyFitSuite.Configuration.class)
@@ -49,12 +50,11 @@ import org.junit.runners.model.InitializationError;
  * }
  * </pre>
  * 
- * The suite first builds a list of input files to be run as FIT tests. The input files are
- * located under the {@code inputDir} root. The file patterns to be included or excluded are specified
- * by the {@code includes} and {@code excludes} properties. The default include pattern is
- * {@code **&#47;*.html}, the exclude pattern list is empty by default.
- * Each of these properties can be a list of Strings
- * interpreted as Ant file patterns.
+ * The suite first builds a list of input files to be run as FIT tests. The input files are located
+ * under the {@code inputDir} root. The file patterns to be included or excluded are specified by
+ * the {@code includes} and {@code excludes} properties. The default include pattern is
+ * {@code **&#47;*.html}, the exclude pattern list is empty by default. Each of these properties can
+ * be a list of Strings interpreted as Ant file patterns.
  * <p>
  * The suite then runs all files matching at least one of the include patterns and none of the
  * exclude patterns.
@@ -62,70 +62,81 @@ import org.junit.runners.model.InitializationError;
  * Each test file will be a direct child of the suite, named by its relative path.
  * 
  * @author hwellmann
- *
+ * 
  */
 public class FitSuite extends Suite {
 
     private List<Runner> runners = new ArrayList<Runner>();
 
     /**
-     * Constructor for internal use by JUnit. Applications may only use this class 
-     * as argument to the {@link RunWith} annotation.
+     * Constructor for internal use by JUnit. Applications may only use this class as argument to
+     * the {@link RunWith} annotation.
      * 
-     * @param klass  the class to be run as a test suite
+     * @param klass
+     *            the class to be run as a test suite
      * @throws InitializationError
      */
     public FitSuite(Class<?> klass) throws InitializationError {
-        super(klass, Collections.<Runner>emptyList());
-		buildRunners();
+        super(klass, Collections.<Runner> emptyList());
+        buildRunners();
     }
 
     /**
      * Builds a list of Runners, one for each file matching the input patterns.
+     * 
      * @throws InitializationError
      */
     private void buildRunners() throws InitializationError {
-        FitConfiguration fc = getTestClass().getJavaClass().
-            getAnnotation(FitConfiguration.class);
+        FitConfiguration fc = getTestClass().getJavaClass().getAnnotation(FitConfiguration.class);
         if (fc == null) {
             String msg = "class run with FitSuite must be annotated with @FitConfiguration";
             throw new InitializationError(msg);
         }
-		try {
-	        DefaultFitConfiguration config = fc.value().newInstance();
-	        assert config.getInputDir() != null;
-	        assert config.getOutputDir() != null;
-	        
-			System.setProperty("fit.inputDir", config.getInputDir());
-	        File inputDirectory = new File(config.getInputDir());
-	        File outputDirectory = new File(config.getOutputDir());
-	        
-	        DirectoryScanner scanner = new DirectoryScanner();
-	        scanner.setBasedir(inputDirectory);
-	        scanner.setIncludes(config.getIncludes());
-	        scanner.setExcludes(config.getExcludes());
-	        scanner.scan();
-	        for (String testPath : scanner.getIncludedFiles()) {
-	            FitRunner runner = new FitRunner(inputDirectory, outputDirectory, testPath);
-	            runners.add(runner);
-	        }    
+        try {
+            DefaultFitConfiguration config = fc.value().newInstance();
+            assert config.getInputDir() != null;
+            assert config.getOutputDir() != null;
+            assert config.getIncludes() != null;
+            assert config.getExcludes() != null;
 
-		} catch (InstantiationException exc) {
-			throw new InitializationError(exc);
-		} catch (IllegalAccessException exc) {
-			throw new InitializationError(exc);
-		}
+            System.setProperty("fit.inputDir", config.getInputDir());
+            File inputDirectory = new File(config.getInputDir());
+            File outputDirectory = new File(config.getOutputDir());
+
+            DirectoryScanner scanner = new DirectoryScanner();
+            scanner.setBasedir(inputDirectory);
+            scanner.setIncludes(config.getIncludes());
+            scanner.setExcludes(config.getExcludes());
+            scanner.scan();
+            String[] files = scanner.getIncludedFiles();
+            assert files != null;
+            if (files.length == 0) {
+                throw new InitializationError("no matching input files");
+            }
+            for (String testPath : files) {
+                FitRunner runner = new FitRunner(inputDirectory, outputDirectory, testPath);
+                runners.add(runner);
+            }
+
+        }
+        catch (InstantiationException exc) {
+            throw new InitializationError(exc);
+        }
+        catch (IllegalAccessException exc) {
+            throw new InitializationError(exc);
+        }
 
     }
-    
-	/**
+
+    /**
      * Returns the list of runners corresponding to FIT test files.
+     * 
      * @return FIT test runners
-     *  
+     * 
      */
     @Override
     protected List<Runner> getChildren() {
         return runners;
     }
-    
+
 }
