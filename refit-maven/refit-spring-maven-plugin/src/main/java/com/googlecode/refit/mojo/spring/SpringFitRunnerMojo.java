@@ -16,8 +16,6 @@
  */
 package com.googlecode.refit.mojo.spring;
 
-import org.springframework.test.context.ContextConfiguration;
-
 import com.googlecode.refit.mojo.ClasspathClassLoader;
 import com.googlecode.refit.mojo.FitRunnerMojo;
 import com.googlecode.refit.spring.SpringTestContextFixtureLoader;
