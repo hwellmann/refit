@@ -17,7 +17,6 @@
 package com.googlecode.refit.spring;
 
 import org.junit.runners.model.InitializationError;
-import org.springframework.test.context.ContextConfiguration;
 
 import com.googlecode.refit.junit.FitSuite;
 
