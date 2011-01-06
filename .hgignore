@@ -1,0 +1,13 @@
+syntax: glob
+
+target
+*~
+bin
+*.log
+*.jar
+release.properties
+pom.xml.releaseBackup
+.classpath
+.project
+.settings
+
