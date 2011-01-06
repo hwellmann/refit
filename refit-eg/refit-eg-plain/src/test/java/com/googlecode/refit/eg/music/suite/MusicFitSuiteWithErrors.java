@@ -30,8 +30,8 @@ import com.googlecode.refit.junit.FitSuite;
  * 
  */
 @RunWith(FitSuite.class)
-@FitConfiguration(MusicFitSuite.Configuration.class)
-public class MusicFitSuite {
+@FitConfiguration(MusicFitSuiteWithErrors.Configuration.class)
+public class MusicFitSuiteWithErrors {
 
     public static class Configuration extends DefaultFitConfiguration {
 
@@ -43,11 +43,6 @@ public class MusicFitSuite {
         @Override
         public String getOutputDir() {
             return "target/fit";
-        }
-        
-        @Override
-        public String[] getIncludes() {
-            return new String[] { "**/MusicExample.html" };
         }
     }
 }
