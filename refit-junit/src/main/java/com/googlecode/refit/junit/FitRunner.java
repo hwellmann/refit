@@ -81,6 +81,7 @@ public class FitRunner extends Runner {
     public void run(RunNotifier notifier) {
         File inputFile = new File(inputDir, testPath);
         File outputFile = new File(outputDir, testPath);
+        System.setProperty("fit.currentTest", testPath);
         notifier.fireTestStarted(getDescription());
         try {
             ensureParentDirExists(outputFile);

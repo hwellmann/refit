@@ -31,11 +31,21 @@ import org.junit.runners.model.InitializationError;
  * following annotations:
  * <pre>
  * &#64;RunWith(FitSuite.class)
- * &#64;FitConfiguration(
- *     inputDir = "src/test/fit", 
- *     outputDir = "target/fit", 
- *     includes = "**&#47;*.fit.html")
+ * &#64;FitConfiguration(MyFitSuite.Configuration.class)
  * public class MyFitSuite {
+ *     
+ *     public static Configuration extends DefaultFitConfiguration {
+ *     
+ *         @Overrride
+ *         public String getInputDir() {
+ *            return System.getProperty("myFitRoot");
+ *         }
+ *     
+ *         @Overrride
+ *         public String getOutputDir() {
+ *            return "build/html";
+ *         }
+ *     }
  * }
  * </pre>
  * 
@@ -67,7 +77,7 @@ public class FitSuite extends Suite {
      */
     public FitSuite(Class<?> klass) throws InitializationError {
         super(klass, Collections.<Runner>emptyList());
-        buildRunners();
+		buildRunners();
     }
 
     /**
@@ -75,29 +85,40 @@ public class FitSuite extends Suite {
      * @throws InitializationError
      */
     private void buildRunners() throws InitializationError {
-        FitConfiguration config = getTestClass().getJavaClass().
+        FitConfiguration fc = getTestClass().getJavaClass().
             getAnnotation(FitConfiguration.class);
-        if (config == null) {
+        if (fc == null) {
             String msg = "class run with FitSuite must be annotated with @FitConfiguration";
             throw new InitializationError(msg);
         }
+		try {
+	        DefaultFitConfiguration config = fc.value().newInstance();
+	        assert config.getInputDir() != null;
+	        assert config.getOutputDir() != null;
+	        
+			System.setProperty("fit.inputDir", config.getInputDir());
+	        File inputDirectory = new File(config.getInputDir());
+	        File outputDirectory = new File(config.getOutputDir());
+	        
+	        DirectoryScanner scanner = new DirectoryScanner();
+	        scanner.setBasedir(inputDirectory);
+	        scanner.setIncludes(config.getIncludes());
+	        scanner.setExcludes(config.getExcludes());
+	        scanner.scan();
+	        for (String testPath : scanner.getIncludedFiles()) {
+	            FitRunner runner = new FitRunner(inputDirectory, outputDirectory, testPath);
+	            runners.add(runner);
+	        }    
 
-        System.setProperty("fit.inputDir", config.inputDir());
-        File inputDirectory = new File(config.inputDir());
-        File outputDirectory = new File(config.outputDir());
-        
-        DirectoryScanner scanner = new DirectoryScanner();
-        scanner.setBasedir(inputDirectory);
-        scanner.setIncludes(config.includes());
-        scanner.setExcludes(config.excludes());
-        scanner.scan();
-        for (String testPath : scanner.getIncludedFiles()) {
-            FitRunner runner = new FitRunner(inputDirectory, outputDirectory, testPath);
-            runners.add(runner);
-        }    
+		} catch (InstantiationException exc) {
+			throw new InitializationError(exc);
+		} catch (IllegalAccessException exc) {
+			throw new InitializationError(exc);
+		}
+
     }
     
-    /**
+	/**
      * Returns the list of runners corresponding to FIT test files.
      * @return FIT test runners
      *  
@@ -106,4 +127,5 @@ public class FitSuite extends Suite {
     protected List<Runner> getChildren() {
         return runners;
     }
+    
 }

@@ -26,14 +26,11 @@ import java.lang.annotation.Target;
  * Provides the configuration for a suite of FIT tests run by JUnit.
  * @see FitSuite
  * 
- * @author hwellmann
+ * @author Harald Wellmann
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 public @interface FitConfiguration {
 
-    String inputDir() default ".";
-    String outputDir() default ".";
-    String[] includes() default "**/*.html";
-    String[] excludes() default {};
+	Class<? extends DefaultFitConfiguration> value();
 }
