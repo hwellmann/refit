@@ -4,6 +4,7 @@
 package com.googlecode.refit.cdi.eg.music;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +26,8 @@ public class MusicLibrary {
 
     void load(String name) throws Exception {
         List<Music> music = new ArrayList<Music>();
-        BufferedReader in = new BufferedReader(new FileReader(name));
+        File file = new File(System.getProperty("fit.inputDir"), name);
+        BufferedReader in = new BufferedReader(new FileReader(file));
         in.readLine(); // skip column headings
         while(in.ready()) {
             music.add(Music.parse(in.readLine()));
