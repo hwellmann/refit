@@ -16,6 +16,16 @@
       <artifactId>refit</artifactId>
       <version>${project.version}</version>
     </dependency>
+    <dependency>
+      <groupId>com.googlecode.refit</groupId>
+      <artifactId>refit-junit</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.googlecode.refit</groupId>
+      <artifactId>refit-spring</artifactId>
+      <version>${project.version}</version>
+    </dependency>
   </dependencies>
   <build>
     <plugins>

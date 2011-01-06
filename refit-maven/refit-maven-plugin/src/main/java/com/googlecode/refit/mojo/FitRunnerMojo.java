@@ -189,8 +189,10 @@ public class FitRunnerMojo extends AbstractMojo {
         ensureDirectoryExists(outputDirectory);
         String[] files = listFiles(sourceDirectory, caseSensitive, sourceIncludes, sourceExcludes);
         for (int i = 0; i < files.length; i++) {
-            String inputPath = toPath(sourceDirectory, files[i]);
-            String outputPath = toPath(outputDirectory, files[i]);
+            String file = files[i];
+            System.setProperty("fit.currentTest", file);
+			String inputPath = toPath(sourceDirectory, file);
+            String outputPath = toPath(outputDirectory, file);
             run(inputPath, outputPath);
         }
     }
