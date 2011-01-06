@@ -18,6 +18,7 @@ package com.googlecode.refit.spring.eg.music.suite;
 
 import org.junit.runner.RunWith;
 
+import com.googlecode.refit.junit.DefaultFitConfiguration;
 import com.googlecode.refit.junit.FitConfiguration;
 import com.googlecode.refit.spring.SpringFitSuite;
 
@@ -27,7 +28,19 @@ import com.googlecode.refit.spring.SpringFitSuite;
  *
  */
 @RunWith(SpringFitSuite.class)
-@FitConfiguration(inputDir = "src/test/fit", outputDir = "target/fit")
+@FitConfiguration(MusicFitSuite.Configuration.class)
 public class MusicFitSuite {
 
+	public static class Configuration extends DefaultFitConfiguration {
+
+		@Override
+		public String getInputDir() {
+			return "src/test/fit";
+		}
+
+		@Override
+		public String getOutputDir() {
+			return "target/fit";
+		}
+	}
 }

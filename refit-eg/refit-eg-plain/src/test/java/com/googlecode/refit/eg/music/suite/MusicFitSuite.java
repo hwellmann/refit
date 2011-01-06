@@ -19,6 +19,7 @@ package com.googlecode.refit.eg.music.suite;
 
 import org.junit.runner.RunWith;
 
+import com.googlecode.refit.junit.DefaultFitConfiguration;
 import com.googlecode.refit.junit.FitConfiguration;
 import com.googlecode.refit.junit.FitSuite;
 
@@ -28,7 +29,19 @@ import com.googlecode.refit.junit.FitSuite;
  *
  */
 @RunWith(FitSuite.class)
-@FitConfiguration(inputDir = "src/test/fit", outputDir = "target/fit")
+@FitConfiguration(MusicFitSuite.Configuration.class)
 public class MusicFitSuite {
+	
+	public static class Configuration extends DefaultFitConfiguration {
 
+		@Override
+		public String getInputDir() {
+			return "src/test/fit";
+		}
+
+		@Override
+		public String getOutputDir() {
+			return "target/fit";
+		}
+	}
 }
