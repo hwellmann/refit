@@ -23,19 +23,23 @@ import fit.Fixture;
 import fit.FixtureLoader;
 
 /**
- * A fixture loader which performs Spring dependency injection on all fixtures annotated
- * with {@link ContextConfiguration}, using a Spring Test Context.
+ * A fixture loader which performs Spring dependency injection on all fixtures annotated with
+ * {@link ContextConfiguration}, using a Spring Test Context.
+ * 
+ * For classes without a {@link ContextConfiguration} annotation, this loader defaults to the
+ * standard {@link FixtureLoader} behaviour.
  * 
  * @author Harald Wellmann
- *
+ * 
  */
 public class SpringTestContextFixtureLoader extends FixtureLoader {
 
     /**
-     * Creates an instance of a fixture class and performs Spring dependency injection
-     * if class is annotated with {@link ContextConfiguration}.
+     * Creates an instance of a fixture class and performs Spring dependency injection if class is
+     * annotated with {@link ContextConfiguration}.
      * 
-     * @param fixtureClassName name of fixture class
+     * @param fixtureClassName
+     *            name of fixture class
      */
     @Override
     public Fixture createFixture(Class<?> klass) throws InstantiationException,
@@ -49,9 +53,10 @@ public class SpringTestContextFixtureLoader extends FixtureLoader {
                 contextManager.prepareTestInstance(fixture);
             }
             catch (Exception exc) {
-                throw new InstantiationException("dependency injection failed for " + klass.getName());
+                throw new InstantiationException("dependency injection failed for "
+                        + klass.getName());
             }
         }
         return fixture;
-    }    
+    }
 }

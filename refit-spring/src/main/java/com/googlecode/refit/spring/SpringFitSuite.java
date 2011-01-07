@@ -17,6 +17,9 @@
 package com.googlecode.refit.spring;
 
 import org.junit.runners.model.InitializationError;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.GenericXmlApplicationContext;
+import org.springframework.test.context.ContextConfiguration;
 
 import com.googlecode.refit.junit.FitSuite;
 
@@ -59,6 +62,13 @@ public class SpringFitSuite extends FitSuite {
     public SpringFitSuite(Class<?> klass) throws InitializationError {
         super(klass);
         
-        FixtureLoader.setInstance(new SpringTestContextFixtureLoader());
+        ContextConfiguration cc = klass.getAnnotation(ContextConfiguration.class);
+        if (cc == null) {
+            FixtureLoader.setInstance(new SpringTestContextFixtureLoader());
+        }
+        else {
+            ApplicationContext context = new GenericXmlApplicationContext(cc.value());
+            FixtureLoader.setInstance(new SpringApplicationContextFixtureLoader(context));
+        }
     }
 }

@@ -17,6 +17,7 @@
 package com.googlecode.refit.spring.eg.music.suite;
 
 import org.junit.runner.RunWith;
+import org.springframework.test.context.ContextConfiguration;
 
 import com.googlecode.refit.junit.DefaultFitConfiguration;
 import com.googlecode.refit.junit.FitConfiguration;
@@ -29,8 +30,9 @@ import com.googlecode.refit.spring.SpringFitSuite;
  * 
  */
 @RunWith(SpringFitSuite.class)
-@FitConfiguration(MusicFitSuite.Configuration.class)
-public class MusicFitSuite {
+@FitConfiguration(MusicAppFitSuite.Configuration.class)
+@ContextConfiguration("/META-INF/spring/fit-context.xml")
+public class MusicAppFitSuite {
 
     public static class Configuration extends DefaultFitConfiguration {
 

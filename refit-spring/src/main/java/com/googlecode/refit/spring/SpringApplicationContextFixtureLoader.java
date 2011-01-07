@@ -23,35 +23,36 @@ import fit.Fixture;
 import fit.FixtureLoader;
 
 /**
- * A fixture loader which takes a Spring application context and performs 
- * dependency injection on all fixtures.
+ * A fixture loader which takes a Spring application context and performs dependency injection on
+ * all fixtures, using the given context.
  * 
  * @author Harald Wellmann
- *
+ * 
  */
 public class SpringApplicationContextFixtureLoader extends FixtureLoader {
-	
-	private ApplicationContext context;
 
-	public SpringApplicationContextFixtureLoader(ApplicationContext context) {
-		this.context = context;
-	}
+    private ApplicationContext context;
+
+    public SpringApplicationContextFixtureLoader(ApplicationContext context) {
+        this.context = context;
+    }
 
     /**
-     * Creates an instance of a fixture class and performs Spring dependency injection
-     * if class is annotated with {@link ContextConfiguration}.
+     * Creates an instance of a fixture class and performs Spring dependency injection on this
+     * instance.
      * 
-     * @param fixtureClassName name of fixture class
+     * @param fixtureClassName
+     *            name of fixture class
      */
     @Override
     public Fixture createFixture(Class<?> klass) throws InstantiationException,
             IllegalAccessException {
         Fixture fixture = (Fixture) klass.newInstance();
 
-		AutowireCapableBeanFactory beanFactory = context.getAutowireCapableBeanFactory();
-		beanFactory.autowireBeanProperties(fixture, AutowireCapableBeanFactory.AUTOWIRE_NO, false);
-		beanFactory.initializeBean(fixture, klass.getName());
+        AutowireCapableBeanFactory beanFactory = context.getAutowireCapableBeanFactory();
+        beanFactory.autowireBeanProperties(fixture, AutowireCapableBeanFactory.AUTOWIRE_NO, false);
+        beanFactory.initializeBean(fixture, klass.getName());
 
-		return fixture;
-    }    
+        return fixture;
+    }
 }
