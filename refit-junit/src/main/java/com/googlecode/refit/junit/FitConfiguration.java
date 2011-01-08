@@ -24,6 +24,7 @@ import java.lang.annotation.Target;
 
 /**
  * Provides the configuration for a suite of FIT tests run by JUnit.
+ * 
  * @see FitSuite
  * 
  * @author Harald Wellmann
@@ -32,5 +33,5 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 public @interface FitConfiguration {
 
-	Class<? extends DefaultFitConfiguration> value();
+    Class<? extends DefaultFitConfiguration> value();
 }
