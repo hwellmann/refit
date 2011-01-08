@@ -16,8 +16,12 @@
  */
 package com.googlecode.refit.mojo.spring;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.GenericXmlApplicationContext;
+
 import com.googlecode.refit.mojo.ClasspathClassLoader;
 import com.googlecode.refit.mojo.FitRunnerMojo;
+import com.googlecode.refit.spring.SpringApplicationContextFixtureLoader;
 import com.googlecode.refit.spring.SpringTestContextFixtureLoader;
 
 import fit.FixtureLoader;
@@ -41,10 +45,27 @@ import fit.FixtureLoader;
  * @requiresDependencyResolution test
  */
 public class SpringFitRunnerMojo extends FitRunnerMojo {
+    
+    /**
+     * EXPERIMENTAL, DO NOT USE.
+     * <p>
+     * The location of an XML Spring context definition for a standard application context.
+     * If this is parameter is missing, the plugin will use the Spring Test Context and build
+     * contexts for all fixture classes annotated with {@code ContextConfiguration}.
+     * 
+     * @parameter
+     */
+    protected String applicationContext;
 
     @Override
     protected ClasspathClassLoader getTestClassLoader() {
-        FixtureLoader.setInstance(new SpringTestContextFixtureLoader());
+        if (applicationContext == null) {
+            FixtureLoader.setInstance(new SpringTestContextFixtureLoader());
+        }
+        else {
+            ApplicationContext context = new GenericXmlApplicationContext(applicationContext);
+            FixtureLoader.setInstance(new SpringApplicationContextFixtureLoader(context));
+        }
         return super.getTestClassLoader();
     }
 }
