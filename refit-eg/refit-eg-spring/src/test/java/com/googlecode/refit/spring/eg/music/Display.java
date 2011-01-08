@@ -23,7 +23,7 @@ public class Display extends fit.RowFixture {
         return musicLibrary.displayContents();
     }
 
-    public Object parse (String s, Class type) throws Exception {
+    public Object parse (String s, Class<?> type) throws Exception {
         if (type.equals(Date.class))    {return Music.dateFormat.parse(s);}
         return super.parse (s, type);
     }
