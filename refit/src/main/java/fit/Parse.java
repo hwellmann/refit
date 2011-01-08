@@ -369,7 +369,7 @@ public class Parse {
     }
 
     /**
-     * Recursively prints the content of this tree the given stream.
+     * Recursively prints the content of this tree to the given stream.
      * @param out output stream
      */
     public void print(PrintWriter out) {
@@ -391,9 +391,10 @@ public class Parse {
     }
 
     /**
-     * TODO unclear
+     * TODO unclear, from Fit 1.1+.
      * @return
      */
+    @Deprecated
     public String footnote() {
         if (footnoteFiles >= 25) {
             return "[-]";
