@@ -24,9 +24,9 @@ import com.googlecode.refit.junit.FitConfiguration;
 import com.googlecode.refit.junit.FitSuite;
 
 /**
- * An example showing how to run a suite of FIT tests under JUnit.
+ * Used to run the Fit tests for the FitSuite class.
  * 
- * @author hwellmann
+ * @author Harald Wellmann
  * 
  */
 @RunWith(FitSuite.class)
@@ -35,16 +35,6 @@ public class MetaFitSuite {
 
     public static class Configuration extends DefaultFitConfiguration {
 
-        @Override
-        public String getInputDir() {
-            return "src/test/fit";
-        }
-
-        @Override
-        public String getOutputDir() {
-            return "target/fit";
-        }
-        
         @Override
         public String[] getIncludes() {
             return new String[] { "**/FitSuite.fit.html" };
