@@ -16,33 +16,19 @@
  */
 
 package com.googlecode.refit.eg.music.suite;
-
 import org.junit.runner.RunWith;
 
-import com.googlecode.refit.junit.DefaultFitConfiguration;
 import com.googlecode.refit.junit.FitConfiguration;
 import com.googlecode.refit.junit.FitSuite;
 
 /**
  * An example showing how to run a suite of FIT tests under JUnit.
  * 
- * @author hwellmann
+ * @author Harald Wellmann
  * 
  */
 @RunWith(FitSuite.class)
-@FitConfiguration(MusicFitSuiteWithErrors.Configuration.class)
+@FitConfiguration(MusicConfiguration.class)
 public class MusicFitSuiteWithErrors {
 
-    public static class Configuration extends DefaultFitConfiguration {
-
-        @Override
-        public String getInputDir() {
-            return "src/test/fit";
-        }
-
-        @Override
-        public String getOutputDir() {
-            return "target/fit";
-        }
-    }
 }
