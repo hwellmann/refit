@@ -8,7 +8,7 @@
   </parent>
   <groupId>com.googlecode.refit</groupId>
   <artifactId>refit-eg-cdi-weld</artifactId>
-  <name>reFIT CDI Example with Weld SE</name>
+  <name>reFit CDI Example with Weld SE</name>
   <version>1.6.0.SNAPSHOT</version>
   <dependencies>
     <dependency>

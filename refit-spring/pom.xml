@@ -8,7 +8,7 @@
   <groupId>com.googlecode.refit</groupId>
   <artifactId>refit-spring</artifactId>
   <version>1.6.0.SNAPSHOT</version>
-  <name>reFIT Spring Support</name>
+  <name>reFit Spring Support</name>
   <dependencies>
     <dependency>
       <groupId>com.googlecode.refit</groupId>

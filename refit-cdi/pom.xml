@@ -8,7 +8,7 @@
   <groupId>com.googlecode.refit</groupId>
   <artifactId>refit-cdi</artifactId>
   <version>1.6.0.SNAPSHOT</version>
-  <name>reFIT CDI Support</name>
+  <name>reFit CDI Support</name>
   <dependencies>
     <dependency>
       <groupId>com.googlecode.refit</groupId>

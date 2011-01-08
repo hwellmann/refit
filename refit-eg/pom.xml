@@ -9,7 +9,7 @@
   <artifactId>refit-eg</artifactId>
   <version>1.6.0.SNAPSHOT</version>
   <packaging>pom</packaging>
-  <name>reFIT Examples</name>
+  <name>reFit Examples</name>
   <modules>
   	<module>refit-eg-plain</module>
   	<module>refit-eg-spring</module>

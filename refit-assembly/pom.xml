@@ -9,7 +9,7 @@
   <groupId>com.googlecode.refit</groupId>
   <artifactId>refit-assembly</artifactId>
   <version>1.6.0.SNAPSHOT</version>
-  <name>reFIT Assembly</name>
+  <name>reFit Assembly</name>
   <dependencies>
     <dependency>
       <groupId>com.googlecode.refit</groupId>

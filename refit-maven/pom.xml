@@ -9,7 +9,7 @@
   <artifactId>refit-maven</artifactId>
   <version>1.6.0.SNAPSHOT</version>
   <packaging>pom</packaging>
-  <name>reFIT Maven Plugins</name>
+  <name>reFit Maven Plugins</name>
   <modules>
     <module>refit-maven-plugin</module>
     <module>refit-spring-maven-plugin</module>

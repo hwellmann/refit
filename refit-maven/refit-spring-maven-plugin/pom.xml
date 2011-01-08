@@ -10,7 +10,7 @@
   <artifactId>refit-spring-maven-plugin</artifactId>
   <version>1.6.0.SNAPSHOT</version>
   <packaging>maven-plugin</packaging>
-  <name>reFIT Maven Plugin with Spring Support</name>
+  <name>reFit Maven Plugin with Spring Support</name>
   <dependencies>
     <dependency>
       <groupId>com.googlecode.refit.maven</groupId>
