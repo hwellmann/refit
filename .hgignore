@@ -11,3 +11,6 @@ pom.xml.releaseBackup
 .project
 .settings
 
+
+syntax: regexp
+^refit-eg/refit-eg-spring/src/test/java/com/googlecode/refit/spring/eg/music/test$
