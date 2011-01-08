@@ -78,7 +78,7 @@ public class FitRunnerMojo extends AbstractMojo {
     protected String sourceExcludes;
 
     /**
-     * The parsee tags used to identify the Fit tables.
+     * The parse tags used to identify the Fit tables.
      * 
      * @parameter
      */
