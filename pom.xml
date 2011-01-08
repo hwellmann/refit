@@ -149,5 +149,6 @@
     <module>refit-eg</module>
     <module>refit-spring</module>
     <module>refit-cdi</module>
+    <module>refit-test</module>
   </modules>
 </project>
