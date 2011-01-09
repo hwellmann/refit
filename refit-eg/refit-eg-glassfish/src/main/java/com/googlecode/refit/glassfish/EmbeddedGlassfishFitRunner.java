@@ -2,6 +2,8 @@ package com.googlecode.refit.glassfish;
 
 import java.net.URI;
 
+import com.googlecode.jeeunit.ContainerLauncherLookup;
+import com.googlecode.jeeunit.spi.ContainerLauncher;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.UniformInterfaceException;
 import com.sun.jersey.api.client.WebResource;
@@ -11,11 +13,12 @@ public class EmbeddedGlassfishFitRunner implements Runnable {
     @Override
     public void run() {
         System.setProperty("java.util.logging.config.file", "src/main/resources/logging.properties");
-        EmbeddedGlassfishContainer container = EmbeddedGlassfishContainer.getInstance();
-        container.launch();
+        ContainerLauncher launcher = ContainerLauncherLookup.getContainerLauncher();
+        launcher.launch();
+        launcher.autodeploy();
 
         Client client = Client.create();
-        URI uri = container.getContextRootUri().resolve("fitrunner");
+        URI uri = launcher.getContextRootUri().resolve("fitrunner");
         WebResource testRunner = client.resource(uri);
 
         try {
@@ -27,7 +30,7 @@ public class EmbeddedGlassfishFitRunner implements Runnable {
         catch (UniformInterfaceException exc) {
             exc.printStackTrace();
         }
-        container.shutdown();
+        launcher.shutdown();
     }
 
     public static void main(String[] args) {

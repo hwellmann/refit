@@ -17,6 +17,7 @@
     <logback.version>0.9.20</logback.version>
     <slf4j.version>1.5.11</slf4j.version>
     <spring.version>3.0.5.RELEASE</spring.version>
+    <jeeunit.version>0.7.0.SNAPSHOT</jeeunit.version>
   </properties>
   <url>http://code.google.com/p/refit/</url>
   <inceptionYear>2011</inceptionYear>
@@ -153,10 +154,15 @@
       <dependency>
         <groupId>com.googlecode.jeeunit</groupId>
         <artifactId>jeeunit</artifactId>
-        <version>0.6.0</version>
+        <version>${jeeunit.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.googlecode.jeeunit</groupId>
+        <artifactId>jeeunit-glassfish</artifactId>
+        <version>${jeeunit.version}</version>
       </dependency>
     </dependencies>
-  </dependencyManagement>
+  </dependencyManagement>  
   <modules>
     <module>refit</module>
     <module>refit-assembly</module>
