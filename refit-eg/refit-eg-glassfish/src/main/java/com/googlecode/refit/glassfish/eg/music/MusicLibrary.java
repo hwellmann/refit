@@ -9,10 +9,12 @@ import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.ejb.Startup;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
 @Singleton
+@Startup
 public class MusicLibrary {
     
     @Inject
@@ -41,12 +43,12 @@ public class MusicLibrary {
     }
 
     void search(double seconds){
-        Music.status = "searching";
+        musicPlayer.setStatus("searching");
         simulator.nextSearchComplete = simulator.schedule(seconds);
     }
 
     void searchComplete() {
-        Music.status = musicPlayer.playing == null ? "ready" : "playing";
+        musicPlayer.setStatus(musicPlayer.playing == null ? "ready" : "playing");
     }
 
     void findAll() {

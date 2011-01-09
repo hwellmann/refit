@@ -18,22 +18,24 @@ public class MusicPlayer {
     Music playing = null;
     double paused = 0;
 
+    private String status = "ready";
+
     // Controls /////////////////////////////////
 
     void play(Music m) {
         if (paused == 0) {
-            Music.status = "loading";
+            status = "loading";
             double seconds = m == playing ? 0.3 : 2.5 ;
             simulator.nextPlayStarted = simulator.schedule(seconds);
         } else {
-            Music.status = "playing";
+            status = "playing";
             simulator.nextPlayComplete = simulator.schedule(paused);
             paused = 0;
         }
     }
 
     void pause() {
-        Music.status = "pause";
+        status = "pause";
         if (playing != null && paused == 0) {
             paused = (simulator.nextPlayComplete - simulator.time) / 1000.0;
             simulator.nextPlayComplete = 0;
@@ -65,13 +67,21 @@ public class MusicPlayer {
     // Events ///////////////////////////////////
 
     void playStarted() {
-        Music.status = "playing";
+        status = "playing";
         playing = musicLibrary.looking;
         simulator.nextPlayComplete = simulator.schedule(playing.seconds);
     }
 
     void playComplete() {
-        Music.status = "ready";
+        status = "ready";
         playing = null;
+    }
+    
+    String getStatus() {
+        return status;
+    }
+    
+    void setStatus(String status) {
+        this.status = status;
     }
 }

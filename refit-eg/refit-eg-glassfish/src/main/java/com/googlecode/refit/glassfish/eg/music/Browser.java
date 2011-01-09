@@ -96,7 +96,7 @@ public class Browser extends Fixture {
     }
 
     public String status() {
-        return Music.status;
+        return musicPlayer.getStatus();
     }
 
     public double remaining() {

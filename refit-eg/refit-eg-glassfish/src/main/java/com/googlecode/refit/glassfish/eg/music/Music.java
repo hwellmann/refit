@@ -3,14 +3,24 @@
 
 package com.googlecode.refit.glassfish.eg.music;
 
-import java.util.*;
-import java.text.*;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.StringTokenizer;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
+@Entity
 public class Music {
 
-    static String status = "ready";
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
+    
     public String title;
     public String artist;
     public String album;
@@ -25,6 +35,16 @@ public class Music {
 
 
     // Accessors ////////////////////////////////
+    
+    
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String track() {
         return trackNumber + " of " + trackCount;
