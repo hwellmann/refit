@@ -6,7 +6,12 @@ package com.googlecode.refit.glassfish.eg.music;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.StringTokenizer;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -16,6 +21,8 @@ import javax.persistence.TypedQuery;
 
 @Stateless
 public class MusicLibrary {
+    
+    private static DateFormat dateFormat = new SimpleDateFormat("M/d/yy h:mm a");
     
     @PersistenceContext
     private EntityManager em;
@@ -36,12 +43,34 @@ public class MusicLibrary {
         in.readLine(); // skip column headings
         int id = 1;
         while (in.ready()) {
-            Music music = Music.parse(in.readLine());
+            Music music = parse(in.readLine());
             music.setId(id++);
             em.persist(music);
         }
         in.close();
     }
+    
+
+    private Music parse(String string) throws ParseException {
+        Music m = new Music();
+        StringTokenizer t = new StringTokenizer(string,"\t");
+        m.title =       t.nextToken();
+        m.artist =      t.nextToken();
+        m.album =       t.nextToken();
+        m.genre =       t.nextToken();
+        m.size =        Long.parseLong(t.nextToken());
+        m.seconds =     Integer.parseInt(t.nextToken());
+        m.trackNumber = Integer.parseInt(t.nextToken());
+        m.trackCount =  Integer.parseInt(t.nextToken());
+        m.year =        Integer.parseInt(t.nextToken());
+        m.date =        dateFormat.parse(t.nextToken());
+        return m;
+    }
+    
+    public Date parseDate(String s) throws ParseException {
+        return dateFormat.parse(s);
+    }
+    
 
     public Music select(int id) {
         Music music = em.find(Music.class, id);

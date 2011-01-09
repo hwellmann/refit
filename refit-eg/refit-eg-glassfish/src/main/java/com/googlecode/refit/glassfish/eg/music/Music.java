@@ -3,11 +3,7 @@
 
 package com.googlecode.refit.glassfish.eg.music;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.StringTokenizer;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -38,8 +34,6 @@ public class Music {
     public Date date;
     
 
-    // Accessors ////////////////////////////////
-
     public int getId() {
         return id;
     }
@@ -62,26 +56,5 @@ public class Music {
         } else {
             return super.toString();
         }
-    }
-
-
-    // Factory //////////////////////////////////
-
-    static DateFormat dateFormat = new SimpleDateFormat("M/d/yy h:mm a");
-
-    static Music parse(String string) throws ParseException {
-        Music m = new Music();
-        StringTokenizer t = new StringTokenizer(string,"\t");
-        m.title =       t.nextToken();
-        m.artist =      t.nextToken();
-        m.album =       t.nextToken();
-        m.genre =       t.nextToken();
-        m.size =        Long.parseLong(t.nextToken());
-        m.seconds =     Integer.parseInt(t.nextToken());
-        m.trackNumber = Integer.parseInt(t.nextToken());
-        m.trackCount =  Integer.parseInt(t.nextToken());
-        m.year =        Integer.parseInt(t.nextToken());
-        m.date =        dateFormat.parse(t.nextToken());
-        return m;
     }
 }

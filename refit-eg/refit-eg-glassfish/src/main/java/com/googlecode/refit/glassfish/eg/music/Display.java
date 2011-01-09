@@ -6,9 +6,7 @@ package com.googlecode.refit.glassfish.eg.music;
 import java.util.Date;
 
 import javax.inject.Inject;
-import javax.inject.Singleton;
 
-@Singleton
 public class Display extends fit.RowFixture {
     
     @Inject
@@ -23,8 +21,7 @@ public class Display extends fit.RowFixture {
     }
 
     public Object parse (String s, Class<?> type) throws Exception {
-        if (type.equals(Date.class))    {return Music.dateFormat.parse(s);}
+        if (type.equals(Date.class))    {return musicLibrary.parseDate(s);}
         return super.parse (s, type);
     }
-
 }
