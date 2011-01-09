@@ -37,12 +37,8 @@ public class Music {
     @Temporal(TemporalType.TIMESTAMP)
     public Date date;
     
-    public transient boolean selected = false;
-
 
     // Accessors ////////////////////////////////
-    
-    
 
     public int getId() {
         return id;
@@ -88,6 +84,4 @@ public class Music {
         m.date =        dateFormat.parse(t.nextToken());
         return m;
     }
-
-
 }
