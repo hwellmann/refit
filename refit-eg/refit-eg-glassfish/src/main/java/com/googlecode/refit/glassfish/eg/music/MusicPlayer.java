@@ -76,6 +76,11 @@ public class MusicPlayer {
         playing = null;
     }
     
+    void searchComplete() {
+        setStatus(playing == null ? "ready" : "playing");
+    }
+    
+    
     String getStatus() {
         return status;
     }

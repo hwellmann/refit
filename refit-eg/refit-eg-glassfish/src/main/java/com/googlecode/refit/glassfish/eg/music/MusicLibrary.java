@@ -43,7 +43,7 @@ public class MusicLibrary {
         in.close();
     }
 
-    public Music  select(int id) {
+    public Music select(int id) {
         Music music = em.find(Music.class, id);
         return music;
     }
@@ -52,11 +52,6 @@ public class MusicLibrary {
         musicPlayer.setStatus("searching");
         simulator.nextSearchComplete = simulator.schedule(seconds);
     }
-
-    public void searchComplete() {
-        musicPlayer.setStatus(musicPlayer.playing == null ? "ready" : "playing");
-    }
-
     public void findAll() {
         search(3.2);
         queryResults = em.createQuery("select m from Music m", Music.class).getResultList();

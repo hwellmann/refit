@@ -30,6 +30,7 @@ public class Music {
     public int trackNumber;
     public int trackCount;
     
+    // YEAR is a keyword in SQL-92 and cannot be used as column name with Derby
     @Column(name = "year_")
     public int year;
     

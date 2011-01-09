@@ -14,9 +14,6 @@ import fit.ActionFixture;
 public class Simulator {
     
     @Inject
-    private MusicLibrary musicLibrary;
-    
-    @Inject
     private MusicPlayer musicPlayer;
     
     @Inject
@@ -45,7 +42,7 @@ public class Simulator {
     }
 
     void perform() {
-        if (time == nextSearchComplete)     {musicLibrary.searchComplete();}
+        if (time == nextSearchComplete)     {musicPlayer.searchComplete();}
         if (time == nextPlayStarted)        {musicPlayer.playStarted();}
         if (time == nextPlayComplete)       {musicPlayer.playComplete();}
     }
@@ -82,6 +79,4 @@ public class Simulator {
         dialog.setCaller(ActionFixture.actor);
         ActionFixture.actor = dialog;
     }
-
-
 }
