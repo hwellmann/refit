@@ -10,12 +10,10 @@ import javax.inject.Singleton;
 public class MusicPlayer {
     
     @Inject
-    private MusicLibrary musicLibrary;
-    
-    @Inject
     private Simulator simulator;
 
     Music playing = null;
+    private Music looking;
     double paused = 0;
 
     private String status = "ready";
@@ -23,6 +21,7 @@ public class MusicPlayer {
     // Controls /////////////////////////////////
 
     void play(Music m) {
+        looking = m;
         if (paused == 0) {
             status = "loading";
             double seconds = m == playing ? 0.3 : 2.5 ;
@@ -68,7 +67,7 @@ public class MusicPlayer {
 
     void playStarted() {
         status = "playing";
-        playing = musicLibrary.looking;
+        playing = looking;
         simulator.nextPlayComplete = simulator.schedule(playing.seconds);
     }
 

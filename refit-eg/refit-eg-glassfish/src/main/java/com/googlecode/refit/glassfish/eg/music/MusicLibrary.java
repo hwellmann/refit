@@ -6,16 +6,19 @@ package com.googlecode.refit.glassfish.eg.music;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.ejb.Startup;
+import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.inject.Singleton;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
-@Singleton
-@Startup
+@Stateless
 public class MusicLibrary {
+    
+    @PersistenceContext
+    private EntityManager em;
     
     @Inject
     private MusicPlayer musicPlayer;
@@ -23,85 +26,89 @@ public class MusicLibrary {
     @Inject
     private Simulator simulator;
     
-    Music looking = null;
-    Music library[] = {};
+    private List<Music> queryResults;
 
-    void load(String name) throws Exception {
-        List<Music> music = new ArrayList<Music>();
+    public void load(String name) throws Exception {
+        em.createQuery("delete from Music m").executeUpdate();
+        
         File file = new File(System.getProperty("fit.inputDir"), name);
         BufferedReader in = new BufferedReader(new FileReader(file));
         in.readLine(); // skip column headings
-        while(in.ready()) {
-            music.add(Music.parse(in.readLine()));
+        int id = 1;
+        while (in.ready()) {
+            Music music = Music.parse(in.readLine());
+            music.setId(id++);
+            em.persist(music);
         }
         in.close();
-        library = (Music[])music.toArray(library);
     }
 
-    void select(Music m) {
-        looking = m;
+    public Music  select(int id) {
+        Music music = em.find(Music.class, id);
+        return music;
     }
 
-    void search(double seconds){
+    public void search(double seconds){
         musicPlayer.setStatus("searching");
         simulator.nextSearchComplete = simulator.schedule(seconds);
     }
 
-    void searchComplete() {
+    public void searchComplete() {
         musicPlayer.setStatus(musicPlayer.playing == null ? "ready" : "playing");
     }
 
-    void findAll() {
+    public void findAll() {
         search(3.2);
-        for (int i=0; i<library.length; i++) {
-            library[i].selected = true;
-        }
+        queryResults = em.createQuery("select m from Music m", Music.class).getResultList();
+    }
+    
+    public int getTotalSize() {
+        long size = em.createQuery("select count(m) from Music m", Long.class).getSingleResult();
+        return (int)size;
+        
     }
 
-    void findArtist(String a) {
+    public void findArtist(String a) {
         search(2.3);
-        for (int i=0; i<library.length; i++) {
-            library[i].selected = library[i].artist.equals(a);
-        }
+        String jpql = "select m from Music m where m.artist = :artist";
+        TypedQuery<Music> query = em.createQuery(jpql, Music.class);
+        query.setParameter("artist", a);
+        queryResults = query.getResultList();
     }
 
-    void findAlbum(String a) {
+    public void findAlbum(String a) {
         search(1.1);
-        for (int i=0; i<library.length; i++) {
-            library[i].selected = library[i].album.equals(a);
-        }
+        String jpql = "select m from Music m where m.album = :album";
+        TypedQuery<Music> query = em.createQuery(jpql, Music.class);
+        query.setParameter("album", a);
+        queryResults = query.getResultList();
     }
 
-    void findGenre(String a) {
+    public void findGenre(String a) {
         search(0.2);
-        for (int i=0; i<library.length; i++) {
-            library[i].selected = library[i].genre.equals(a);
-        }
+        String jpql = "select m from Music m where m.genre = :genre";
+        TypedQuery<Music> query = em.createQuery(jpql, Music.class);
+        query.setParameter("genre", a);
+        queryResults = query.getResultList();
     }
 
-    void findYear(int a) {
+    public void findYear(int a) {
         search(0.8);
-        for (int i=0; i<library.length; i++) {
-            library[i].selected = library[i].year == a;
-        }
+        String jpql = "select m from Music m where m.year = :year";
+        TypedQuery<Music> query = em.createQuery(jpql, Music.class);
+        query.setParameter("year", a);
+        queryResults = query.getResultList();
     }
 
-    int displayCount() {
-        int count = 0;
-        for (int i=0; i<library.length; i++) {
-            count += (library[i].selected ? 1 : 0);
+    public int displayCount() {
+        if (queryResults == null) {
+            findAll();
         }
-        return count;
+        return queryResults.size();
     }
 
-    Music[] displayContents () {
-        Music displayed[] = new Music[displayCount()];
-        for (int i=0, j=0; i<library.length; i++) {
-            if (library[i].selected) {
-                displayed[j++] = library[i];
-            }
-        }
-        return displayed;
+    public Music[] displayContents () {
+        return queryResults.toArray(new Music[displayCount()]);
     }
 
 }

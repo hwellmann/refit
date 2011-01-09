@@ -4,9 +4,11 @@
 package com.googlecode.refit.glassfish.eg.music;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 import fit.Fixture;
 
+@Singleton
 public class Browser extends Fixture {
 
     @Inject
@@ -15,6 +17,8 @@ public class Browser extends Fixture {
     @Inject
     private MusicPlayer musicPlayer;
     
+    private Music looking;
+    
     // Library //////////////////////////////////
 
     public void library (String path) throws Exception {
@@ -22,7 +26,7 @@ public class Browser extends Fixture {
     }
 
     public int totalSongs() {
-        return musicLibrary.library.length;
+        return musicLibrary.getTotalSize();
     }
 
     // Select Detail ////////////////////////////
@@ -32,49 +36,49 @@ public class Browser extends Fixture {
     }
 
     public void select (int i) {
-        musicLibrary.select(musicLibrary.library[i-1]);
+        looking = musicLibrary.select(i);
     }
 
     public String title() {
-        return musicLibrary.looking.title;
+        return looking.title;
     }
 
     public String artist() {
-        return musicLibrary.looking.artist;
+        return looking.artist;
     }
 
     public String album() {
-        return musicLibrary.looking.album;
+        return looking.album;
     }
 
     public int year() {
-        return musicLibrary.looking.year;
+        return looking.year;
     }
 
     public double time() {
-        return musicLibrary.looking.time();
+        return looking.time();
     }
 
     public String track() {
-        return musicLibrary.looking.track();
+        return looking.track();
     }
 
     // Search Buttons ///////////////////////////
 
     public void sameAlbum() {
-        musicLibrary.findAlbum(musicLibrary.looking.album);
+        musicLibrary.findAlbum(looking.album);
     }
 
     public void sameArtist() {
-        musicLibrary.findArtist(musicLibrary.looking.artist);
+        musicLibrary.findArtist(looking.artist);
     }
 
     public void sameGenre() {
-        musicLibrary.findGenre(musicLibrary.looking.genre);
+        musicLibrary.findGenre(looking.genre);
     }
 
     public void sameYear() {
-        musicLibrary.findYear(musicLibrary.looking.year);
+        musicLibrary.findYear(looking.year);
     }
 
     public int selectedSongs() {
@@ -88,7 +92,7 @@ public class Browser extends Fixture {
     // Play Buttons /////////////////////////////
 
     public void play() {
-        musicPlayer.play(musicLibrary.looking);
+        musicPlayer.play(looking);
     }
 
     public void pause() {
