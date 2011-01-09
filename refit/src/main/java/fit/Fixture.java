@@ -311,8 +311,7 @@ public class Fixture {
             InstantiationException, IllegalAccessException {
 
         FixtureLoader loader = FixtureLoader.getInstance();
-        Class<?> klass = loader.loadFixtureClass(className);
-        Fixture fixture = loader.createFixture(klass);
+        Fixture fixture = loader.loadFixture(className);
         return fixture;
     }
 

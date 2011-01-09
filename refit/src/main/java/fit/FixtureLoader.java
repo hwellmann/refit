@@ -56,4 +56,10 @@ public class FixtureLoader {
         Fixture fixture = (Fixture) klass.newInstance();
         return fixture;
     }
+    
+    public Fixture loadFixture(String className) 
+        throws ClassNotFoundException, InstantiationException, IllegalAccessException {
+        Class<?> klass = loadFixtureClass(className);
+        return createFixture(klass);
+    }
 }
