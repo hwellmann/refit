@@ -68,7 +68,7 @@ public class FileRunner {
         fixture.summary.put("input update", new Date(in.lastModified()));
         fixture.summary.put("output file", out.getAbsolutePath());
         input = read(in);
-        output = new PrintWriter(new OutputStreamWriter(new FileOutputStream(out), encoding));
+        output = new PrintWriter(out, encoding);
     }
 
     protected String read(File input) throws IOException {
