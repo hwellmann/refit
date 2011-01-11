@@ -172,5 +172,6 @@
     <module>refit-spring</module>
     <module>refit-cdi</module>
     <module>refit-test</module>
+    <module>refit-osgi</module>
   </modules>
 </project>
