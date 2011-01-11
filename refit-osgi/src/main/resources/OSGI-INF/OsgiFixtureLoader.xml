@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="OsgiFixtureLoader">
+   <implementation class="com.googlecode.refit.osgi.OsgiFixtureLoader"/>
+   <reference bind="addFixture" cardinality="0..n" interface="fit.Fixture" name="Fixture" policy="dynamic" unbind="removeFixture"/>
+   <service>
+      <provide interface="fit.FixtureLoader"/>
+   </service>
+   <property name="type" type="String" value="osgi"/>
+</scr:component>
