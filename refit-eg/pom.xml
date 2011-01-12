@@ -18,5 +18,6 @@
     <module>refit-eg-glassfish</module>
     <module>refit-eg-osgi</module>
     <module>refit-eg-osgi-fixtures</module>
+    <module>refit-eg-osgi-test</module>
   </modules>
 </project>

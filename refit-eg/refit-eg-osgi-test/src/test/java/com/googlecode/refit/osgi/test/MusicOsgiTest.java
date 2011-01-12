@@ -97,13 +97,13 @@ public class MusicOsgiTest
 
     public String getInputDir() {
         String refitRoot = System.getProperty("refit.root");
-        String inputDir = new File(refitRoot, "refit-eg/refit-eg-osgi-fixtures/src/test/fit").getAbsolutePath();
+        String inputDir = new File(refitRoot, "refit-eg/refit-eg-osgi-test/src/test/fit").getAbsolutePath();
         return inputDir;
     }
     
     public String getOutputDir() {
         String refitRoot = System.getProperty("refit.root");
-        String inputDir = new File(refitRoot, "refit-eg/refit-eg-osgi-fixtures/target/fit").getAbsolutePath();
+        String inputDir = new File(refitRoot, "refit-eg/refit-eg-osgi-test/target/fit").getAbsolutePath();
         return inputDir;
     }
     
