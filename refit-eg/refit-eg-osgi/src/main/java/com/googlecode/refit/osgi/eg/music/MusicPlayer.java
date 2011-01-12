@@ -19,7 +19,6 @@ public class MusicPlayer implements EventListener {
 
     protected void setSimulator(Simulator simulator) {
         this.simulator = simulator;
-        System.out.println("simulator = " + simulator);
     }
     
     // Controls /////////////////////////////////
