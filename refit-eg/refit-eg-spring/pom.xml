@@ -51,6 +51,7 @@
           <sourceIncludes>**/*.html</sourceIncludes>
           <outputDirectory>${project.build.directory}/fit</outputDirectory>
           <ignoreFailures>false</ignoreFailures>
+          <skip>${maven.test.skip}</skip>
         </configuration>
         <executions>
           <execution>

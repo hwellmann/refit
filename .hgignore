@@ -15,6 +15,4 @@ pom.xml.releaseBackup
 syntax: regexp
 ^refit-eg/refit-eg-spring/src/test/java/com/googlecode/refit/spring/eg/music/test$
 syntax: regexp
-^refit-eg/refit-eg-osgi-fixtures/src/test/java/com/googlecode/refit/osgi/test$
-syntax: regexp
 ^site$

@@ -98,6 +98,12 @@ public class FitRunnerMojo extends AbstractMojo {
      * @parameter default-value="false"
      */
     protected boolean ignoreFailures;
+    
+    /**
+     * Flag for skipping Fit execution.
+     * @parameter default-value="false"
+     */
+    protected boolean skip;
 
     /**
      * The scanner to list files
@@ -110,6 +116,10 @@ public class FitRunnerMojo extends AbstractMojo {
         final String executionParameters = MessageFormat.format(EXECUTION_PARAMETERS, new Object[] {
                 sourceDirectory, Boolean.valueOf(caseSensitive), sourceIncludes, sourceExcludes,
                 Arrays.asList(parseTags), outputDirectory, Boolean.valueOf(ignoreFailures) });
+        if (skip) {
+            getLog().info("Skipping Fit tests");
+            return;
+        }
         getLog().debug("Executing FitRunner with parameters " + executionParameters);
         System.setProperty("fit.inputDir", sourceDirectory);
         
