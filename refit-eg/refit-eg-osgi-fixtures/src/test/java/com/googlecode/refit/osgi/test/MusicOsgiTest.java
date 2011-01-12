@@ -8,6 +8,7 @@ import static org.ops4j.pax.exam.CoreOptions.equinox;
 import static org.ops4j.pax.exam.CoreOptions.mavenBundle;
 import static org.ops4j.pax.exam.CoreOptions.options;
 import static org.ops4j.pax.exam.container.def.PaxRunnerOptions.repository;
+import static org.ops4j.pax.exam.container.def.PaxRunnerOptions.vmOption;
 
 import java.io.File;
 import java.io.IOException;
@@ -60,7 +61,7 @@ public class MusicOsgiTest
         mavenBundle("org.apache.ant", "com.springsource.org.apache.tools.ant", "1.8.1"),
         
         equinox().version("3.6.0"),
-        PaxRunnerOptions.vmOption("-Drefit.root=/home/hwellmann/work/refit")
+        vmOption("-Drefit.root=" + System.getProperty("refit.root"))
 
         );
         return options;
