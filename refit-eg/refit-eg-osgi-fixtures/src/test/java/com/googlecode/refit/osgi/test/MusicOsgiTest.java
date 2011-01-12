@@ -7,6 +7,7 @@ import static org.ops4j.pax.exam.CoreOptions.bundle;
 import static org.ops4j.pax.exam.CoreOptions.equinox;
 import static org.ops4j.pax.exam.CoreOptions.mavenBundle;
 import static org.ops4j.pax.exam.CoreOptions.options;
+import static org.ops4j.pax.exam.container.def.PaxRunnerOptions.repository;
 
 import java.io.File;
 import java.io.IOException;
@@ -41,6 +42,8 @@ public class MusicOsgiTest
     public static Option[] configuration() {
 
         Option[] options = options(
+                
+        repository("http://repository.springsource.com/maven/bundles/external"),        
               
         // Bundles under test                
         mavenBundle("com.googlecode.refit", "refit", REFIT_VERSION),
@@ -49,13 +52,12 @@ public class MusicOsgiTest
         mavenBundle("com.googlecode.refit.eg", "refit-eg-osgi", REFIT_VERSION),
 
         // Declarative Services (Equinox)
-        bundle(EQUINOX_HOME + "org.eclipse.equinox.ds_1.2.1.R36x_v20100803.jar"),
-        bundle(EQUINOX_HOME + "org.eclipse.equinox.util_1.0.200.v20100503.jar"),
-        bundle(EQUINOX_HOME + "org.eclipse.osgi.services_3.2.100.v20100503.jar"),
+        bundle(EQUINOX_HOME + "org.eclipse.equinox.ds_1.2.1.R36x_v20100803.jar").noUpdate(),
+        bundle(EQUINOX_HOME + "org.eclipse.equinox.util_1.0.200.v20100503.jar").noUpdate(),
+        bundle(EQUINOX_HOME + "org.eclipse.osgi.services_3.2.100.v20100503.jar").noUpdate(),
         
         // Ant dependency of refit-osgi
-        bundle("mvn:http://repository.springsource.com/maven/bundles/external!" +
-               "org.apache.ant/com.springsource.org.apache.tools.ant/1.8.1"),
+        mavenBundle("org.apache.ant", "com.springsource.org.apache.tools.ant", "1.8.1"),
         
         equinox().version("3.6.0"),
         PaxRunnerOptions.vmOption("-Drefit.root=/home/hwellmann/work/refit")
@@ -73,7 +75,7 @@ public class MusicOsgiTest
         FixtureLoader.setInstance(loader);
         String inputDir = getInputDir();
         System.setProperty("fit.inputDir", inputDir);
-        FileRunner runner = new FileRunner(new File(inputDir), new File(inputDir, "out"), "MusicExample.html");
+        FileRunner runner = new FileRunner(new File(inputDir), new File(getOutputDir()), "MusicExample.html");
         boolean success = runner.run();
         assertTrue(success);        
     }
@@ -86,7 +88,7 @@ public class MusicOsgiTest
         FixtureLoader.setInstance(loader);
         String inputDir = getInputDir();
         System.setProperty("fit.inputDir", inputDir);
-        TreeRunner runner = new TreeRunner(new File(inputDir), new File(inputDir, "out"), "MusicExample.html");
+        TreeRunner runner = new TreeRunner(new File(inputDir), new File(getOutputDir()), "MusicExample.html");
         boolean success = runner.run();
         assertTrue(success);
     }
@@ -95,6 +97,12 @@ public class MusicOsgiTest
     public String getInputDir() {
         String refitRoot = System.getProperty("refit.root");
         String inputDir = new File(refitRoot, "refit-eg/refit-eg-osgi-fixtures/src/test/fit").getAbsolutePath();
+        return inputDir;
+    }
+    
+    public String getOutputDir() {
+        String refitRoot = System.getProperty("refit.root");
+        String inputDir = new File(refitRoot, "refit-eg/refit-eg-osgi-fixtures/target/fit").getAbsolutePath();
         return inputDir;
     }
     
