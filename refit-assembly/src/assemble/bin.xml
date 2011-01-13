@@ -12,6 +12,7 @@
         <include>com.googlecode.refit:refit</include>
         <include>com.googlecode.refit:refit-cdi</include>
         <include>com.googlecode.refit:refit-junit</include>
+        <include>com.googlecode.refit:refit-osgi</include>
         <include>com.googlecode.refit:refit-spring</include>
       </includes>
     </dependencySet>

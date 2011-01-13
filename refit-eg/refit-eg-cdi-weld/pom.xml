@@ -18,6 +18,18 @@
       <scope>test</scope>
     </dependency>
     <dependency>
+      <groupId>com.googlecode.refit</groupId>
+      <artifactId>refit</artifactId>
+      <version>${project.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.googlecode.refit</groupId>
+      <artifactId>refit-junit</artifactId>
+      <version>${project.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
       <groupId>com.googlecode.jeeunit</groupId>
       <artifactId>jeeunit-weld-se</artifactId>
       <version>0.6.0</version>
