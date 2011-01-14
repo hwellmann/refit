@@ -17,7 +17,7 @@
     <logback.version>0.9.20</logback.version>
     <slf4j.version>1.5.11</slf4j.version>
     <spring.version>3.0.5.RELEASE</spring.version>
-    <jeeunit.version>0.7.0.SNAPSHOT</jeeunit.version>
+    <jeeunit.version>0.7.0</jeeunit.version>
   </properties>
   <url>http://code.google.com/p/refit/</url>
   <inceptionYear>2011</inceptionYear>
