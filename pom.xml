@@ -33,6 +33,12 @@
       <email>harald.wellmann@gmx.de</email>
     </developer>
   </developers>
+  <licenses>
+    <license>
+      <name>GNU General Public License v3 or later</name>
+      <url>http://www.gnu.org/licenses/gpl.html</url>
+    </license>
+  </licenses>
   <build>
     <pluginManagement>
       <plugins>
