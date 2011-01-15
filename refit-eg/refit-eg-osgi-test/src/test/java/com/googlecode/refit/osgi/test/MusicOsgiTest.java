@@ -19,6 +19,7 @@
 package com.googlecode.refit.osgi.test;
 
 
+import static com.googlecode.refit.osgi.util.ReFitProperties.getRoot;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.ops4j.pax.exam.CoreOptions.bundle;
@@ -26,7 +27,6 @@ import static org.ops4j.pax.exam.CoreOptions.equinox;
 import static org.ops4j.pax.exam.CoreOptions.mavenBundle;
 import static org.ops4j.pax.exam.CoreOptions.options;
 import static org.ops4j.pax.exam.container.def.PaxRunnerOptions.repository;
-import static org.ops4j.pax.exam.container.def.PaxRunnerOptions.vmOption;
 
 import java.io.File;
 import java.io.IOException;
@@ -77,9 +77,7 @@ public class MusicOsgiTest
         // Ant dependency of refit-osgi
         mavenBundle("org.apache.ant", "com.springsource.org.apache.tools.ant", "1.8.1"),
         
-        equinox().version("3.6.0"),
-        vmOption("-Drefit.root=" + System.getProperty("refit.root"))
-
+        equinox().version("3.6.0")
         );
         return options;
     }
@@ -113,7 +111,7 @@ public class MusicOsgiTest
 
 
     public String getInputDir() {
-        String refitRoot = System.getProperty("refit.root");
+        File refitRoot = getRoot();
         String inputDir = new File(refitRoot, "refit-eg/refit-eg-osgi-test/src/test/fit").getAbsolutePath();
         return inputDir;
     }
