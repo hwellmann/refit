@@ -178,5 +178,6 @@
     <module>refit-cdi</module>
     <module>refit-test</module>
     <module>refit-osgi</module>
+    <module>refit-runner</module>
   </modules>
 </project>
