@@ -3,12 +3,12 @@
   <parent>
     <artifactId>refit-eg</artifactId>
     <groupId>com.googlecode.refit</groupId>
-    <version>1.6.0.SNAPSHOT</version>
+    <version>1.6.0</version>
   </parent>
   <groupId>com.googlecode.refit</groupId>
   <artifactId>refit-eg-osgi-test</artifactId>
   <name>reFit OSGi Tests</name>
-  <version>1.6.0.SNAPSHOT</version>
+  <version>1.6.0</version>
   <dependencies>
     <dependency>
       <groupId>com.googlecode.refit</groupId>
