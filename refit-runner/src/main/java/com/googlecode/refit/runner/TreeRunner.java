@@ -41,6 +41,7 @@ public class TreeRunner {
     private File outputDir;
     private String[] includes;
     private String[] excludes;
+    private RunnerListener listener;
     
     private Summary summary;
     private int totalRight;
@@ -55,18 +56,36 @@ public class TreeRunner {
     }
 
     public TreeRunner(File inputDir, File outputDir, String[] includes) {
-        this(inputDir, outputDir, includes, null);
+        this(inputDir, outputDir, includes, (String[])null);
     }
 
     public TreeRunner(File inputDir, File outputDir, String include) {
-        this(inputDir, outputDir, new String[] { include }, null);
+        this(inputDir, outputDir, new String[] { include }, (String[])null);
+    }
+
+    public TreeRunner(File inputDir, File outputDir, RunnerListener listener) {
+        this(inputDir, outputDir, DEFAULT_INCLUDE, listener);
+    }
+
+    public TreeRunner(File inputDir, File outputDir, String[] includes, RunnerListener listener) {
+        this(inputDir, outputDir, includes, null, listener);
+    }
+
+    public TreeRunner(File inputDir, File outputDir, String include, RunnerListener listener) {
+        this(inputDir, outputDir, new String[] { include }, null, listener);
     }
 
     public TreeRunner(File inputDir, File outputDir, String[] includes, String[] excludes) {
+        this(inputDir, outputDir, includes, excludes, new DefaultRunnerListener());
+    }
+    
+    public TreeRunner(File inputDir, File outputDir, String[] includes, String[] excludes,
+            RunnerListener listener) {
         this.inputDir = inputDir;
         this.outputDir = outputDir;
         this.includes = includes;
         this.excludes = excludes;
+        this.listener = listener;
         this.summary = new Summary();
     }
 
@@ -126,11 +145,13 @@ public class TreeRunner {
     }
 
     private void runSingleTest(String testPath) {
+        listener.beforeTest(testPath);
         FileRunner runner = new FileRunner(inputDir, outputDir, testPath);
         boolean passed = runner.run();
         success &= passed;
         
         TestResult result = runner.getResult();
+        listener.afterTest(result);
         summary.getTest().add(result);
         
         totalRight += result.getRight();
