@@ -19,24 +19,19 @@
 package com.googlecode.refit.runner;
 
 import java.io.File;
+import java.io.IOException;
 
-import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
 
 import org.apache.tools.ant.DirectoryScanner;
 
-import com.googlecode.refit.runner.jaxb.ObjectFactory;
 import com.googlecode.refit.runner.jaxb.Summary;
 import com.googlecode.refit.runner.jaxb.TestResult;
 
 public class TreeRunner {
     
     public static final String DEFAULT_INCLUDE = "**/*.html";
-    public static final String FIT_REPORT = "fit-report.xml";
     
-    private static final String CONTEXT_PATH = "com.googlecode.refit.runner.jaxb";
-
     private File inputDir;
     private File outputDir;
     private String[] includes;
@@ -130,18 +125,21 @@ public class TreeRunner {
     }
     
     private void printSummary() {
+        ReportIO writer = new ReportIO(summary);
+        File xmlReport = new File(outputDir, ReportIO.FIT_REPORT_XML);        
+        File htmlReport = new File(outputDir, ReportIO.FIT_REPORT_HTML);        
+        File css = new File(outputDir, "fit.css");        
         try {
-            JAXBContext ctx = JAXBContext.newInstance(CONTEXT_PATH);
-            Marshaller marshaller = ctx.createMarshaller();
-            marshaller.setProperty("jaxb.formatted.output", true);
-            File report = new File(outputDir, FIT_REPORT);
-            ObjectFactory factory = new ObjectFactory();
-            marshaller.marshal(factory.createSummary(summary), report);
+            writer.writeXml(xmlReport);
+            writer.writeHtml(htmlReport);
+            writer.writeCss(css);
         }
         catch (JAXBException exc) {
             throw new RuntimeException(exc);
+        }              
+        catch (IOException exc) {
+            throw new RuntimeException(exc);
         }
-              
     }
 
     private void runSingleTest(String testPath) {

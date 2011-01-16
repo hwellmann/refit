@@ -131,7 +131,7 @@ public class FileRunner {
      * @return
      * @throws IOException
      */
-    private String read(Reader in) throws IOException {
+    public static String read(Reader in) throws IOException {
         BufferedReader br = new BufferedReader(in);
         StringBuffer sb = new StringBuffer();
         String line = br.readLine();
