@@ -31,9 +31,6 @@ public class ReportIO {
     public void writeCss(File css) throws IOException {
         writer = new PrintWriter(css, "UTF-8");
         InputStream is = getClass().getResourceAsStream("/css/fit.css");
-        if (is == null) {
-            System.err.println("stream is null");
-        }
         InputStreamReader reader = new InputStreamReader(is);
         String content = FileRunner.read(reader);
         writer.write(content);
