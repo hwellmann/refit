@@ -18,8 +18,14 @@ public class TreeRunnerTest {
         boolean passed = runner.run();
         assertFalse(passed);
         
-        File report = new File(outputDir, TreeRunner.FIT_REPORT);
-        assertTrue(report.exists());
+        File xmlReport = new File(outputDir, ReportIO.FIT_REPORT_XML);
+        assertTrue(xmlReport.exists());
+
+        File htmlReport = new File(outputDir, ReportIO.FIT_REPORT_HTML);
+        assertTrue(htmlReport.exists());
+
+        File css = new File(outputDir, ReportIO.FIT_CSS);
+        assertTrue(css.exists());
     }
 
 }
