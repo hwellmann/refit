@@ -7,8 +7,10 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 
 import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
 
 import com.googlecode.refit.runner.jaxb.ObjectFactory;
 import com.googlecode.refit.runner.jaxb.Summary;
@@ -24,6 +26,9 @@ public class ReportIO {
     private Summary summary;
     private PrintWriter writer;
 
+    public ReportIO() {
+    }
+    
     public ReportIO(Summary summary) {
         this.summary = summary;
     }
@@ -108,5 +113,14 @@ public class ReportIO {
     private void writeTableCell(String style, int count) {
         String actualStyle = (count == 0) ? "none" : style;
         writer.println("<td class='"+ actualStyle +"'>" + count + "</td>");
+    }
+    
+    @SuppressWarnings("unchecked")
+    public Summary readXml(InputStream is) throws JAXBException {
+        JAXBContext ctx = JAXBContext.newInstance(ReportIO.CONTEXT_PATH);
+        Unmarshaller unmarshaller = ctx.createUnmarshaller();
+        JAXBElement<Summary> summaryRoot = (JAXBElement<Summary>) unmarshaller.unmarshal(is);
+        Summary summary = summaryRoot.getValue();
+        return summary;        
     }
 }
