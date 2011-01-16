@@ -137,6 +137,7 @@ public class FileRunner {
         String line = br.readLine();
         while (line != null) {
             sb.append(line);
+            sb.append('\n');
             line = br.readLine();
         }
         in.close();
