@@ -8,7 +8,7 @@
   </parent>
   <groupId>com.googlecode.refit</groupId>
   <artifactId>refit-runner</artifactId>
-  <name>reFit Runenrs</name>
+  <name>reFit Runners</name>
   <version>1.7.0.SNAPSHOT</version>
   <dependencies>
     <dependency>
