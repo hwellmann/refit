@@ -27,7 +27,6 @@
       <plugin>
         <groupId>org.jvnet.jaxb2.maven2</groupId>
         <artifactId>maven-jaxb2-plugin</artifactId>
-        <version>0.7.3</version>
         <executions>
           <execution>
             <goals>
@@ -36,7 +35,6 @@
           </execution>
         </executions>
         <configuration>
-          <!--generateDirectory>generated</generateDirectory -->
           <generatePackage>com.googlecode.refit.runner.jaxb</generatePackage>
           <schemaIncludes>
             <include>xsd/report.xsd</include>
