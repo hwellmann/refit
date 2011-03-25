@@ -44,9 +44,12 @@ public class TreeRunnerTest {
         File inputDir = new File("src/test/fit");
         File outputDir = new File("target/fit");
         
-        TreeRunner runner = new TreeRunner(inputDir, outputDir);
+        ReportGenerator reportGenerator = new ReportGenerator(inputDir, outputDir);
+        TreeRunner runner = new TreeRunner(inputDir, outputDir, reportGenerator);
         boolean passed = runner.run();
         assertFalse(passed);
+        
+        reportGenerator.createReports();
         
         File xmlReport = new File(outputDir, ReportIO.FIT_REPORT_XML);
         checkXmlReport(xmlReport);

@@ -185,5 +185,6 @@
     <module>refit-test</module>
     <module>refit-osgi</module>
     <module>refit-runner</module>
+    <module>refit-web</module>
   </modules>
 </project>

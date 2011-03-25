@@ -19,13 +19,9 @@
 package com.googlecode.refit.runner;
 
 import java.io.File;
-import java.io.IOException;
-
-import javax.xml.bind.JAXBException;
 
 import org.apache.tools.ant.DirectoryScanner;
 
-import com.googlecode.refit.runner.jaxb.Summary;
 import com.googlecode.refit.runner.jaxb.TestResult;
 
 public class TreeRunner {
@@ -38,12 +34,6 @@ public class TreeRunner {
     private String[] excludes;
     private RunnerListener listener;
     
-    private Summary summary;
-    private int totalRight;
-    private int totalWrong;
-    private int totalIgnored;
-    private int totalExceptions;
-
     private boolean success;
 
     public TreeRunner(File inputDir, File outputDir) {
@@ -81,7 +71,6 @@ public class TreeRunner {
         this.includes = includes;
         this.excludes = excludes;
         this.listener = listener;
-        this.summary = new Summary();
     }
 
     public boolean run() {
@@ -101,45 +90,10 @@ public class TreeRunner {
         if (files.length == 0) {
             throw new RuntimeException("no matching input files");
         }
-        success = true;
         for (String testPath : files) {
             runSingleTest(testPath);
         }
-
-        buildSummary();
-        printSummary();
-        
         return success;
-    }
-
-    private void buildSummary() {
-        summary.setInputDir(inputDir.getPath());
-        summary.setOutputDir(outputDir.getPath());
-        summary.setNumTests(summary.getTest().size());
-        
-        summary.setPassed(success);
-        summary.setRight(totalRight);
-        summary.setWrong(totalWrong);
-        summary.setIgnored(totalIgnored);
-        summary.setExceptions(totalExceptions);
-    }
-    
-    private void printSummary() {
-        ReportIO writer = new ReportIO(summary);
-        File xmlReport = new File(outputDir, ReportIO.FIT_REPORT_XML);        
-        File htmlReport = new File(outputDir, ReportIO.FIT_REPORT_HTML);        
-        File css = new File(outputDir, "fit.css");        
-        try {
-            writer.writeXml(xmlReport);
-            writer.writeHtml(htmlReport);
-            writer.writeCss(css);
-        }
-        catch (JAXBException exc) {
-            throw new RuntimeException(exc);
-        }              
-        catch (IOException exc) {
-            throw new RuntimeException(exc);
-        }
     }
 
     private void runSingleTest(String testPath) {
@@ -150,15 +104,5 @@ public class TreeRunner {
         
         TestResult result = runner.getResult();
         listener.afterTest(result);
-        summary.getTest().add(result);
-        
-        totalRight += result.getRight();
-        totalWrong += result.getWrong();
-        totalIgnored += result.getIgnored();
-        totalExceptions += result.getExceptions();
-    }
-    
-    public Summary getSummary() {
-        return summary;
     }
 }
