@@ -7,7 +7,7 @@ import java.util.Date;
 
 public class Display extends fit.RowFixture {
 
-    public Class getTargetClass() {
+    public Class<?> getTargetClass() {
         return Music.class;
     }
 
@@ -15,7 +15,7 @@ public class Display extends fit.RowFixture {
         return MusicLibrary.displayContents();
     }
 
-    public Object parse (String s, Class type) throws Exception {
+    public Object parse (String s, Class<?> type) throws Exception {
         if (type.equals(Date.class))    {return Music.dateFormat.parse(s);}
         return super.parse (s, type);
     }

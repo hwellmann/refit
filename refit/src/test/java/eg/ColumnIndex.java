@@ -18,13 +18,13 @@ public class ColumnIndex extends RowFixture {
         super.doRows(rows);
     }
 
-    public Class getTargetClass() {
+    public Class<?> getTargetClass() {
         return Column.class;
     }
 
     public Object[] query() throws ClassNotFoundException {
         // first find what classes are mentioned in the table
-        Set names = new HashSet();
+        Set<String> names = new HashSet<String>();
         int column=0;
         for (Parse cell=rows.parts; cell != null; column++, cell = cell.more) {
             if (cell.text().equals("className")) {
@@ -35,9 +35,9 @@ public class ColumnIndex extends RowFixture {
             names.add(row.at(0,column).text());
         }
         // then find the columns in these classes
-        ArrayList columns = new ArrayList();
-        for (Iterator i=names.iterator(); i.hasNext(); ) {
-            Class each = Class.forName((String)i.next());
+        ArrayList<Column> columns = new ArrayList<Column>();
+        for (Iterator<String> i=names.iterator(); i.hasNext(); ) {
+            Class<?> each = Class.forName((String)i.next());
             Field f[] = each.getFields();
             for (int j=0; j<f.length; j++) {
                 if(f[j].getModifiers()==1) {
@@ -54,12 +54,12 @@ public class ColumnIndex extends RowFixture {
         return columns.toArray();
     }
 
-    public Object parse (String text, Class type) throws Exception {
+    public Object parse (String text, Class<?> type) throws Exception {
         if (type.equals(Class.class)) {return parseClass(text);}
         return super.parse(text, type);
     }
 
-    Class parseClass(String name) throws Exception {
+    Class<?> parseClass(String name) throws Exception {
         if (name.equals("byte")) {return Byte.TYPE;}
         if (name.equals("short")) {return Short.TYPE;}
         if (name.equals("int")) {return Integer.TYPE;}
@@ -72,9 +72,9 @@ public class ColumnIndex extends RowFixture {
 
     public class Column {
         public Object column;
-        public Class className;
+        public Class<?> className;
         public String columnName;
-        public Class columnType;
+        public Class<?> columnType;
 
         Column (Field f) {
             column = f;
@@ -90,7 +90,6 @@ public class ColumnIndex extends RowFixture {
             columnType = m.getReturnType();
         }
     }
-
 }
 
 

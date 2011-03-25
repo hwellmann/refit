@@ -36,7 +36,7 @@ public class Page extends RowFixture {
 
     // rows /////////////////////////////////////
 
-    public Class getTargetClass() {
+    public Class<?> getTargetClass() {
         return Row.class;
     }
 

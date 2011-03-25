@@ -67,6 +67,7 @@ public class ExampleTests extends ColumnFixture {
         super.doRow(row);
     }
 
+    @SuppressWarnings("deprecation")
     public void wrong(Parse cell) {
         super.wrong(cell);
         if (footnote==null) {
