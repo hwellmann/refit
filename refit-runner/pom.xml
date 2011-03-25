@@ -39,6 +39,9 @@
           <schemaIncludes>
             <include>xsd/report.xsd</include>
           </schemaIncludes>
+          <bindingIncludes>
+            <include>**/*.xjb</include>
+          </bindingIncludes>
         </configuration>
         <dependencies>
           <dependency>

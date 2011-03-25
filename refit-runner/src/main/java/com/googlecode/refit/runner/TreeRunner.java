@@ -157,4 +157,8 @@ public class TreeRunner {
         totalIgnored += result.getIgnored();
         totalExceptions += result.getExceptions();
     }
+    
+    public Summary getSummary() {
+        return summary;
+    }
 }
