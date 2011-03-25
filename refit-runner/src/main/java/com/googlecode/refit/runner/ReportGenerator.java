@@ -94,5 +94,8 @@ public class ReportGenerator implements RunnerListener {
         }
     }
 
-    
+    @Override
+    public void afterSuite() {
+        createReports();
+    }
 }

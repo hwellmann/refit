@@ -15,6 +15,11 @@
       <artifactId>refit</artifactId>
       <version>${project.version}</version>
     </dependency>
+  <dependency>
+      <groupId>com.googlecode.refit</groupId>
+      <artifactId>refit-runner</artifactId>
+      <version>${project.version}</version>
+    </dependency>
     <dependency>
       <groupId>org.apache.ant</groupId>
       <artifactId>ant</artifactId>

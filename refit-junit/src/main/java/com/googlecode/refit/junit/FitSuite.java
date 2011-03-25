@@ -25,8 +25,11 @@ import java.util.List;
 
 import org.apache.tools.ant.DirectoryScanner;
 import org.junit.runner.Runner;
+import org.junit.runner.notification.RunNotifier;
 import org.junit.runners.Suite;
 import org.junit.runners.model.InitializationError;
+
+import com.googlecode.refit.runner.RunnerListener;
 
 /**
  * Use this class to run a suite of FIT tests under JUnit. To do so, create a class with the
@@ -69,6 +72,7 @@ import org.junit.runners.model.InitializationError;
 public class FitSuite extends Suite {
 
     private List<Runner> runners = new ArrayList<Runner>();
+    private RunnerListener listener;
 
     /**
      * Constructor for internal use by JUnit. Applications may only use this class as argument to
@@ -100,10 +104,12 @@ public class FitSuite extends Suite {
             assert config.getOutputDir() != null;
             assert config.getIncludes() != null;
             assert config.getExcludes() != null;
+            assert config.getRunnerListener() != null;
 
             System.setProperty("fit.inputDir", config.getInputDir());
             File inputDirectory = new File(config.getInputDir());
             File outputDirectory = new File(config.getOutputDir());
+            listener = config.getRunnerListener();
 
             DirectoryScanner scanner = new DirectoryScanner();
             scanner.setBasedir(inputDirectory);
@@ -116,7 +122,7 @@ public class FitSuite extends Suite {
                 throw new InitializationError("no matching input files");
             }
             for (String testPath : files) {
-                FitRunner runner = new FitRunner(inputDirectory, outputDirectory, testPath);
+                FitRunner runner = new FitRunner(inputDirectory, outputDirectory, testPath, listener);
                 runners.add(runner);
             }
 
@@ -140,5 +146,10 @@ public class FitSuite extends Suite {
     protected List<Runner> getChildren() {
         return runners;
     }
-
+    
+    @Override
+    public void run(RunNotifier notifier) {
+        super.run(notifier);
+        listener.afterSuite();
+    }
 }

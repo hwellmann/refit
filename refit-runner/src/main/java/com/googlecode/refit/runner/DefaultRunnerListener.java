@@ -22,11 +22,15 @@ import com.googlecode.refit.runner.jaxb.TestResult;
 
 public class DefaultRunnerListener implements RunnerListener {
 
-    public void beforeTest(String testPath) {
-        
+    @Override
+    public void beforeTest(String testPath) {        
     }
     
-    public void afterTest(TestResult result) {
-        
+    @Override
+    public void afterTest(TestResult result) {        
+    }
+
+    @Override
+    public void afterSuite() {
     }
 }

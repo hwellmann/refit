@@ -202,4 +202,9 @@ public class FitRunnerMojo extends AbstractMojo implements RunnerListener {
             }
         }
     }
+
+    @Override
+    public void afterSuite() {
+        // nothing
+    }
 }

@@ -18,6 +18,11 @@
  */
 package com.googlecode.refit.junit;
 
+import java.io.File;
+
+import com.googlecode.refit.runner.ReportGenerator;
+import com.googlecode.refit.runner.RunnerListener;
+
 public class DefaultFitConfiguration {
 
     public static final String INPUT_DIR = "src/test/fit";
@@ -38,5 +43,9 @@ public class DefaultFitConfiguration {
 
     public String[] getExcludes() {
         return new String[0];
+    }
+    
+    public RunnerListener getRunnerListener() {
+        return new ReportGenerator(new File(getInputDir()), new File(getOutputDir()));
     }
 }

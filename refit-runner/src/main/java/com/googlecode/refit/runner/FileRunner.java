@@ -59,11 +59,18 @@ public class FileRunner {
     private Fixture fixture;
     
     private TestResult result;
+
+    private RunnerListener listener;
     
     public FileRunner(File inputDir, File outputDir, String testPath) {
+        this(inputDir, outputDir, testPath, new DefaultRunnerListener());
+    }
+
+    public FileRunner(File inputDir, File outputDir, String testPath, RunnerListener listener) {
         this.inputDir = inputDir;
         this.outputDir = outputDir;
         this.testPath = testPath;
+        this.listener = listener;
     }
 
     public boolean run() {
@@ -99,6 +106,7 @@ public class FileRunner {
     }
 
     private boolean run(Reader reader, Writer writer) throws IOException, ParseException {
+        listener.beforeTest(testPath);
         String input = read(reader);
         Parse tables = new Parse(input);
         fixture = new Fixture();
@@ -114,6 +122,7 @@ public class FileRunner {
         result.setWrong(fixture.counts.wrong);
         result.setIgnored(fixture.counts.ignores);
         result.setExceptions(fixture.counts.exceptions);
+        listener.afterTest(result);
         
         return passed;
     }

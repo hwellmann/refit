@@ -141,4 +141,11 @@ public class ReportIO {
         Summary summary = summaryRoot.getValue();
         return summary;        
     }
+    
+    public static String format(TestResult result) {
+        return String.format("%d right, %d wrong, %d ignored, %d exceptions",
+                result.getRight(), result.getWrong(), result.getIgnored(), result.getExceptions());
+    }
+
+    
 }

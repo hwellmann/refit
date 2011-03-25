@@ -46,4 +46,10 @@ public class CompositeRunnerListener implements RunnerListener {
             listener.afterTest(result);
         }        
     }
+
+    public void afterSuite() {
+        for (RunnerListener listener : listeners) {
+            listener.afterSuite();
+        }        
+    }
 }

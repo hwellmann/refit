@@ -18,23 +18,17 @@
  */
 package com.googlecode.refit.junit;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.Reader;
-import java.io.Writer;
-import java.text.ParseException;
 
 import org.junit.runner.Description;
 import org.junit.runner.Runner;
 import org.junit.runner.notification.Failure;
 import org.junit.runner.notification.RunNotifier;
 
-import fit.Fixture;
-import fit.Parse;
+import com.googlecode.refit.runner.FileRunner;
+import com.googlecode.refit.runner.ReportIO;
+import com.googlecode.refit.runner.RunnerListener;
+import com.googlecode.refit.runner.jaxb.TestResult;
 
 /**
  * Runs a single FIT test under JUnit. Do not directly use this class in applications.
@@ -43,34 +37,24 @@ import fit.Parse;
  * @author hwellmann
  *
  */
-public class FitRunner extends Runner {
+public class FitRunner extends Runner implements RunnerListener {
    
-    /** Input directory for FIT tests. */
-    private File inputDir;
-    
-    /** Output directory for FIT tests. */
-    private File outputDir;
-    
-    /** 
-     * Relative path of fit test to be run. The runner runs a file with this path relative to
-     * the input directory and write the processed to file to the same path relative to the
-     * output directory.
-     */
-    private String testPath;
-    
     /**
      * Description of this FIT test for JUnit notifiers. Corresponds to {@code testPath}.
      */
     private Description description;
     
-    /** Default fixture for running the test. */
-    private Fixture fixture;
+    private FileRunner fileRunner;
+
+    private RunNotifier notifier;
+
+    private RunnerListener listener;
     
-    public FitRunner(File inputDir, File outputDir, String testPath) {
-        this.inputDir = inputDir;
-        this.outputDir = outputDir;
-        this.testPath = testPath;
+    public FitRunner(File inputDir, File outputDir, String testPath, RunnerListener listener) {
+        System.setProperty("fit.currentTest", testPath);
         this.description = Description.createSuiteDescription(testPath);
+        this.fileRunner = new FileRunner(inputDir, outputDir, testPath, this);
+        this.listener = listener;
     }
 
     @Override
@@ -80,27 +64,12 @@ public class FitRunner extends Runner {
 
     @Override
     public void run(RunNotifier notifier) {
-        File inputFile = new File(inputDir, testPath);
-        File outputFile = new File(outputDir, testPath);
-        System.setProperty("fit.currentTest", testPath);
         notifier.fireTestStarted(getDescription());
         try {
-            ensureParentDirExists(outputFile);
-            run(inputFile, outputFile);
-            if (failed(fixture)) {
-                /*
-                 * Distinguish failed tests from tests in error by including the appropriate
-                 * type of Throwable in the Failure.
-                 */
-                Failure failure = new Failure(getDescription(), getThrowable());
-                notifier.fireTestFailure(failure);
-            }
+            this.notifier = notifier;
+            fileRunner.run();
         }
-        catch (IOException exc) {
-            Failure failure = new Failure(getDescription(), exc);
-            notifier.fireTestFailure(failure);
-        }
-        catch (ParseException exc) {
+        catch (Exception exc) {
             Failure failure = new Failure(getDescription(), exc);
             notifier.fireTestFailure(failure);
         }
@@ -112,61 +81,35 @@ public class FitRunner extends Runner {
      * exceptions, to match JUnit conventions.
      * @return Throwable
      */
-    private Throwable getThrowable() {
-        if (fixture.counts.exceptions > 0)
-            return new Exception(fixture.counts());
+    private Throwable getThrowable(TestResult testResult) {
+        String msg = ReportIO.format(testResult);
+        if (testResult.getExceptions() > 0) {
+            return new Exception(msg);
+        }
         else
-            return new AssertionError(fixture.counts());
+            return new AssertionError(msg);
     }
 
-    private void ensureParentDirExists(File outputFile) throws IOException {
-        File parentDir = outputFile.getParentFile();
-        if (parentDir.exists()) {
-            if (!parentDir.isDirectory()) {
-                throw new IOException(parentDir + " is not a directory");
-            }
-        }
-        else if (!parentDir.mkdirs()) {
-            throw new IOException("cannot create " + parentDir);
-        }
-    }
-    
-    private void run(File in, File out) throws IOException, ParseException {
-        run(new FileReader(in), new FileWriter(out));
+    @Override
+    public void beforeTest(String testPath) {
+        listener.beforeTest(testPath);
     }
 
-    private void run(Reader reader, Writer writer) throws IOException, ParseException {
-        String input = read(reader);
-        Parse tables = new Parse(input);
-        fixture = new Fixture();
-        fixture.doTables(tables);
-        PrintWriter output = new PrintWriter(writer);
-        tables.print(output);
-        output.flush();
+    @Override
+    public void afterTest(TestResult result) {
+        listener.afterTest(result);
+        if (result.getExceptions() > 0 || result.getWrong() > 0) {
+            /*
+             * Distinguish failed tests from tests in error by including the appropriate
+             * type of Throwable in the Failure.
+             */
+            Failure failure = new Failure(getDescription(), getThrowable(result));
+            notifier.fireTestFailure(failure);
+        }
     }
 
-    private boolean failed(Fixture fixture) {
-        if (fixture.counts.wrong > 0 || fixture.counts.exceptions > 0) {
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * Returns the whole stream as a String.
-     * @param in
-     * @return
-     * @throws IOException
-     */
-    private String read(Reader in) throws IOException {
-        BufferedReader br = new BufferedReader(in);
-        StringBuffer sb = new StringBuffer();
-        String line = br.readLine();
-        while (line != null) {
-            sb.append(line);
-            line = br.readLine();
-        }
-        in.close();
-        return sb.toString();
+    @Override
+    public void afterSuite() {
+        listener.afterSuite();
     }
 }
