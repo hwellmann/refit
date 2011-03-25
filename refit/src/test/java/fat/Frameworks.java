@@ -9,7 +9,7 @@ import java.util.*;
 
 public class Frameworks extends ColumnFixture {
 
-    public static Map runscripts = new HashMap();
+    public static Map<String, String> runscripts = new HashMap<String, String>();
 
     public String language;
     public String page;

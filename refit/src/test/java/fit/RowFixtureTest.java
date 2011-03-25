@@ -41,9 +41,9 @@ public class RowFixtureTest extends TestCase {
                                                   BusinessObject.class.getMethod("getStrings", new Class[0]));
         fixture.columnBindings = new TypeAdapter[]{arrayAdapter };
 
-        LinkedList computed = new LinkedList();
+        LinkedList<Object> computed = new LinkedList<Object>();
         computed.add(new BusinessObject(new String[] { "1" }));
-        LinkedList expected = new LinkedList();
+        LinkedList<Parse> expected = new LinkedList<Parse>();
         expected.add(new Parse("tr","",new Parse("td","1",null,null),null));
         fixture.match(expected, computed,0);
         assertEquals("right", 1, fixture.counts.right);
@@ -58,7 +58,7 @@ public class RowFixtureTest extends TestCase {
             return new Object[0];
         }
 
-        public Class getTargetClass()             // get expected type of row
+        public Class<?> getTargetClass()             // get expected type of row
         {
             return BusinessObject.class;
         }

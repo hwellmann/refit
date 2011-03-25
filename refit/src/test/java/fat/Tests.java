@@ -30,6 +30,7 @@ public class Tests extends Fixture {
         }
     }
 
+    @SuppressWarnings("deprecation")
     public void performTest(Parse cell, String runscript, String page) {
         if (runscript == null || runscript.equals("null")  || page.startsWith("?")) {
             ignore(cell);
