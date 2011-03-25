@@ -63,7 +63,7 @@ public class ReportIO {
     public void writeXml(File report) throws JAXBException {
         JAXBContext ctx = JAXBContext.newInstance(CONTEXT_PATH);
         Marshaller marshaller = ctx.createMarshaller();
-        marshaller.setProperty("jaxb.formatted.output", true);
+        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
         ObjectFactory factory = new ObjectFactory();
         marshaller.marshal(factory.createSummary(summary), report);        
     }
