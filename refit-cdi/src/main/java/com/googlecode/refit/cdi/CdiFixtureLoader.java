@@ -29,8 +29,7 @@ import fit.Fixture;
 import fit.FixtureLoader;
 
 /**
- * A fixture loader which performs Spring dependency injection on all fixtures annotated
- * with {@link ContextConfiguration}, using a Spring Test Context.
+ * A fixture loader which performs CDI dependency injection on all fixtures.
  * 
  * @author Harald Wellmann
  *
@@ -38,8 +37,7 @@ import fit.FixtureLoader;
 public class CdiFixtureLoader extends FixtureLoader {
 
     /**
-     * Creates an instance of a fixture class and performs Spring dependency injection
-     * if class is annotated with {@link ContextConfiguration}.
+     * Creates an instance of a fixture class and performs CDI dependency injection.
      * 
      * @param fixtureClassName name of fixture class
      */
