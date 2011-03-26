@@ -1,0 +1,34 @@
+<html
+  xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml; charset=UTF-8">
+<title>ReFit Directory Selection</title>
+</head>
+<body>
+<h1>ReFit Directory Selection</h1>
+
+
+<form wicket:id="form">
+
+<table>
+  <tr>
+    <td>Input directory</td>
+    <td><input type="text" wicket:id="inputDir" /></td>
+  </tr>
+  <tr>
+    <td>Output directory</td>
+    <td><input type="text" wicket:id="outputDir" /></td>
+  </tr>
+  <tr>
+    <td>Includes</td>
+    <td><input type="text" wicket:id="includes" /></td>
+  </tr>
+  <tr>
+    <td>Excludes</td>
+    <td><input type="text" wicket:id="excludes" /></td>
+  </tr>
+</table>
+
+<input type="submit" value="Run tests" /></form>
+</body>
+</html>

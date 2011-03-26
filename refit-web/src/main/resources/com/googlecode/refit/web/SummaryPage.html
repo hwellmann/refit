@@ -1,0 +1,57 @@
+<html
+  xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml; charset=UTF-8">
+<title>ReFit Test Results</title>
+</head>
+<body>
+<h1>ReFit Test Results</h1>
+
+
+
+<table>
+  <tr>
+    <td>Input directory</td>
+    <td wicket:id="inputDir"></td>
+  </tr>
+  <tr>
+    <td>Output directory</td>
+    <td wicket:id="outputDir"></td>
+  </tr>
+  <tr>
+    <td>Passed</td>
+    <td wicket:id="passed"></td>
+  </tr>
+  <tr>
+    <td>Number of tests</td>
+    <td wicket:id="numTests"></td>
+  </tr>
+</table>
+
+
+<table>
+  <thead>
+    <tr>
+      <th>Test</th>
+      <th>Right</th>
+      <th>Wrong</th>
+      <th>Ignored</th>
+      <th>Exceptions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr wicket:id="test">
+      <td><a href="#" wicket:id="link"><span wicket:id="path">MyTest.html</span></a></td>
+      <td wicket:id="right">5</td>
+      <td wicket:id="wrong">0</td>
+      <td wicket:id="ignored">0</td>
+      <td wicket:id="exceptions">0</td>
+    </tr>
+  </tbody>
+</table>
+
+<div wicket:id="editable"></div>
+
+
+</body>
+</html>
