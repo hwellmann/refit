@@ -8,11 +8,7 @@
       <property name="databaseName" value="${com.sun.aas.instanceRoot}/lib/databases/ejbtimer" />
       <property name="connectionAttributes" value=";create=true" />
     </jdbc-connection-pool>
-    <jdbc-connection-pool is-isolation-level-guaranteed="false" datasource-classname="org.apache.derby.jdbc.ClientDataSource" res-type="javax.sql.DataSource" name="DerbyPool">
-      <property name="PortNumber" value="1527" />
-      <property name="Password" value="APP" />
-      <property name="User" value="APP" />
-      <property name="serverName" value="localhost" />
+    <jdbc-connection-pool is-isolation-level-guaranteed="false" datasource-classname="org.apache.derby.jdbc.EmbeddedXADataSource" res-type="javax.sql.DataSource" name="DerbyPool">
       <property name="DatabaseName" value="sun-appserv-samples" />
       <property name="connectionAttributes" value=";create=true" />
     </jdbc-connection-pool>
