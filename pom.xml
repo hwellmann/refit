@@ -188,5 +188,6 @@
     <module>refit-osgi</module>
     <module>refit-runner</module>
     <module>refit-web</module>
+    <module>refit-jenkins</module>
   </modules>
 </project>
