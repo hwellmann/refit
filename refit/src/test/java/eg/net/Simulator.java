@@ -47,7 +47,7 @@ public class Simulator extends Fixture {
         return nodes;
     }
 
-    public Object parse (String string, Class type) throws Exception {
+    public Object parse (String string, Class<?> type) throws Exception {
         if (type.equals(GeoCoordinate.class)) {return GeoCoordinate.parse(string);}
         return super.parse (string, type);
     }

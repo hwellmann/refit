@@ -3,18 +3,27 @@
 
 package eg;
 
-import fit.*;
-import java.util.*;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.SortedSet;
+import java.util.TreeSet;
+
+import fit.ColumnFixture;
+import fit.Fixture;
+import fit.Parse;
+import fit.RowFixture;
 
 
 public class AllPairs extends AllCombinations {
 
     public int rank;
     public int steps=0;
-    public Map toItem = new HashMap();
-    public List vars = new ArrayList();
-    public SortedSet pairs = new TreeSet();
+    public Map<String, Item> toItem = new HashMap<String, Item>();
+    public List<Var> vars = new ArrayList<Var>();
+    public SortedSet<Pair> pairs = new TreeSet<Pair>();
 
     protected void combinations() {
         populate();
@@ -31,17 +40,17 @@ public class AllPairs extends AllCombinations {
     protected void doAllVars() {
         rank = 0;
         for (int i=0; i<lists.size(); i++) {
-            List files = (List) lists.get(i);
+            List<File> files = lists.get(i);
             Var var = new Var(i, files);
             vars.add(var);
             doAllItems(var, files);
         }
     }
 
-    protected void doAllItems(Var var, List files) {
+    protected void doAllItems(Var var, List<File> files) {
         for (int i=0; i<files.size(); i++) {
             Item item = new Item (var, i, rank++);
-            toItem.put(((File)files.get(i)).getName(), item);
+            toItem.put((files.get(i)).getName(), item);
             var.items.add(item);
         }
     }
@@ -96,7 +105,7 @@ public class AllPairs extends AllCombinations {
     }
 
     protected Pair nextFit(Item[] slug) {
-        List hold = new ArrayList();
+        List<Pair> hold = new ArrayList<Pair>();
         Pair pair;
         while(!(pair=nextPair()).isFit(slug)) {
             hold.add(pair);
@@ -113,7 +122,7 @@ public class AllPairs extends AllCombinations {
     }
 
     protected void emit (Item[] slug) {
-        List combination = new ArrayList();
+        List<File> combination = new ArrayList<File>();
         for (int i=0; i<slug.length; i++) {
             combination.add(slug[i].file());
         }
@@ -123,10 +132,10 @@ public class AllPairs extends AllCombinations {
     // Helper Classes ///////////////////////////
 
     public class Var {
-        List files;
+        List<File> files;
         int index;
-        List items = new ArrayList();
-        Var (int index, List files)     {this.index = index; this.files = files;}
+        List<Item> items = new ArrayList<Item>();
+        Var (int index, List<File> files)     {this.index = index; this.files = files;}
         int size()                      {return items.size();}
         Item get(int index)             {return (Item)items.get(index);}
     }
@@ -141,26 +150,26 @@ public class AllPairs extends AllCombinations {
         boolean isFit(Item[]slug)       {return slug[var.index]==null || slug[var.index]==this;}
     }
 
-    public class Pair implements Comparable {
+    public class Pair implements Comparable<Pair> {
         public Item left, right;
         public int used = 0;
         Pair (Item left, Item right)    {this.left=left; this.right=right;}
         public String toString()        {return left+"-"+right+" ("+used+")";}
         boolean isFit(Item[]slug)       {return left.isFit(slug) && right.isFit(slug);}
         public int rank()               {return rank*(rank*used+left.rank)+right.rank;}
-        public int compareTo(Object o)  {return rank()-((Pair)o).rank();}
+        public int compareTo(Pair o)  {return rank()-((Pair)o).rank();}
     }
 
     // Self Test Classes ////////////////////////
 
     public static AllPairs fut;
-    public static List cases;
+    public static List<Item[]> cases;
 
     public static class Setup extends Fixture {
 
         public void doTable(Parse table) {
             fut = new AllPairs();
-            cases = new ArrayList();
+            cases = new ArrayList<Item[]>();
             super.doTable(table);
             fut.populate();
         }
@@ -168,9 +177,9 @@ public class AllPairs extends AllCombinations {
         public void doCell(Parse cell, int i) {
             if (!cell.text().equals("")) {
                 while(fut.lists.size()<=i) {
-                    fut.lists.add(new ArrayList());
+                    fut.lists.add(new ArrayList<File>());
                 }
-                ((List)fut.lists.get(i)).add(new File(cell.text()));
+                (fut.lists.get(i)).add(new File(cell.text()));
                 right(cell);
             }
         }
@@ -184,16 +193,16 @@ public class AllPairs extends AllCombinations {
             Case(int n, Item[] i) {number=n; items=i;}
         }
         public Object[] query() {
-            while(((Pair)fut.pairs.first()).used==0) {
+            while((fut.pairs.first()).used==0) {
                 cases.add(fut.nextCase());
             }
-            List result = new ArrayList();
+            List<Case> result = new ArrayList<Case>();
             for (int i=0; i<cases.size(); i++) {
-                result.add(new Case(i+1, (Item[])cases.get(i)));
+                result.add(new Case(i+1, cases.get(i)));
             }
             return result.toArray();
         }
-        public Class getTargetClass(){
+        public Class<?> getTargetClass(){
             return Case.class;
         }
     }
@@ -202,10 +211,10 @@ public class AllPairs extends AllCombinations {
         public Object[] query () {
             return fut.pairs.toArray();
         }
-        public Class getTargetClass() {
+        public Class<?> getTargetClass() {
             return Pair.class;
         }
-        public Object parse (String s, Class type) throws Exception {
+        public Object parse (String s, Class<?> type) throws Exception {
             if (s.equals("null"))                   {return null;}
             if (type.equals(Item.class))            {return fut.toItem.get(s);}
             return super.parse(s, type);
@@ -215,7 +224,7 @@ public class AllPairs extends AllCombinations {
     public static class Step extends ColumnFixture {
         static Pair next;
         static Item slug[] = new Item[3];
-        static List hold = new ArrayList();
+        static List<Pair> hold = new ArrayList<Pair>();
 
         public String next() {
             next=fut.nextPair();
@@ -238,7 +247,7 @@ public class AllPairs extends AllCombinations {
             if (isFit) {
                 fut.fill(slug, next);
                 fut.pairs.addAll(hold);
-                hold=new ArrayList();
+                hold=new ArrayList<Pair>();
             }
             return isFit;
         }
@@ -260,7 +269,7 @@ public class AllPairs extends AllCombinations {
             return result;
         }
 
-        public Object parse (String s, Class type) throws Exception {
+        public Object parse (String s, Class<?> type) throws Exception {
             if (s.equals("null"))                   {return null;}
             if (type.equals(Item.class))            {return fut.toItem.get(s);}
             return super.parse(s, type);
@@ -283,7 +292,7 @@ public class AllPairs extends AllCombinations {
         void setup(AllPairs ap) {
             int name=0;
             for (int i=0; i<items.length; i++) {
-                List l = new ArrayList();
+                List<File> l = new ArrayList<File>();
                 for (int j=0; j<items[i]; j++) {
                     l.add(new File(Integer.toString(name++)));
                 }

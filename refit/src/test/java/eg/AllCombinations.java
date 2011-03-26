@@ -3,12 +3,16 @@
 
 package eg;
 
-import fit.*;
-import java.util.*;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+import fit.Parse;
 
 public class AllCombinations extends AllFiles {
 
-    protected List lists = new ArrayList();
+    protected List<List<File>> lists = new ArrayList<List<File>>();
     protected Parse row;
     protected int caseNumber = 1;
 
@@ -18,27 +22,28 @@ public class AllCombinations extends AllFiles {
         combinations();
     }
 
-    protected void doRow (Parse row, List files){
+    @Override
+    protected void doRow (Parse row, List<File> files){
         lists.add(files);
     }
 
     protected void combinations() {
-        combinations(0, new ArrayList(lists));
+        combinations(0, new ArrayList<File>(lists.size()));
     }
 
-    protected void combinations(int index, List combination) {
+    protected void combinations(int index, List<File> combination) {
         if (index == lists.size()) {
             doCase(combination);
         } else {
-            List files = (List)lists.get(index);
-            for (Iterator i=files.iterator(); i.hasNext(); ) {
+            List<File> files = lists.get(index);
+            for (Iterator<File> i=files.iterator(); i.hasNext(); ) {
                 combination.set(index, i.next());
                 combinations(index+1, combination);
             }
         }
     }
 
-    protected void doCase(List combination) {
+    protected void doCase(List<File> combination) {
         Parse number = tr(td("#"+caseNumber++, null), null);
         number.leaf().addToTag(" colspan=2");
         row.last().more = number;

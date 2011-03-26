@@ -39,7 +39,7 @@ public class Equals extends PrimitiveFixture {
     static private String [] StringArray = {};
 
     TypeAdapter type(String name) {
-        Class type =
+        Class<?> type =
             name.equals("boolean") ?    Boolean.class :
             name.equals("integer") ?    Integer.class :
             name.equals("real") ?      Float.class :
@@ -55,7 +55,7 @@ public class Equals extends PrimitiveFixture {
         return TypeAdapter.on(this, type);
     }
 
-    public Object parse (String s, Class type) throws Exception {
+    public Object parse (String s, Class<?> type) throws Exception {
         if (type.equals(Money.class))   return new Money(s);
         if (type.equals(Boolean.class)) return parseCustomBoolean(s);
         return super.parse(s, type);

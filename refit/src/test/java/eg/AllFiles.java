@@ -11,7 +11,7 @@ public class AllFiles extends Fixture {
 
     public void doRow(Parse row) {
         Parse cell = row.leaf();
-        List files = expand(cell.text());
+        List<File> files = expand(cell.text());
         if (files.size()>0) {
             doRow(row, files);
         } else {
@@ -20,14 +20,14 @@ public class AllFiles extends Fixture {
         }
     }
 
-    protected List expand(String pattern) {
+    protected List<File> expand(String pattern) {
         StringTokenizer tokens = new StringTokenizer(pattern, File.separator);
-        List files = new ArrayList();
+        List<File> files = new ArrayList<File>();
         expand(new File("."), tokens, files);
         return files;
     }
 
-    protected void expand(File path, StringTokenizer tokens, List result) {
+    protected void expand(File path, StringTokenizer tokens, List<File> result) {
         if (tokens.hasMoreTokens()) {
             File files[] = path.listFiles(new WildCard(tokens.nextToken()));
             for (int i=0; i<files.length; i++) {
@@ -38,13 +38,13 @@ public class AllFiles extends Fixture {
         }
     }
 
-    protected void doRow(Parse row, List files) {
+    protected void doRow(Parse row, List<File> files) {
         doFiles(row, files);
     }
 
-    protected void doFiles(Parse row, List files) {
-        for (Iterator i=files.iterator(); i.hasNext(); ) {
-            File path = (File)i.next();
+    protected void doFiles(Parse row, List<File> files) {
+        for (Iterator<File> i=files.iterator(); i.hasNext(); ) {
+            File path = i.next();
             Parse cells = td(path.getName(), td("", null));
             row = (row.more = tr(cells, row.more));
             Fixture fixture = new Fixture();
@@ -55,6 +55,7 @@ public class AllFiles extends Fixture {
 
     public static int runCount=0;
 
+    @SuppressWarnings("deprecation")
     protected void run(File path, Fixture fixture, Parse cells) {
         if (pushAndCheck(path)) {
             ignore(cells);
@@ -85,7 +86,7 @@ public class AllFiles extends Fixture {
         pop(path);
     }
 
-    public static List fileStack = new ArrayList();
+    public static List<String> fileStack = new ArrayList<String>();
 
     protected boolean pushAndCheck(File path) {
         String name = path.getAbsolutePath();
@@ -165,7 +166,7 @@ public class AllFiles extends Fixture {
         AllFiles fixture = new AllFiles();
 
         public String[] expansion() {
-            List files = fixture.expand(path);
+            List<File> files = fixture.expand(path);
             String[] result = new String[files.size()];
             for (int i=0; i<result.length; i++) {
                 result[i] = ((File)files.get(i)).getName();
