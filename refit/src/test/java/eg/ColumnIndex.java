@@ -37,7 +37,7 @@ public class ColumnIndex extends RowFixture {
         // then find the columns in these classes
         ArrayList<Column> columns = new ArrayList<Column>();
         for (Iterator<String> i=names.iterator(); i.hasNext(); ) {
-            Class<?> each = Class.forName((String)i.next());
+            Class<?> each = Class.forName(i.next());
             Field f[] = each.getFields();
             for (int j=0; j<f.length; j++) {
                 if(f[j].getModifiers()==1) {

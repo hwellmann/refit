@@ -25,7 +25,7 @@ public class Tests extends Fixture {
                 break;
             default:
                 String language = heads.at(column).text();
-                String runscript = (String) Frameworks.runscripts.get(language);
+                String runscript = Frameworks.runscripts.get(language);
                 performTest(cell, runscript, page);
         }
     }

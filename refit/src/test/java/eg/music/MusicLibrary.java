@@ -18,7 +18,7 @@ public class MusicLibrary {
             music.add(Music.parse(in.readLine()));
         }
         in.close();
-        library = (Music[])music.toArray(library);
+        library = music.toArray(library);
     }
 
     static void select(Music m) {
