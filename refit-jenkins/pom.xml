@@ -1,0 +1,41 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.jenkins-ci.plugins</groupId>
+    <artifactId>plugin</artifactId>
+    <!-- which version of Jenkins is this plugin built against? -->    
+    <version>1.403</version>
+  </parent>
+
+  <groupId>com.googlecode.refit</groupId>
+  <artifactId>refit-jenkins</artifactId>
+  <name>reFit Jenkins Plugin</name>
+  <version>1.7.0.SNAPSHOT</version>
+  <packaging>hpi</packaging>
+
+  <properties>
+    <refit.version>1.7.0.SNAPSHOT</refit.version>
+  </properties>
+  
+  <dependencies>
+    <dependency>
+      <groupId>com.googlecode.refit</groupId>
+      <artifactId>refit-runner</artifactId>
+      <version>${refit.version}</version>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>1.6</source>
+          <target>1.6</target>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>
