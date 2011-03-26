@@ -32,6 +32,8 @@ import com.googlecode.refit.runner.jaxb.Summary;
 
 public class DirectorySelectionPage extends WebPage {
     
+    private static final long serialVersionUID = 1L;
+
     private DirectorySelection selection;
 
 

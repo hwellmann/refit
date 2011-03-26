@@ -34,6 +34,8 @@ import com.googlecode.refit.runner.jaxb.TestResult;
 
 public class SummaryPage extends WebPage {
     
+    private static final long serialVersionUID = 1L;
+
     public SummaryPage(final Summary summary) {
         setDefaultModel(new CompoundPropertyModel<Summary>(summary));
         

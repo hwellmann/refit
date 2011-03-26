@@ -58,7 +58,7 @@ public class AllPairs extends AllCombinations {
     protected void doAllVarPairs() {
         for (int i=0; i<vars.size(); i++) {
             for (int j=i+1; j<vars.size(); j++) {
-                doAllItemPairs((Var)vars.get(i), (Var)vars.get(j));
+                doAllItemPairs(vars.get(i), vars.get(j));
             }
         }
     }
@@ -74,7 +74,7 @@ public class AllPairs extends AllCombinations {
     // Generate /////////////////////////////////
 
     protected void generate() {
-        while(((Pair)pairs.first()).used == 0) {
+        while(pairs.first().used == 0) {
             emit(nextCase());
         }
     }
@@ -115,7 +115,7 @@ public class AllPairs extends AllCombinations {
     }
 
     protected Pair nextPair() {
-        Pair first = (Pair)pairs.first();
+        Pair first = pairs.first();
         pairs.remove(first);
         steps++;
         return first;
@@ -137,7 +137,7 @@ public class AllPairs extends AllCombinations {
         List<Item> items = new ArrayList<Item>();
         Var (int index, List<File> files)     {this.index = index; this.files = files;}
         int size()                      {return items.size();}
-        Item get(int index)             {return (Item)items.get(index);}
+        Item get(int index)             {return items.get(index);}
     }
 
     public class Item {
@@ -145,7 +145,7 @@ public class AllPairs extends AllCombinations {
         int index;
         int rank;
         Item (Var var, int i, int n)    {this.var = var; index = i; rank=n;}
-        File file()                     {return (File)var.files.get(index);}
+        File file()                     {return var.files.get(index);}
         public String toString()        {return file().getName();}
         boolean isFit(Item[]slug)       {return slug[var.index]==null || slug[var.index]==this;}
     }
@@ -157,7 +157,7 @@ public class AllPairs extends AllCombinations {
         public String toString()        {return left+"-"+right+" ("+used+")";}
         boolean isFit(Item[]slug)       {return left.isFit(slug) && right.isFit(slug);}
         public int rank()               {return rank*(rank*used+left.rank)+right.rank;}
-        public int compareTo(Pair o)  {return rank()-((Pair)o).rank();}
+        public int compareTo(Pair o)  {return rank() - o.rank();}
     }
 
     // Self Test Classes ////////////////////////
@@ -303,7 +303,7 @@ public class AllPairs extends AllCombinations {
         int generate(AllPairs ap) {
             int cases=0;
             msec = System.currentTimeMillis();
-            while(((Pair)ap.pairs.first()).used == 0) {
+            while(ap.pairs.first().used == 0) {
                 ap.nextCase();
                 cases++;
             }
