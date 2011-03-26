@@ -34,14 +34,15 @@ public class MusicConfiguration extends DefaultFitConfiguration {
 
     @Override
     public String getInputDir() {
-        return new File(getExampleRoot(), "src/test/fit").getAbsolutePath();
+        return new File("src/test/fit").getAbsolutePath();
     }
 
     @Override
     public String getOutputDir() {
-        return new File(getExampleRoot(), "target/fit").getAbsolutePath();
+        return new File("target/fit").getAbsolutePath();
     }
     
+    // TODO Is this still needed?
     protected File getExampleRoot() {
         return new File(getRoot(), "refit-eg/refit-eg-plain");
     }
