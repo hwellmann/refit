@@ -9,7 +9,7 @@
       <property name="connectionAttributes" value=";create=true" />
     </jdbc-connection-pool>
     <jdbc-connection-pool is-isolation-level-guaranteed="false" datasource-classname="org.apache.derby.jdbc.EmbeddedXADataSource" res-type="javax.sql.DataSource" name="DerbyPool">
-      <property name="DatabaseName" value="sun-appserv-samples" />
+      <property name="DatabaseName" value="target/sun-appserv-samples" />
       <property name="connectionAttributes" value=";create=true" />
     </jdbc-connection-pool>
   </resources>
