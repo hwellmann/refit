@@ -135,7 +135,7 @@ public class ReportIO {
     
     @SuppressWarnings("unchecked")
     public Summary readXml(InputStream is) throws JAXBException {
-        JAXBContext ctx = JAXBContext.newInstance(ReportIO.CONTEXT_PATH);
+        JAXBContext ctx = JAXBContext.newInstance(ObjectFactory.class);
         Unmarshaller unmarshaller = ctx.createUnmarshaller();
         JAXBElement<Summary> summaryRoot = (JAXBElement<Summary>) unmarshaller.unmarshal(is);
         Summary summary = summaryRoot.getValue();
