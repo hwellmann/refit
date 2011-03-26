@@ -16,7 +16,7 @@ public class Realtime extends TimedActionFixture {
     private Simulator system;
     
     public Date time () {
-        return new Date(system.time);
+        return new Date(system.getTime());
     }
 
     public void pause () {

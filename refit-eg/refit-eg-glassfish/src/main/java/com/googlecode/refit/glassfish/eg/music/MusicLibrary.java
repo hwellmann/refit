@@ -79,7 +79,7 @@ public class MusicLibrary {
 
     public void search(double seconds){
         musicPlayer.setStatus("searching");
-        simulator.nextSearchComplete = simulator.schedule(seconds);
+        simulator.setNextSearchComplete(simulator.schedule(seconds));
     }
     public void findAll() {
         search(3.2);

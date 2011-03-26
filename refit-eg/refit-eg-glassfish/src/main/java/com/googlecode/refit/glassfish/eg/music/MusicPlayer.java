@@ -25,10 +25,10 @@ public class MusicPlayer {
         if (paused == 0) {
             status = "loading";
             double seconds = m == playing ? 0.3 : 2.5 ;
-            simulator.nextPlayStarted = simulator.schedule(seconds);
+            simulator.setNextPlayStarted(simulator.schedule(seconds));
         } else {
             status = "playing";
-            simulator.nextPlayComplete = simulator.schedule(paused);
+            simulator.setNextPlayComplete(simulator.schedule(paused));
             paused = 0;
         }
     }
@@ -36,14 +36,14 @@ public class MusicPlayer {
     void pause() {
         status = "pause";
         if (playing != null && paused == 0) {
-            paused = (simulator.nextPlayComplete - simulator.time) / 1000.0;
-            simulator.nextPlayComplete = 0;
+            paused = (simulator.getNextPlayComplete() - simulator.getTime()) / 1000.0;
+            simulator.setNextPlayComplete(0);
         }
     }
 
     void stop() {
-        simulator.nextPlayStarted = 0;
-        simulator.nextPlayComplete = 0;
+        simulator.setNextPlayStarted(0);
+        simulator.setNextPlayComplete(0);
         playComplete();
     }
 
@@ -53,7 +53,7 @@ public class MusicPlayer {
         if (paused != 0) {
             return paused;
         } else if (playing != null) {
-            return (simulator.nextPlayComplete - simulator.time) / 1000.0;
+            return (simulator.getNextPlayComplete() - simulator.getTime()) / 1000.0;
         } else {
             return 0;
         }
@@ -68,7 +68,7 @@ public class MusicPlayer {
     void playStarted() {
         status = "playing";
         playing = looking;
-        simulator.nextPlayComplete = simulator.schedule(playing.seconds);
+        simulator.setNextPlayComplete(simulator.schedule(playing.seconds));
     }
 
     void playComplete() {

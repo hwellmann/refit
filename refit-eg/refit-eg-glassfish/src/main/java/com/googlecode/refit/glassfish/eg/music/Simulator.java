@@ -5,12 +5,12 @@ package com.googlecode.refit.glassfish.eg.music;
 
 import java.util.Date;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.inject.Singleton;
 
 import fit.ActionFixture;
 
-@Singleton
+@ApplicationScoped
 public class Simulator {
     
     @Inject
@@ -23,11 +23,11 @@ public class Simulator {
     // This discrete event simulator supports three events
     // each of which is open coded in the body of the simulator.
 
-    long time = new Date().getTime();
+    private long time = new Date().getTime();
 
-    public long nextSearchComplete = 0;
-    public long nextPlayStarted = 0;
-    public long nextPlayComplete = 0;
+    private long nextSearchComplete = 0;
+    private long nextPlayStarted = 0;
+    private long nextPlayComplete = 0;
     
     long nextEvent(long bound) {
         long result = bound;
@@ -79,4 +79,30 @@ public class Simulator {
         dialog.setCaller(ActionFixture.actor);
         ActionFixture.actor = dialog;
     }
+
+    public void setNextSearchComplete(long nextSearchComplete) {
+        this.nextSearchComplete = nextSearchComplete;
+    }
+
+    public void setNextPlayStarted(long nextPlayStarted) {
+        this.nextPlayStarted = nextPlayStarted;
+    }
+
+    public void setNextPlayComplete(long nextPlayComplete) {
+        this.nextPlayComplete = nextPlayComplete;
+    }
+
+    public long getNextPlayComplete() {
+        return nextPlayComplete;
+    }
+
+    public long getTime() {
+        return time;
+    }
+
+    public void setTime(long time) {
+        this.time = time;
+    }
+    
+    
 }
