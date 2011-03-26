@@ -31,6 +31,7 @@ import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 
+import com.googlecode.refit.runner.ReportGenerator;
 import com.googlecode.refit.runner.RunnerListener;
 import com.googlecode.refit.runner.TreeRunner;
 import com.googlecode.refit.runner.jaxb.TestResult;
@@ -117,6 +118,8 @@ public class FitRunnerMojo extends AbstractMojo implements RunnerListener {
 
     private ClasspathClassLoader testClassLoader;
 
+    private ReportGenerator reportGenerator;
+
     public void execute() throws MojoExecutionException, MojoFailureException {
         final String executionParameters = MessageFormat.format(EXECUTION_PARAMETERS, new Object[] {
                 sourceDirectory, Boolean.valueOf(caseSensitive), sourceIncludes, sourceExcludes,
@@ -177,6 +180,7 @@ public class FitRunnerMojo extends AbstractMojo implements RunnerListener {
             excludes = sourceExcludes.split(COMMA);
         }
         
+        reportGenerator = new ReportGenerator(inputDir, outputDir);
         TreeRunner runner = new TreeRunner(inputDir, outputDir, includes, excludes, this);
         runner.run();
     }
@@ -184,6 +188,7 @@ public class FitRunnerMojo extends AbstractMojo implements RunnerListener {
     @Override
     public void beforeTest(String testPath) {
         getLog().debug("running Fit test " + testPath);
+        reportGenerator.beforeTest(testPath);
     }
 
     @Override
@@ -201,10 +206,11 @@ public class FitRunnerMojo extends AbstractMojo implements RunnerListener {
                 throw new IllegalStateException(message);
             }
         }
+        reportGenerator.afterTest(result);
     }
 
     @Override
     public void afterSuite() {
-        // nothing
+        reportGenerator.afterSuite();
     }
 }
