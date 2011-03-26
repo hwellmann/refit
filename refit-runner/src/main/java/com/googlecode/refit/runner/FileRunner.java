@@ -50,7 +50,7 @@ public class FileRunner {
     
     /** 
      * Relative path of fit test to be run. The runner runs a file with this path relative to
-     * the input directory and write the processed to file to the same path relative to the
+     * the input directory and writes the processed to file to the same path relative to the
      * output directory.
      */
     private String testPath;
@@ -82,10 +82,10 @@ public class FileRunner {
             return run(inputFile, outputFile);
         }
         catch (IOException exc) {
-            throw new RuntimeException(exc);
+            throw new FitException(exc);
         }
         catch (ParseException exc) {
-            throw new RuntimeException(exc);
+            throw new FitException(exc);
         }
     }
 

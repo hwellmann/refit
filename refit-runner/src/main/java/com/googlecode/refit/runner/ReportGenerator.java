@@ -87,10 +87,10 @@ public class ReportGenerator implements RunnerListener {
             writer.writeCss(css);
         }
         catch (JAXBException exc) {
-            throw new RuntimeException(exc);
+            throw new FitException(exc);
         }              
         catch (IOException exc) {
-            throw new RuntimeException(exc);
+            throw new FitException(exc);
         }
     }
 

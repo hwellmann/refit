@@ -88,7 +88,7 @@ public class TreeRunner {
         String[] files = scanner.getIncludedFiles();
         assert files != null;
         if (files.length == 0) {
-            throw new RuntimeException("no matching input files");
+            throw new FitException("no matching input files");
         }
         for (String testPath : files) {
             runSingleTest(testPath);
