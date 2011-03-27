@@ -35,23 +35,44 @@ import javax.servlet.ServletException;
 import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.StaplerResponse;
 
+/**
+ * An action letting the user browse the archived Fit reports, similar to the Javadoc action.
+ * The user activates this action by clicking on the reFit icon which is displayed on the 
+ * job page and on the sidebar of the job page and all associated build pages.
+ * 
+ * @author Harald Wellmann
+ *
+ */
 public final class ReFitSummaryAction implements ProminentProjectAction {
-    private static final String ICON_URL = "/plugin/refit-jenkins/img/reFitLogo.png";
+
     private static final long serialVersionUID = 4399590075673857468L;
+    private static final String ICON_URL = "/plugin/refit-jenkins/img/reFitLogo.png";
     private final AbstractItem project;
 
     public ReFitSummaryAction(AbstractItem project) {
         this.project = project;
     }
 
+    /**
+     * Returns the relative URL for browsing the Fit reports.
+     */
     public String getUrlName() {
-        return "fit";
+        return "refit";
     }
 
+    /**
+     * Returns the name of this action displayed on the job page.
+     * <p>
+     * TODO i18n
+     */
     public String getDisplayName() {
         return "Fit Test Report";
     }
 
+    /**
+     * Returns the reFit icon URL. The icon is a plugin resource, not a global one. The icon
+     * will be displayed only if the report directory exists.
+     */
     public String getIconFileName() {
         if (ReFitArchiver.getTargetDir(project).exists()) {
             return ICON_URL;
@@ -61,6 +82,16 @@ public final class ReFitSummaryAction implements ProminentProjectAction {
         }
     }
 
+    /**
+     * Creates a directory browser for the given icon. This browser maps Jenkins URLs to relative
+     * paths in the report archive via Stapler and renders the corresponding files.
+     * @param req
+     * @param rsp
+     * @return
+     * @throws IOException
+     * @throws ServletException
+     * @throws InterruptedException
+     */
     public DirectoryBrowserSupport doDynamic(StaplerRequest req, StaplerResponse rsp)
             throws IOException, ServletException, InterruptedException {
 

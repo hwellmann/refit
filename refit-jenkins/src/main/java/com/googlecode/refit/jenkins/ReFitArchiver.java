@@ -47,6 +47,19 @@ import org.kohsuke.stapler.DataBoundConstructor;
 
 import com.googlecode.refit.jenkins.jaxb.Summary;
 
+/**
+ * A Publisher plugin for Jenkins which publishes the Fit test reports from the latest build
+ * at a fixed URL, similar to the Javadoc archiver.
+ * <p>
+ * The plugin works both for Maven and freestyle builds. The only requirement is that Fit reports
+ * were produced in a previous build step, e.g. by running a FitSuite under JUnit or by running
+ * the refit-maven-plugin in a Maven build.
+ * <p>
+ * The report directory (relative to this project's workspace folder) must be defined on the
+ * Jenkins project configuration page.
+ * 
+ * @author Harald Wellmann
+ */
 @SuppressWarnings("unchecked")
 public class ReFitArchiver extends Recorder {
 

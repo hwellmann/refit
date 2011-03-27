@@ -33,6 +33,12 @@ import javax.xml.bind.Unmarshaller;
 import com.googlecode.refit.jenkins.jaxb.ObjectFactory;
 import com.googlecode.refit.jenkins.jaxb.Summary;
 
+/**
+ * Reads a Fit report and returns a JAXB Summary object.
+ *
+ * @author Harald Wellmann
+ *
+ */
 public class ReportReader {
     
     public static String FIT_REPORT_XML = "fit-report.xml";

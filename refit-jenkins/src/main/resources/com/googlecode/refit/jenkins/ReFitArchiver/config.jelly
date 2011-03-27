@@ -10,6 +10,7 @@
     When submitted, it will be passed to the corresponding constructor parameter.
   -->
   <f:entry title="Report Path" field="reportPath">
-    <f:textbox />
+    <f:textbox name="reportPath" value="${instance.reportPath}"
+        checkUrl="'descriptorByName/ReFitArchiver/check?value='+encodeURIComponent(this.value)"/>
   </f:entry>
 </j:jelly>

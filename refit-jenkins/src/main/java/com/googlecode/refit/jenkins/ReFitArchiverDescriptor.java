@@ -37,6 +37,14 @@ import javax.servlet.ServletException;
 import org.kohsuke.stapler.AncestorInPath;
 import org.kohsuke.stapler.QueryParameter;
 
+/**
+ * Descriptor for the the {@link ReFitArchiver}.
+ * <p>
+ * This class interacts with config.jelly and the configuration page.
+ * 
+ * @author Harald Wellmann
+ *
+ */
 @Extension
 public class ReFitArchiverDescriptor extends BuildStepDescriptor<Publisher> {
     public ReFitArchiverDescriptor() {
@@ -45,13 +53,16 @@ public class ReFitArchiverDescriptor extends BuildStepDescriptor<Publisher> {
 
     /**
      * This human readable name is used in the configuration screen.
+     * <p>
+     * TODO i18n
      */
     public String getDisplayName() {
         return "Publish Fit Test Reports";
     }
 
     /**
-     * Performs on-the-fly validation on the file mask wildcard.
+     * Checks the reportPath value entered in the configuration form by testing if the path
+     * exists. This check is activated by a corresponding attribute in config.jelly.
      */
     public FormValidation doCheck(@AncestorInPath AbstractProject<?, ?> project,
             @QueryParameter String value) throws IOException, ServletException {
@@ -59,10 +70,11 @@ public class ReFitArchiverDescriptor extends BuildStepDescriptor<Publisher> {
         return ws != null ? ws.validateRelativeDirectory(value) : FormValidation.ok();
     }
 
+    /**
+     * This publisher is applicable to all job types, Maven or not.
+     */
     @SuppressWarnings("rawtypes")
     public boolean isApplicable(Class<? extends AbstractProject> jobType) {
-        // this option should be available whether the job is Maven or not
         return true;
     }
-
 }
