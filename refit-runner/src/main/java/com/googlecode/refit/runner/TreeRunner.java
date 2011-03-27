@@ -93,6 +93,7 @@ public class TreeRunner {
         for (String testPath : files) {
             runSingleTest(testPath);
         }
+        listener.afterSuite();
         return success;
     }
 
