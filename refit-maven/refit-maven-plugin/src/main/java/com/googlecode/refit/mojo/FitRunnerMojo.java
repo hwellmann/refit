@@ -211,6 +211,7 @@ public class FitRunnerMojo extends AbstractMojo implements RunnerListener {
 
     @Override
     public void afterSuite() {
+        getLog().debug("writing reports");
         reportGenerator.afterSuite();
     }
 }
