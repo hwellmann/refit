@@ -33,8 +33,8 @@ import org.kohsuke.stapler.AncestorInPath;
 import org.kohsuke.stapler.QueryParameter;
 
 @Extension
-public final class DescriptorImpl extends BuildStepDescriptor<Publisher> {
-    public DescriptorImpl() {
+public class ReFitArchiverDescriptor extends BuildStepDescriptor<Publisher> {
+    public ReFitArchiverDescriptor() {
         super(ReFitArchiver.class);
     }
 

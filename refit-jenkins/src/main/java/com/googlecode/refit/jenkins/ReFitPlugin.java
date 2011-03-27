@@ -20,6 +20,12 @@ package com.googlecode.refit.jenkins;
 
 import hudson.Plugin;
 
+/**
+ * Placeholder for plugin entry point. We do not need any explicit initialization for now.
+ * 
+ * @author Harald Wellmann
+ *
+ */
 public class ReFitPlugin extends Plugin {
 
 }
