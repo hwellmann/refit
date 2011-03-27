@@ -17,14 +17,6 @@
     <refit.version>1.7.0.SNAPSHOT</refit.version>
   </properties>
   
-  <dependencies>
-    <dependency>
-      <groupId>com.googlecode.refit</groupId>
-      <artifactId>refit-runner</artifactId>
-      <version>${refit.version}</version>
-    </dependency>
-  </dependencies>
-
   <build>
     <plugins>
       <plugin>
@@ -35,6 +27,34 @@
           <target>1.6</target>
         </configuration>
       </plugin>
+      <plugin>
+        <groupId>org.jvnet.jaxb2.maven2</groupId>
+        <artifactId>maven-jaxb2-plugin</artifactId>
+        <executions>
+          <execution>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <generatePackage>com.googlecode.refit.jenkins.jaxb</generatePackage>
+          <schemaIncludes>
+            <include>xsd/report.xsd</include>
+          </schemaIncludes>
+          <bindingIncludes>
+            <include>**/*.xjb</include>
+          </bindingIncludes>
+        </configuration>
+        <dependencies>
+          <dependency>
+            <groupId>com.sun.xml.bind</groupId>
+            <artifactId>jaxb-xjc</artifactId>
+            <version>2.1.13</version>
+          </dependency>
+        </dependencies>
+      </plugin>
+      
     </plugins>
   </build>
 

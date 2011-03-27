@@ -40,8 +40,7 @@ import javax.xml.bind.JAXBException;
 
 import org.kohsuke.stapler.DataBoundConstructor;
 
-import com.googlecode.refit.runner.ReportIO;
-import com.googlecode.refit.runner.jaxb.Summary;
+import com.googlecode.refit.jenkins.jaxb.Summary;
 
 @SuppressWarnings("unchecked")
 public class ReFitArchiver extends Recorder {
@@ -93,9 +92,9 @@ public class ReFitArchiver extends Recorder {
     }
 
     public Summary getSummary(FilePath report) throws IOException {
-        InputStream is = report.child(ReportIO.FIT_REPORT_XML).read();
+        InputStream is = report.child(ReportReader.FIT_REPORT_XML).read();
         try {
-            Summary summary = new ReportIO().readXml(is);
+            Summary summary = new ReportReader().readXml(is);
             return summary;
         }
         catch (JAXBException e) {
