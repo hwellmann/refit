@@ -20,17 +20,16 @@ package com.googlecode.refit.eg.music.suite;
 
 import org.junit.runner.RunWith;
 
-import com.googlecode.refit.junit.FitConfiguration;
 import com.googlecode.refit.junit.FitSuite;
 
 /**
- * An example showing how to run a suite of FIT tests under JUnit.
+ * An example showing how to run a suite of FIT tests under JUnit. This example uses the
+ * default configuration.
  * 
  * @author Harald Wellmann
  * 
  */
 @RunWith(FitSuite.class)
-@FitConfiguration(MusicConfiguration.class)
 public class MusicFitSuiteWithErrors {
 
 }

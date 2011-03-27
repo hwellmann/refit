@@ -94,12 +94,11 @@ public class FitSuite extends Suite {
      */
     private void buildRunners() throws InitializationError {
         FitConfiguration fc = getTestClass().getJavaClass().getAnnotation(FitConfiguration.class);
-        if (fc == null) {
-            String msg = "class run with FitSuite must be annotated with @FitConfiguration";
-            throw new InitializationError(msg);
-        }
         try {
-            DefaultFitConfiguration config = fc.value().newInstance();
+            DefaultFitConfiguration config = (fc == null) 
+                ? new DefaultFitConfiguration() 
+                : fc.value().newInstance();            
+
             assert config.getInputDir() != null;
             assert config.getOutputDir() != null;
             assert config.getIncludes() != null;

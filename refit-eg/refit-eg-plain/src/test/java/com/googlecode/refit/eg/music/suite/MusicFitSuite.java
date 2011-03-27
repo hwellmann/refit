@@ -26,7 +26,8 @@ import com.googlecode.refit.junit.FitConfiguration;
 import com.googlecode.refit.junit.FitSuite;
 
 /**
- * An example showing how to run a suite of FIT tests under JUnit.
+ * An example showing how to run a suite of FIT tests under JUnit. This example uses a custom
+ * configuration restricting the set of input files.
  * 
  * @author Harald Wellmann
  * 
