@@ -50,6 +50,14 @@ public class FitRunner extends Runner implements RunnerListener {
 
     private RunnerListener listener;
     
+    /**
+     * Runs a single Fit test and notifies a listener of the results.
+     * @param inputDir  input directory
+     * @param outputDir output directory
+     * @param testPath  relative path of test (or test output) under 
+     *                  inputDir (or outputDir), respectively
+     * @param listener  listener to be notified of the results.
+     */
     public FitRunner(File inputDir, File outputDir, String testPath, RunnerListener listener) {
         System.setProperty("fit.currentTest", testPath);
         this.description = Description.createSuiteDescription(testPath);

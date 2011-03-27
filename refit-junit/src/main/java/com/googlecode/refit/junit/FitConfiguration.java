@@ -24,7 +24,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Provides the configuration for a suite of FIT tests run by JUnit.
+ * Provides the configuration for a suite of Fit tests run by JUnit.
  * 
  * @see FitSuite
  * 

@@ -32,7 +32,7 @@ import org.junit.runners.model.InitializationError;
 import com.googlecode.refit.runner.RunnerListener;
 
 /**
- * Use this class to run a suite of FIT tests under JUnit. To do so, create a class with the
+ * Use this class to run a suite of Fit tests under JUnit. To do so, create a class with the
  * following annotations:
  * 
  * <pre>
@@ -42,12 +42,12 @@ import com.googlecode.refit.runner.RunnerListener;
  *     
  *     public static Configuration extends DefaultFitConfiguration {
  *     
- *         @Overrride
+ *         &#64;Override
  *         public String getInputDir() {
  *            return System.getProperty("myFitRoot");
  *         }
  *     
- *         @Overrride
+ *         &#64;Override
  *         public String getOutputDir() {
  *            return "build/html";
  *         }
@@ -55,10 +55,10 @@ import com.googlecode.refit.runner.RunnerListener;
  * }
  * </pre>
  * 
- * The suite first builds a list of input files to be run as FIT tests. The input files are located
+ * The suite first builds a list of input files to be run as Fit tests. The input files are located
  * under the {@code inputDir} root. The file patterns to be included or excluded are specified by
  * the {@code includes} and {@code excludes} properties. The default include pattern is
- * {@code **&#47;*.html}, the exclude pattern list is empty by default. Each of these properties can
+ * <code>**&#47;*.html</code>, the exclude pattern list is empty by default. Each of these properties can
  * be a list of Strings interpreted as Ant file patterns.
  * <p>
  * The suite then runs all files matching at least one of the include patterns and none of the

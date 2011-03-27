@@ -23,6 +23,12 @@ import java.io.File;
 import com.googlecode.refit.runner.ReportGenerator;
 import com.googlecode.refit.runner.RunnerListener;
 
+/**
+ * Default configuration for {@link FitSuite}s. For a custom configuration, extend this class and
+ * include the derived class in a {@link FitConfiguration} on your suite class.
+ * 
+ * @author hwellmann
+ */
 public class DefaultFitConfiguration {
 
     public static final String INPUT_DIR = "src/test/fit";
