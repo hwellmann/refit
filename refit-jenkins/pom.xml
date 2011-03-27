@@ -5,6 +5,7 @@
     <artifactId>plugin</artifactId>
     <!-- which version of Jenkins is this plugin built against? -->    
     <version>1.403</version>
+    <relativePath/>
   </parent>
 
   <groupId>com.googlecode.refit</groupId>
@@ -14,6 +15,7 @@
   <packaging>hpi</packaging>
 
   <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <refit.version>1.7.0.SNAPSHOT</refit.version>
   </properties>
   
