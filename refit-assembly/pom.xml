@@ -3,11 +3,11 @@
   <parent>
     <artifactId>refit-parent</artifactId>
     <groupId>com.googlecode.refit</groupId>
-    <version>1.7.0</version>
+    <version>1.8.0-SNAPSHOT</version>
   </parent>
   <groupId>com.googlecode.refit</groupId>
   <artifactId>refit-assembly</artifactId>
-  <version>1.7.0</version>
+  <version>1.8.0-SNAPSHOT</version>
   <name>reFit Assembly</name>
   <dependencies>
     <dependency>

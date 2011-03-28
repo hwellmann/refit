@@ -3,11 +3,11 @@
   <parent>
     <artifactId>refit-eg</artifactId>
     <groupId>com.googlecode.refit</groupId>
-    <version>1.7.0</version>
+    <version>1.8.0-SNAPSHOT</version>
   </parent>
   <groupId>com.googlecode.refit.eg</groupId>
   <artifactId>refit-eg-osgi</artifactId>
-  <version>1.7.0</version>
+  <version>1.8.0-SNAPSHOT</version>
   <packaging>bundle</packaging>
   <name>reFit OSGi Example</name>
   <dependencies>

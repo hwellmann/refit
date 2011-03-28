@@ -3,11 +3,11 @@
   <parent>
     <artifactId>refit-maven</artifactId>
     <groupId>com.googlecode.refit</groupId>
-    <version>1.7.0</version>
+    <version>1.8.0-SNAPSHOT</version>
   </parent>
   <groupId>com.googlecode.refit.maven</groupId>
   <artifactId>refit-spring-maven-plugin</artifactId>
-  <version>1.7.0</version>
+  <version>1.8.0-SNAPSHOT</version>
   <packaging>maven-plugin</packaging>
   <name>reFit Maven Plugin with Spring Support</name>
   <dependencies>
