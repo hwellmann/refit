@@ -3,12 +3,12 @@
   <parent>
     <artifactId>refit-eg</artifactId>
     <groupId>com.googlecode.refit</groupId>
-    <version>1.7.0.SNAPSHOT</version>
+    <version>1.7.0-SNAPSHOT</version>
   </parent>
   <groupId>com.googlecode.refit.eg</groupId>
   <artifactId>refit-eg-glassfish</artifactId>
   <name>reFit Java EE 6 Example with Glassfish</name>
-  <version>1.7.0.SNAPSHOT</version>
+  <version>1.7.0-SNAPSHOT</version>
   <dependencies>
     <dependency>
       <groupId>org.slf4j</groupId>

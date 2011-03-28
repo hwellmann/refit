@@ -11,12 +11,12 @@
   <groupId>com.googlecode.refit</groupId>
   <artifactId>refit-jenkins</artifactId>
   <name>reFit Jenkins Plugin</name>
-  <version>1.7.0.SNAPSHOT</version>
+  <version>1.7.0-SNAPSHOT</version>
   <packaging>hpi</packaging>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <refit.version>1.7.0.SNAPSHOT</refit.version>
+    <refit.version>1.7.0-SNAPSHOT</refit.version>
   </properties>
   
   <build>
