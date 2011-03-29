@@ -35,6 +35,10 @@
             <Bundle-SymbolicName>com.googlecode.refit</Bundle-SymbolicName>
             <Export-Package>fit.*</Export-Package>
             <Main-Class>fit.FileRunner</Main-Class>
+            <Svn-Revision>${SVN_REVISION}</Svn-Revision>
+            <Build-Tag>${BUILD_TAG}</Build-Tag>
+            <Build-Number>${BUILD_NUMBER}</Build-Number>
+            <Build-Id>${BUILD_ID}</Build-Id>            
           </instructions>
         </configuration>
       </plugin>
