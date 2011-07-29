@@ -9,7 +9,6 @@
   <artifactId>refit-eg-osgi-fixtures</artifactId>
   <packaging>bundle</packaging>
   <name>reFit OSGi Example Fixtures</name>
-  <version>1.8.0-SNAPSHOT</version>
   <dependencies>
     <dependency>
       <groupId>com.googlecode.refit</groupId>

@@ -5,9 +5,7 @@
     <groupId>com.googlecode.refit</groupId>
     <version>1.8.0-SNAPSHOT</version>
   </parent>
-  <groupId>com.googlecode.refit</groupId>
   <artifactId>refit-assembly</artifactId>
-  <version>1.8.0-SNAPSHOT</version>
   <name>reFit Assembly</name>
   <dependencies>
     <dependency>
@@ -46,7 +44,6 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-assembly-plugin</artifactId>
-        <version>2.2</version>
         <configuration>
           <finalName>refit-${project.version}</finalName>
           <descriptors>

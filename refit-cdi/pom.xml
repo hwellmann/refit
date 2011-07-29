@@ -5,9 +5,7 @@
     <groupId>com.googlecode.refit</groupId>
     <version>1.8.0-SNAPSHOT</version>
   </parent>
-  <groupId>com.googlecode.refit</groupId>
   <artifactId>refit-cdi</artifactId>
-  <version>1.8.0-SNAPSHOT</version>
   <name>reFit CDI Support</name>
   <dependencies>
     <dependency>
