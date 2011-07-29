@@ -91,18 +91,24 @@ public class ReportIO {
         writeTableCell("wrong", summary.getWrong());
         writeTableCell("ignored", summary.getIgnored());
         writeTableCell("exceptions", summary.getExceptions());
+        writeTableCell("sum", getSummarySum());
         writer.println("</tr>");
     }
 
 
     
-    private void writeTableHeaderRow() {
+    private int getSummarySum() {
+		return summary.getRight() + summary.getWrong() + summary.getIgnored() + summary.getExceptions();
+	}
+
+	private void writeTableHeaderRow() {
         writer.println("<tr>");
         writeTableHeaderCell("Test");
         writeTableHeaderCell("Right");
         writeTableHeaderCell("Wrong");
         writeTableHeaderCell("Ignored");
         writeTableHeaderCell("Exceptions");
+        writeTableHeaderCell("Sum");
         writer.println("</tr>");
     }
 
@@ -117,9 +123,15 @@ public class ReportIO {
         writeTableCell("wrong", testResult.getWrong());
         writeTableCell("ignored", testResult.getIgnored());
         writeTableCell("exceptions", testResult.getExceptions());
+        writeTableCell("sum", getSum(testResult));
         writer.println("</tr>");
     }
 
+    private int getSum(TestResult testResult) {
+		return testResult.getRight() + testResult.getWrong() + testResult.getIgnored() + testResult.getExceptions();
+	}
+
+    
     private void writeTableCell(String style, String text) {
         writer.println("<td class='"+ style +"'>" + text + "</td>");
     }
