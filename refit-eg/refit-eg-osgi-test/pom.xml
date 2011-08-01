@@ -3,7 +3,7 @@
   <parent>
     <artifactId>refit-eg</artifactId>
     <groupId>com.googlecode.refit</groupId>
-    <version>1.8.0-SNAPSHOT</version>
+    <version>1.7.1</version>
   </parent>
   <artifactId>refit-eg-osgi-test</artifactId>
   <name>reFit OSGi Tests</name>
