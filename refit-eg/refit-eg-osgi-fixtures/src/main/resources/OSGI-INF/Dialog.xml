@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="Dialog">
+   <implementation class="com.googlecode.refit.osgi.eg.music.fixtures.Dialog"/>
+   <reference bind="setMusicPlayer" cardinality="1..1" interface="com.googlecode.refit.osgi.eg.music.MusicPlayer" name="MusicPlayer" policy="static"/>
+   <service>
+      <provide interface="fit.Fixture"/>
+      <provide interface="com.googlecode.refit.osgi.eg.music.fixtures.Dialog"/>
+      <provide interface="com.googlecode.refit.osgi.eg.music.EventListener"/>
+   </service>
+</scr:component>

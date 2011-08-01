@@ -1,0 +1,18 @@
+syntax: glob
+
+target
+*~
+bin
+*.log
+*.jar
+release.properties
+pom.xml.releaseBackup
+.classpath
+.project
+.settings
+refit-jenkins/work
+
+syntax: regexp
+^refit-eg/refit-eg-spring/src/test/java/com/googlecode/refit/spring/eg/music/test$
+syntax: regexp
+^site$

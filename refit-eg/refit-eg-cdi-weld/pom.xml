@@ -1,0 +1,41 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <artifactId>refit-eg</artifactId>
+    <groupId>com.googlecode.refit</groupId>
+    <version>1.8.0-SNAPSHOT</version>
+  </parent>
+  <artifactId>refit-eg-cdi-weld</artifactId>
+  <name>reFit CDI Example with Weld SE</name>
+  <dependencies>
+    <dependency>
+      <groupId>com.googlecode.refit</groupId>
+      <artifactId>refit-cdi</artifactId>
+      <version>${project.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.googlecode.refit</groupId>
+      <artifactId>refit</artifactId>
+      <version>${project.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.googlecode.refit</groupId>
+      <artifactId>refit-junit</artifactId>
+      <version>${project.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.googlecode.jeeunit</groupId>
+      <artifactId>jeeunit-weld-se</artifactId>
+      <version>0.6.0</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.geronimo.specs</groupId>
+      <artifactId>geronimo-atinject_1.0_spec</artifactId>
+      <scope>provided</scope>
+    </dependency>
+  </dependencies>
+</project>
