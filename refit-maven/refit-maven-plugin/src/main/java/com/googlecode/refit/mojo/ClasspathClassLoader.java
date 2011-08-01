@@ -20,8 +20,8 @@ public class ClasspathClassLoader extends URLClassLoader {
         this(new URL[] {});
     }
 
-    public ClasspathClassLoader(List<String> classpathElements) throws MalformedURLException {
-        this(toClasspathURLs(classpathElements));
+    public ClasspathClassLoader(List<String> classpathElements, ClassLoader parent) throws MalformedURLException {
+        this(toClasspathURLs(classpathElements), parent);
     }
 
     public ClasspathClassLoader(URL[] urls) {

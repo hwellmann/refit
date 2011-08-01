@@ -22,9 +22,13 @@ package com.googlecode.refit.mojo;
 import static java.lang.Thread.currentThread;
 
 import java.io.File;
+import java.io.PrintWriter;
 import java.net.MalformedURLException;
+import java.sql.Driver;
+import java.sql.DriverManager;
 import java.text.MessageFormat;
 import java.util.Arrays;
+import java.util.Enumeration;
 import java.util.List;
 
 import org.apache.maven.plugin.AbstractMojo;
@@ -131,13 +135,17 @@ public class FitRunnerMojo extends AbstractMojo implements RunnerListener {
         getLog().debug("Executing FitRunner with parameters " + executionParameters);
         System.setProperty("fit.inputDir", sourceDirectory);
         
+        
         /*
          * The test classpath of the project using this plugin is not visible to the classloader
          * of this plugin, but it may be needed to loaded classes and resources for fixtures.
          * So we build our own class loader for the test classpath and temporarily install it
          * as context class loader.
+         * 
+         * In addition, we preload any JDBC drivers to avoid class loader issues.
          */
         
+        loadJdbcDrivers();
         ClassLoader ccl = currentThread().getContextClassLoader();
         try {
             currentThread().setContextClassLoader(getTestClassLoader());
@@ -155,7 +163,7 @@ public class FitRunnerMojo extends AbstractMojo implements RunnerListener {
     protected ClasspathClassLoader getTestClassLoader() {
         if (testClassLoader == null) {
             try {
-                testClassLoader = new ClasspathClassLoader(classpathElements);
+                testClassLoader = new ClasspathClassLoader(classpathElements, getClass().getClassLoader());
             }
             catch (MalformedURLException exc) {
                 throw new IllegalStateException("error in classpath", exc);
@@ -164,6 +172,33 @@ public class FitRunnerMojo extends AbstractMojo implements RunnerListener {
         }
         return testClassLoader;
     }
+
+    /**
+     * Get all JDBC drivers available from the DriverManager. Without doing this, 
+     * DriverManager.getDriver() might fail, if some other Mojo of the current project has already 
+     * used a database connection. 
+     * <p>
+     * This is due to the implementation of DriverManager.getDriver() which checks if the driver is
+     * equal to the one obtained from the caller's class loader.
+     * <p>
+     * For reasons I don't fully understand, just calling DriverManager.getDrivers() here in the
+     * context of what will be the caller's class loader is sufficient to avoid this 
+     * problem.
+     * <p>
+     * The problem would not occur if DriverManager would always use the ThreadContextClassLoader
+     * instead of the caller's class loader.
+     */
+	private void loadJdbcDrivers() {
+		Enumeration<Driver> e = DriverManager.getDrivers();
+		if (getLog().isDebugEnabled()) {
+			DriverManager.setLogWriter(new PrintWriter(System.out));
+			while (e.hasMoreElements()) {
+				Driver driver = e.nextElement();
+				getLog().debug(driver + " loaded by " +  driver.getClass().getClassLoader());
+			}
+			DriverManager.setLogWriter(null);
+		}
+	}
 
     protected void run(String sourceDirectory, boolean caseSensitive, String sourceIncludes,
             String sourceExcludes, String outputDirectory) throws Exception {
