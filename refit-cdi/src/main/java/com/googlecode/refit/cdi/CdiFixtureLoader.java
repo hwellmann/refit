@@ -27,7 +27,7 @@ import javax.enterprise.inject.spi.Bean;
 import javax.enterprise.inject.spi.BeanManager;
 import javax.enterprise.inject.spi.InjectionTarget;
 
-import com.googlecode.jeeunit.BeanManagerLookup;
+import com.googlecode.jeeunit.cdi.BeanManagerLookup;
 
 import fit.Fixture;
 import fit.FixtureLoader;

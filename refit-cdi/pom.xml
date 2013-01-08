@@ -20,7 +20,7 @@
     </dependency>
     <dependency>
       <groupId>com.googlecode.jeeunit</groupId>
-      <artifactId>jeeunit</artifactId>
+      <artifactId>jeeunit-cdi</artifactId>
     </dependency>
     <dependency>
       <groupId>org.apache.geronimo.specs</groupId>
