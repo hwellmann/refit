@@ -20,25 +20,23 @@ package com.googlecode.refit.osgi.test;
 
 
 import static com.googlecode.refit.osgi.util.ReFitProperties.getRoot;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.ops4j.pax.exam.CoreOptions.bundle;
-import static org.ops4j.pax.exam.CoreOptions.equinox;
+import static org.ops4j.pax.exam.CoreOptions.junitBundles;
 import static org.ops4j.pax.exam.CoreOptions.mavenBundle;
 import static org.ops4j.pax.exam.CoreOptions.options;
-import static org.ops4j.pax.exam.container.def.PaxRunnerOptions.repository;
 
 import java.io.File;
 import java.io.IOException;
 
+import javax.inject.Inject;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.ops4j.pax.exam.Inject;
+import org.ops4j.pax.exam.Configuration;
 import org.ops4j.pax.exam.Option;
-import org.ops4j.pax.exam.junit.Configuration;
-import org.ops4j.pax.exam.junit.JUnit4TestRunner;
+import org.ops4j.pax.exam.junit.PaxExam;
 import org.osgi.framework.BundleContext;
-import org.osgi.util.tracker.ServiceTracker;
 
 import com.googlecode.refit.osgi.FileRunner;
 import com.googlecode.refit.osgi.TreeRunner;
@@ -46,23 +44,23 @@ import com.googlecode.refit.osgi.TreeRunner;
 import fit.CommandLineException;
 import fit.FixtureLoader;
 
-@RunWith(JUnit4TestRunner.class)
+@RunWith(PaxExam.class)
 public class MusicOsgiTest
 {
     public static final String EQUINOX_HOME = "http://archive.eclipse.org/equinox/drops/R-3.6.1-201009090800/";
-    public static final long DEFAULT_TIMEOUT = 10000;
     public static final String REFIT_VERSION = "1.8.0-SNAPSHOT";
 
     @Inject
     private BundleContext bundleContext;
+    
+    @Inject
+    private FixtureLoader loader;
    
     @Configuration
     public static Option[] configuration() {
 
         Option[] options = options(
                 
-        repository("http://repository.springsource.com/maven/bundles/external"),        
-              
         // Bundles under test                
         mavenBundle("com.googlecode.refit", "refit", REFIT_VERSION),
         mavenBundle("com.googlecode.refit", "refit-osgi", REFIT_VERSION),
@@ -75,9 +73,8 @@ public class MusicOsgiTest
         bundle(EQUINOX_HOME + "org.eclipse.osgi.services_3.2.100.v20100503.jar").noUpdate(),
         
         // Ant dependency of refit-osgi
-        mavenBundle("org.apache.ant", "com.springsource.org.apache.tools.ant", "1.8.1"),
-        
-        equinox().version("3.6.0")
+        mavenBundle("org.apache.servicemix.bundles", "org.apache.servicemix.bundles.ant", "1.8.4_1"),
+        junitBundles()
         );
         return options;
     }
@@ -85,9 +82,6 @@ public class MusicOsgiTest
     
     @Test
     public void singleFileRunner() throws IOException, CommandLineException {
-        FixtureLoader loader = getOsgiService(FixtureLoader.class);
-        assertNotNull(loader);
-
         FixtureLoader.setInstance(loader);
         String inputDir = getInputDir();
         System.setProperty("fit.inputDir", inputDir);
@@ -98,9 +92,6 @@ public class MusicOsgiTest
     
     @Test
     public void treeRunner() throws IOException, CommandLineException {
-        FixtureLoader loader = getOsgiService(FixtureLoader.class);
-        assertNotNull(loader);
-
         FixtureLoader.setInstance(loader);
         String inputDir = getInputDir();
         System.setProperty("fit.inputDir", inputDir);
@@ -110,37 +101,16 @@ public class MusicOsgiTest
     }
 
 
-    public String getInputDir() {
+    private String getInputDir() {
         File refitRoot = getRoot();
         String inputDir = new File(refitRoot, "refit-eg/refit-eg-osgi-test/src/test/fit").getAbsolutePath();
         return inputDir;
     }
     
-    public String getOutputDir() {
+    private String getOutputDir() {
         String refitRoot = System.getProperty("refit.root");
         String inputDir = new File(refitRoot, "refit-eg/refit-eg-osgi-test/target/fit").getAbsolutePath();
         return inputDir;
-    }
-    
-    protected <T> T getOsgiService(Class<T> type) {
-        return getOsgiService(type,  DEFAULT_TIMEOUT);
-    }
-
-    protected <T> T getOsgiService(Class<T> type, long timeout) {
-        ServiceTracker tracker = null;
-        try {
-            tracker = new ServiceTracker(bundleContext, type.getName(), null);
-            tracker.open();
-            Object svc = type.cast(tracker.waitForService(timeout));
-            tracker.close();
-            if (svc == null) {
-                throw new RuntimeException("Gave up waiting for service " + type);
-            }
-            return type.cast(svc);
-        }
-        catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
     }
 }
 
