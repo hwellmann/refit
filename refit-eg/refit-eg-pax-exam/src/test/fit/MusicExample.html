@@ -15,7 +15,7 @@ This is our most realistic example short of the SampleApplications. See the Musi
 <p>The music browser starts up looking at the whole library of songs. We specify the library (an advanced feature) so that we know what we are talking about in this document.
 <p><table BORDER CELLSPACING=0 CELLPADDING=3>
 <tr><td ColSpan=3> fit.ActionFixture </td></tr>
-<tr><td> start </td><td> com.googlecode.refit.paxexam.eg.music.Browser </td><td>&nbsp;</td></tr>
+<tr><td> start </td><td> com.googlecode.refit.javaee.eg.music.Browser </td><td>&nbsp;</td></tr>
 <tr><td> enter </td><td> library </td><td> Music.txt </td></tr>
 <tr><td> check </td><td> total songs </td><td> 37 </td></tr>
 </table>
@@ -39,7 +39,7 @@ This is our most realistic example short of the SampleApplications. See the Musi
 <p><strong>Playing Music</strong>
 <p>Once we've picked a song, we can play it. We can continue operating the Brower while music is playing. Since this sequence is long, we'll explain what we are doing in an unused column.
 <p><table BORDER CELLSPACING=0 CELLPADDING=3>
-<tr><td ColSpan=4> com.googlecode.refit.paxexam.eg.music.Realtime </td></tr>
+<tr><td ColSpan=4> com.googlecode.refit.javaee.eg.music.Realtime </td></tr>
 <tr><td> press </td><td> play </td><td>&nbsp;</td><td> play this song </td></tr>
 <tr><td> check </td><td> status </td><td> loading </td><td>&nbsp;</td></tr>
 <tr><td> pause </td><td> 2 </td><td>&nbsp;</td><td>&nbsp;</td></tr>
@@ -72,7 +72,7 @@ This is our most realistic example short of the SampleApplications. See the Musi
 <p><strong>Searching for Music</strong>
 <p>There are buttons on the browser to find more songs like the one we have picked.
 <p><table BORDER CELLSPACING=0 CELLPADDING=3>
-<tr><td ColSpan=4> com.googlecode.refit.paxexam.eg.music.Realtime </td></tr>
+<tr><td ColSpan=4> com.googlecode.refit.javaee.eg.music.Realtime </td></tr>
 <tr><td> enter </td><td> select </td><td> 2 </td><td> pick an album </td></tr>
 <tr><td> press </td><td> same album </td><td>&nbsp;</td><td> find more like it </td></tr>
 <tr><td> check </td><td> status </td><td> searching </td><td>&nbsp;</td></tr>
@@ -83,7 +83,7 @@ This is our most realistic example short of the SampleApplications. See the Musi
 <p><em>Our searches take a few seconds to complete. Eventually we will want to try mashing buttons faster than the computer can respond. For now we will be polite and </em>await<em> completion of our searches.</em>
 <p>The selected songs are displayed in a table.
 <p><table BORDER CELLSPACING=0 CELLPADDING=3>
-<tr><td ColSpan=6> com.googlecode.refit.paxexam.eg.music.Display </td></tr>
+<tr><td ColSpan=6> com.googlecode.refit.javaee.eg.music.Display </td></tr>
 <tr><td> title </td><td> artist </td><td> album </td><td> year </td><td> time() </td><td> track() </td></tr>
 <tr><td> Scarlet Woman </td><td> Weather Report </td><td> Mysterious Traveller </td><td> 1974 </td><td> 5.72 </td><td> 6 of 7 </td></tr>
 <tr><td> American Tango </td><td> Weather Report </td><td> Mysterious Traveller </td><td> 1974 </td><td>3.70 </td><td> 2 of 7 </td></tr>
@@ -91,7 +91,7 @@ This is our most realistic example short of the SampleApplications. See the Musi
 <p><em>Here we use Display (a RowFixture) to directly examine the Music object found by our search. Things like </em>artist<em> and </em>track()<em> are fields and methods of the domain objects.</em>
 <p>We can find songs related in different ways. Each new way produces a (possibly) different list of songs. <em>Show all</em> restores the display to the initial conditions.
 <p><table BORDER CELLSPACING=0 CELLPADDING=3>
-<tr><td ColSpan=4> com.googlecode.refit.paxexam.eg.music.Realtime </td></tr>
+<tr><td ColSpan=4> com.googlecode.refit.javaee.eg.music.Realtime </td></tr>
 <tr><td> press </td><td> show all </td><td>&nbsp;</td><td> recall all the songs </td></tr>
 <tr><td> await </td><td> search complete </td><td>&nbsp;</td><td>&nbsp;</td></tr>
 <tr><td> check </td><td> selected songs </td><td> 37 </td><td>&nbsp;</td></tr>
@@ -103,7 +103,7 @@ This is our most realistic example short of the SampleApplications. See the Musi
 </table>
 <p>Yielding the display:
 <p><table BORDER CELLSPACING=0 CELLPADDING=3>
-<tr><td ColSpan=6> com.googlecode.refit.paxexam.eg.music.Display </td></tr>
+<tr><td ColSpan=6> com.googlecode.refit.javaee.eg.music.Display </td></tr>
 <tr><td> title </td><td> artist </td><td> album </td><td> year </td><td> time() </td><td> track() </td></tr>
 <tr><td> Handy Man </td><td> James Taylor </td><td> JT </td><td> 1977 </td><td> 3.30 </td><td> 7 of 12 </td></tr>
 <tr><td> Sailing To Philadelphia </td><td> James Taylor </td><td> October Rose </td><td> 2001 </td><td> 5.47 </td><td> 3 of 3 </td></tr>
@@ -113,7 +113,7 @@ This is our most realistic example short of the SampleApplications. See the Musi
 </table>
 <p><em>Domain objects typically have lots more fields and methods than we can conveniently look at in a single table. We compose a table specific to our needs by choosing column headings of interest. Here is another look at the results of the previous search.</em>
 <p><table BORDER CELLSPACING=0 CELLPADDING=3>
-<tr><td ColSpan=6> com.googlecode.refit.paxexam.eg.music.Display </td></tr>
+<tr><td ColSpan=6> com.googlecode.refit.javaee.eg.music.Display </td></tr>
 <tr><td> title </td><td> album </td><td> genre </td><td> size </td><td> date </td></tr>
 <tr><td> Another Grey Morning </td><td> JT </td><td> Pop </td><td> 3284199 </td><td> 9/7/02 11:32 PM </td></tr>
 <tr><td> Ananas </td><td> Hourglass </td><td> Pop </td><td> 6897450 </td><td> 9/7/02 11:47 PM </td></tr>
