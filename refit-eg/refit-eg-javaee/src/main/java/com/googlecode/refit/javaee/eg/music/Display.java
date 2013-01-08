@@ -1,7 +1,7 @@
 // Copyright (c) 2002 Cunningham & Cunningham, Inc.
 // Released under the terms of the GNU General Public License version 2 or later.
 
-package com.googlecode.refit.paxexam.eg.music;
+package com.googlecode.refit.javaee.eg.music;
 
 import java.util.Date;
 

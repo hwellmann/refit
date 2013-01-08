@@ -1,7 +1,7 @@
 // Copyright (c) 2002 Cunningham & Cunningham, Inc.
 // Read license.txt in this directory.
 
-package com.googlecode.refit.paxexam.eg.music;
+package com.googlecode.refit.javaee.eg.music;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
