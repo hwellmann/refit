@@ -27,25 +27,19 @@
     <dependency>
       <groupId>org.ops4j.pax.exam</groupId>
       <artifactId>pax-exam-container-native</artifactId>
-      <version>3.0.0-SNAPSHOT</version>
+      <version>${pax.exam.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.ops4j.pax.exam</groupId>
       <artifactId>pax-exam-junit4</artifactId>
-      <version>3.0.0-SNAPSHOT</version>
+      <version>${pax.exam.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.ops4j.pax.exam</groupId>
       <artifactId>pax-exam-link-mvn</artifactId>
-      <version>3.0.0-SNAPSHOT</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.ops4j.pax.url</groupId>
-      <artifactId>pax-url-aether</artifactId>
-      <version>1.5.0</version>
+      <version>${pax.exam.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
