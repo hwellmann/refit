@@ -19,8 +19,9 @@
       <version>${project.version}</version>
     </dependency>
     <dependency>
-      <groupId>com.googlecode.jeeunit</groupId>
-      <artifactId>jeeunit-cdi</artifactId>
+      <groupId>org.ops4j.pax.exam</groupId>
+      <artifactId>pax-exam-cdi</artifactId>
+      <version>${pax.exam.version}</version>
     </dependency>
     <dependency>
       <groupId>org.apache.geronimo.specs</groupId>
