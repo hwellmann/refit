@@ -80,9 +80,9 @@ public class FileRunner {
         }
         File in = new File(argv[0]);
         File out = new File(argv[1]);
-        fixture.summary.put("input file", in.getAbsolutePath());
-        fixture.summary.put("input update", new Date(in.lastModified()));
-        fixture.summary.put("output file", out.getAbsolutePath());
+        fixture.getSummary().put("input file", in.getAbsolutePath());
+        fixture.getSummary().put("input update", new Date(in.lastModified()));
+        fixture.getSummary().put("output file", out.getAbsolutePath());
         input = read(in);
         output = new PrintWriter(out, encoding);
     }
@@ -103,7 +103,7 @@ public class FileRunner {
     protected void exit() {
         output.close();
         System.err.println(fixture.counts());
-        System.exit(fixture.counts.wrong + fixture.counts.exceptions);
+        System.exit(fixture.getCounts().wrong + fixture.getCounts().exceptions);
     }
 
 }

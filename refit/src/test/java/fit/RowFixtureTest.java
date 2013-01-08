@@ -46,8 +46,8 @@ public class RowFixtureTest extends TestCase {
         LinkedList<Parse> expected = new LinkedList<Parse>();
         expected.add(new Parse("tr","",new Parse("td","1",null,null),null));
         fixture.match(expected, computed,0);
-        assertEquals("right", 1, fixture.counts.right);
-        assertEquals("exceptions", 0, fixture.counts.exceptions);
+        assertEquals("right", 1, fixture.getCounts().right);
+        assertEquals("exceptions", 0, fixture.getCounts().exceptions);
         assertEquals("missing", 0, fixture.missing.size());
         assertEquals("surplus", 0, fixture.surplus.size());
     }

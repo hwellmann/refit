@@ -49,7 +49,7 @@ import fit.FixtureLoader;
 @RunWith(JUnit4TestRunner.class)
 public class MusicOsgiTest
 {
-    public static final String EQUINOX_HOME = "http://download.eclipse.org/equinox/drops/R-3.6.1-201009090800/";
+    public static final String EQUINOX_HOME = "http://archive.eclipse.org/equinox/drops/R-3.6.1-201009090800/";
     public static final long DEFAULT_TIMEOUT = 10000;
     public static final String REFIT_VERSION = "1.8.0-SNAPSHOT";
 

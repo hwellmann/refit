@@ -26,8 +26,8 @@ import java.text.DateFormat;
 
 public class Fixture {
 
-    public Map<String, Object> summary = new HashMap<String, Object>();
-    public Counts counts = new Counts();
+    private Map<String, Object> summary = new HashMap<String, Object>();
+    private Counts counts = new Counts();
     protected String[] args;
 
     public class RunTime {
@@ -331,4 +331,15 @@ public class Fixture {
         return fixture;
     }
 
+    public Map<String, Object> getSummary() {
+        return summary;
+    }
+    
+    public Counts getCounts() {
+        return counts;
+    }
+    
+    public void setCounts(Counts counts) {
+        this.counts = counts;
+    }
 }

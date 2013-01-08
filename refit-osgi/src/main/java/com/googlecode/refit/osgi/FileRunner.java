@@ -106,7 +106,7 @@ public class FileRunner {
     }
 
     private boolean passed(Fixture fixture) {
-        if (fixture.counts.wrong > 0 || fixture.counts.exceptions > 0) {
+        if (fixture.getCounts().wrong > 0 || fixture.getCounts().exceptions > 0) {
             return false;
         }
         return true;

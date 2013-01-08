@@ -18,7 +18,7 @@ public class ReferenceFixture extends ColumnFixture {
 			runner.process();
 			runner.output.close();
 
-			Counts counts = runner.fixture.counts;
+			Counts counts = runner.fixture.getCounts();
 			if ((counts.exceptions == 0) && (counts.wrong == 0)) {
 				return "pass";
 			}

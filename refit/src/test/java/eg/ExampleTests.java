@@ -27,26 +27,26 @@ public class ExampleTests extends ColumnFixture {
             tables = new Parse(input, new String[]{"table", "tr", "td"});
             fixture.doTables(tables);
         }
-        runCounts.tally(fixture.counts);
-        summary.put("counts run", runCounts);
+        runCounts.tally(fixture.getCounts());
+        getSummary().put("counts run", runCounts);
     }
 
 
     public int right() throws Exception {
         run();
-        return fixture.counts.right;
+        return fixture.getCounts().right;
     }
 
     public int wrong() {
-        return fixture.counts.wrong;
+        return fixture.getCounts().wrong;
     }
 
     public int ignores() {
-        return fixture.counts.ignores;
+        return fixture.getCounts().ignores;
     }
 
     public int exceptions() {
-        return fixture.counts.exceptions;
+        return fixture.getCounts().exceptions;
     }
 
     protected String read(File input) throws IOException {
