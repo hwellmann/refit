@@ -32,7 +32,7 @@
     </dependency>
     <dependency>
       <groupId>com.googlecode.refit</groupId>
-      <artifactId>refit-cdi</artifactId>
+      <artifactId>refit-eg-javaee</artifactId>
       <version>${project.version}</version>
     </dependency>
     <dependency>

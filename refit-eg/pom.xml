@@ -17,5 +17,6 @@
     <module>refit-eg-osgi-fixtures</module>
     <module>refit-eg-osgi-test</module>
     <module>refit-eg-pax-exam</module>
+    <module>refit-eg-javaee</module>
   </modules>
 </project>
