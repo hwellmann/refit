@@ -106,10 +106,10 @@ public class FrameworkTest extends TestCase {
         PrintWriter output = new PrintWriter(new BufferedWriter(new FileWriter("target/"+file+".html")));
         tables.print(output);
         output.close();
-        assertEquals(file+" right", right, fixture.counts.right);
-        assertEquals(file+" wrong", wrong, fixture.counts.wrong);
-        assertEquals(file+" ignores", ignores, fixture.counts.ignores);
-        assertEquals(file+" excpetions", exceptions, fixture.counts.exceptions);
+        assertEquals(file+" right", right, fixture.getCounts().right);
+        assertEquals(file+" wrong", wrong, fixture.getCounts().wrong);
+        assertEquals(file+" ignores", ignores, fixture.getCounts().ignores);
+        assertEquals(file+" excpetions", exceptions, fixture.getCounts().exceptions);
     }
 
     protected String read(File input) throws IOException {

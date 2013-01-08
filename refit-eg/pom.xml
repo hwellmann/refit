@@ -16,5 +16,6 @@
     <module>refit-eg-osgi</module>
     <module>refit-eg-osgi-fixtures</module>
     <module>refit-eg-osgi-test</module>
+    <module>refit-eg-pax-exam</module>
   </modules>
 </project>

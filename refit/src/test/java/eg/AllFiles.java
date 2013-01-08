@@ -73,8 +73,8 @@ public class AllFiles extends Fixture {
                 fixture.doTables(tables);
             }
 
-            info(cells.more, fixture.counts.toString());
-            if (fixture.counts.wrong == 0 && fixture.counts.exceptions == 0) {
+            info(cells.more, fixture.getCounts().toString());
+            if (fixture.getCounts().wrong == 0 && fixture.getCounts().exceptions == 0) {
                 right(cells.more);
             } else {
                 wrong(cells.more);
@@ -102,13 +102,13 @@ public class AllFiles extends Fixture {
     }
 
     private void summarize(Fixture fixture, File path) {
-        fixture.summary.put("input file", path.getAbsolutePath());
-        fixture.summary.put("input update", new Date(path.lastModified()));
-        Counts runCounts = summary.containsKey("counts run")
-                ? (Counts)summary.get("counts run")
+        fixture.getSummary().put("input file", path.getAbsolutePath());
+        fixture.getSummary().put("input update", new Date(path.lastModified()));
+        Counts runCounts = getSummary().containsKey("counts run")
+                ? (Counts)getSummary().get("counts run")
                 : new Counts();
-        runCounts.tally(fixture.counts);
-        summary.put("counts run", runCounts);
+        runCounts.tally(fixture.getCounts());
+        getSummary().put("counts run", runCounts);
     }
 
     protected String read(File input) throws IOException {

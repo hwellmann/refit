@@ -118,17 +118,17 @@ public class FileRunner {
         result = new TestResult();
         result.setPath(testPath);
         result.setPassed(passed);
-        result.setRight(fixture.counts.right);
-        result.setWrong(fixture.counts.wrong);
-        result.setIgnored(fixture.counts.ignores);
-        result.setExceptions(fixture.counts.exceptions);
+        result.setRight(fixture.getCounts().right);
+        result.setWrong(fixture.getCounts().wrong);
+        result.setIgnored(fixture.getCounts().ignores);
+        result.setExceptions(fixture.getCounts().exceptions);
         listener.afterTest(result);
         
         return passed;
     }
 
     private boolean passed(Fixture fixture) {
-        if (fixture.counts.wrong > 0 || fixture.counts.exceptions > 0) {
+        if (fixture.getCounts().wrong > 0 || fixture.getCounts().exceptions > 0) {
             return false;
         }
         return true;

@@ -18,8 +18,12 @@
  */
 package com.googlecode.refit.cdi;
 
+import java.lang.annotation.Annotation;
+import java.util.Set;
+
 import javax.enterprise.context.spi.CreationalContext;
 import javax.enterprise.inject.spi.AnnotatedType;
+import javax.enterprise.inject.spi.Bean;
 import javax.enterprise.inject.spi.BeanManager;
 import javax.enterprise.inject.spi.InjectionTarget;
 
@@ -45,13 +49,27 @@ public class CdiFixtureLoader extends FixtureLoader {
     @Override
     public Fixture createFixture(Class<?> klass) throws InstantiationException,
             IllegalAccessException {
-        Fixture fixture = (Fixture) klass.newInstance();
 
         BeanManager mgr = BeanManagerLookup.getBeanManager();
-        AnnotatedType annotatedType = mgr.createAnnotatedType(klass);
-        InjectionTarget target = mgr.createInjectionTarget(annotatedType);
         CreationalContext context = mgr.createCreationalContext(null);
-        target.inject(fixture, context);
-        return fixture;
+        
+        Set<Bean<?>> beans = mgr.getBeans(klass);
+        if (! beans.isEmpty()) {
+            for (Bean<?> bean : beans) {
+                if (bean.getBeanClass() == klass) {
+                    Class<? extends Annotation> scope = bean.getScope();
+                    Object contextualInstance = mgr.getContext(scope).get(bean, context);
+                    return (Fixture) contextualInstance;
+                }
+            }
+            return null;
+        }
+        else {
+            AnnotatedType annotatedType = mgr.createAnnotatedType(klass);
+            InjectionTarget target = mgr.createInjectionTarget(annotatedType);
+            Fixture fixture = (Fixture) klass.newInstance();
+            target.inject(fixture, context);
+            return fixture;            
+        }        
     }    
 }
