@@ -12,7 +12,6 @@
     <module>refit-eg-plain</module>
     <module>refit-eg-spring</module>
     <module>refit-eg-cdi-weld</module>
-    <module>refit-eg-glassfish</module>
     <module>refit-eg-osgi</module>
     <module>refit-eg-osgi-fixtures</module>
     <module>refit-eg-osgi-test</module>
