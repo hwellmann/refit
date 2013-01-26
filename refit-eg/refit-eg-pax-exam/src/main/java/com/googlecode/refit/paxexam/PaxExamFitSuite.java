@@ -41,12 +41,8 @@ public class PaxExamFitSuite {
     public void runSuite() {
         File inputDir = new File("src/test/fit");
         File outputDir = new File("target/fit");
-        String[] includes = null;
+        String[] includes = new String[] { "**/*.html" };
         String[] excludes = null;
-
-        if (includes == null) {
-            includes = new String[] { "**/*.html" };
-        }
 
         TreeRunner runner = new TreeRunner(inputDir, outputDir, includes, excludes);
         
