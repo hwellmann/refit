@@ -7,6 +7,7 @@
     <version>1.8.0-SNAPSHOT</version>
   </parent>
   <artifactId>refit-eg-pax-exam</artifactId>
+  <name>reFit Java EE Tests with Pax Exam</name>
 
   <dependencies>
     <dependency>

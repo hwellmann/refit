@@ -7,7 +7,7 @@
   </parent>
   <artifactId>refit-web</artifactId>
   <packaging>war</packaging>
-  <name>refit Web Runner</name>
+  <name>reFit Web Runner</name>
   <dependencies>
     <dependency>
       <groupId>com.googlecode.refit</groupId>
