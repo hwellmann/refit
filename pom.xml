@@ -56,7 +56,15 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-surefire-plugin</artifactId>
-          <version>2.13</version>
+          <version>2.14.1</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-release-plugin</artifactId>
+          <version>2.4.1</version>
+          <configuration>
+            <autoVersionSubmodules>true</autoVersionSubmodules>
+          </configuration>
         </plugin>
         <plugin>
           <groupId>org.apache.felix</groupId>
@@ -69,44 +77,6 @@
           <artifactId>maven-jaxb2-plugin</artifactId>
           <version>0.8.2</version>
         </plugin>
-        <plugin>
-          <groupId>org.eclipse.m2e</groupId>
-          <artifactId>lifecycle-mapping</artifactId>
-          <version>1.0.0</version>
-          <configuration>
-            <lifecycleMappingMetadata>
-              <pluginExecutions>
-                <pluginExecution>
-                  <pluginExecutionFilter>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-enforcer-plugin</artifactId>
-                    <versionRange>[1.0-beta-1,2)</versionRange>
-                    <goals>
-                      <goal>enforce</goal>
-                    </goals>
-                  </pluginExecutionFilter>
-                  <action>
-                    <ignore />
-                  </action>
-                </pluginExecution>
-                <pluginExecution>
-                  <pluginExecutionFilter>
-                    <groupId>org.ops4j</groupId>
-                    <artifactId>maven-inherit-plugin</artifactId>
-                    <versionRange>[1.1,2)</versionRange>
-                    <goals>
-                      <goal>inherit</goal>
-                    </goals>
-                  </pluginExecutionFilter>
-                  <action>
-                    <ignore />
-                  </action>
-                </pluginExecution>
-              </pluginExecutions>
-            </lifecycleMappingMetadata>
-          </configuration>
-        </plugin>
-
       </plugins>
     </pluginManagement>
   </build>
