@@ -3,7 +3,7 @@
   <parent>
     <artifactId>refit-parent</artifactId>
     <groupId>com.googlecode.refit</groupId>
-    <version>1.8.0-SNAPSHOT</version>
+    <version>1.8.0</version>
   </parent>
   <artifactId>refit-osgi</artifactId>
   <packaging>bundle</packaging>
